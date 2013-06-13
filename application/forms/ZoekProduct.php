@@ -15,20 +15,20 @@ class Application_Form_ZoekProduct extends My_Form  {
         $defaultOptions = array('key'=> 'ID', 'value' =>'Omschrijving', 'emptyRow' => True);
         $titel = $titelModel->buildSelect($defaultOptions, null, "Omschrijving");
         $elem = new Zend_Form_Element_Select('Categorie');
-        $elem->setLabel('Categorie')
+        $elem->setLabel('txtCategorie')
              ->setMultiOptions($titel);
         $this->addElement($elem);
 
          // element label
         $this->addElement(new Zend_Form_Element_Text('Label',array(
-            'label'=>"Label",
+            'label'=>"txtLabel",
             'filters' => array('StringTrim'),
             'validators' => array( array('StringLength',true, array('max'=>255)))
             )));
 
           // element titel
         $this->addElement(new Zend_Form_Element_Text('Titel',array(
-            'label'=>"Titel",
+            'label'=>"txtTitel",
             'filters' => array('StringTrim'),
             'validators' => array( array('StringLength',true, array('max'=>255)))
             )));
@@ -44,5 +44,13 @@ class Application_Form_ZoekProduct extends My_Form  {
             )));
         }
 
+    public function loadDefaultDecorators()
+    {
+        $this->setDecorators(array(
+            'FormElements',
+            array('HtmlTag', array('tag' => 'table' ,'class' => 'frm_01','style' => 'width:30%;')),
+            'Form',
+        ));
+    }
 }
 ?>

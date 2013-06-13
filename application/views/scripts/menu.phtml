@@ -1,6 +1,6 @@
 <?php
 foreach ($this->container as $page)
 {
-    echo '<li><a href="' . $page->href . '">' . $page->label . '</a></li>', PHP_EOL;
+    echo '<li><a href="' . $page->href . '">' . $this->translate($page->label) . '</a></li>', PHP_EOL;
 }
  ?>

@@ -1,6 +1,20 @@
-<nav>
+<nav style="float:left; width:900px;">
     <?php echo $this->form; ?>
 </nav>
-<section id="producten">
+
+<?php
+ 
+//if (!empty($this->flashmessenger)){
+	//echo '<div class="msg_ok" style="color:white;">';
+		//foreach($this->content['messages'] as $v){
+			//echo $this->escape($v) . '<br />' .  PHP_EOL;
+		//}
+	//echo '</div>';
+//}
+if (!empty($this->flashMessenger) ) {
+    $this->placeholder('mainTitle')->set($this->flashMessenger[0]);
+}
+?>
+<section id="producten" style="margin-left:25px;" >
  <?php echo $this->partial('partials/producten.phtml',$this->module,array('producten'=>$this->producten)); ?>
 </section>

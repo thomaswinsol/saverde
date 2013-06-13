@@ -6,7 +6,7 @@
 */
     class My_Auth_Auth extends Zend_Controller_Plugin_Abstract {
         private $_excludeAuthActions = array(
-            'plaatser'  => array('ajax-upload'),
+            'foto'  => array('ajax-upload'),
         );
 
 

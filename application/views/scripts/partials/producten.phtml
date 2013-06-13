@@ -1,17 +1,29 @@
 <?php
 $counter=0;
 if (!empty($this->producten)) {
+?>
+<div class="table">
+<?php
     foreach($this->producten as $p){
                 $counter++;
 ?>
 <ul>
-    <li><?php echo $p['label']; ?></li>
-    <li><?php echo $p['titel']; ?></li>
-    <li><?php echo $p['teaser']; ?></li>
-    <li><?php echo $p['omschrijving']; ?></li>
+    <li class="title"><?php echo $p['titel']; ?></li>
+    <li class="odd"even”>
+        <a href="<?php echo $this->url(array('controller'=>'index' , 'action'=>'productinfo', 'id'=>$p['ID']) ); ?>">
+            <?php echo $p['label']; ?></li>
+        </a>
+    <li class="even">
+        <a href="<?php echo $this->url(array('controller'=>'index' , 'action'=>'productinfo', 'id'=>$p['ID']) ); ?>">
+            <?php echo $this->ProductHelper('getFoto',array($p['ID'])); ?>
+        </a>
+    </li>
 </ul>
 <?php 
     }
+?>
+</div>
+<?php
 }
 ?>
 

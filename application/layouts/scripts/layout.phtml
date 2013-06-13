@@ -14,8 +14,17 @@
         <div id="container">
             <aside>                
                  <figure>
-                        <!---<img src="/images/logo.jpg" width="100" alt="Logo">--->
+                        <img src="/images/logo.jpg" width="100" alt="Logo">
                  </figure>
+                <br/>
+                <div class="winkelmand">
+
+                    <?php
+                        if (isset($_SESSION['context']['winkelmand'])) {
+                            echo $this->toonWinkelmand($_SESSION['context']['winkelmand']);
+                        }
+                    ?>
+                </div>
             </aside>
             <header>
                  <nav>
@@ -30,6 +39,11 @@
                     <a href="<?php echo $this->url(array('controller'=>'taal' , 'action'=>'selecttaal', 'lang'=>'nl_BE') ); ?>">nl</a>
                     <a href="<?php echo $this->url(array('controller'=>'taal' , 'action'=>'selecttaal', 'lang'=>'fr_BE') ); ?>">fr</a>
                 </div>
+              
+                            <div id="login">
+                                <span style="float:right"><?php echo $this->signupForm($this->signupForm); ?></span>
+                            </div>
+                
              </header>
             <section id="content">
 

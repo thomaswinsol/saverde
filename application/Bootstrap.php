@@ -14,6 +14,12 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     }
 
 
+        protected function _initMyActionHelpers()
+        {
+            $this->bootstrap('frontController');
+            $signup = Zend_Controller_Action_HelperBroker::getStaticHelper('Signup');
+            Zend_Controller_Action_HelperBroker::addHelper($signup);
+        }
         /*protected function _initResourceAutoload() {
         $resourceLoader = new Zend_Loader_Autoloader_Resource(array(
         	'basePath'  => MY_PATH . 'My/' . APPLICATION_NAME . '/',
@@ -26,9 +32,10 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
                 $view = new Zend_View();
                 $jqueryTheme = 'smoothness';
 		$view->addHelperPath("ZendX/JQuery/View/Helper", "ZendX_JQuery_View_Helper");
-                $view->jQuery()->addStylesheet('/base/js/jquery/css/'.$jqueryTheme.'/jquery-ui.custom.css');
-                $view->jQuery()->setLocalPath('/base/js/jquery/jquery.min.js');
-                $view->jQuery()->setUiLocalPath('/base/js/jquery/jquery-ui.min.js');
+                $view->jQuery()->addStylesheet('/base/js/jquery/css/'.$jqueryTheme.'/jquery-ui-1.10.2.custom.min.css');
+                $view->jQuery()->setLocalPath('/base/js/jquery/jquery-1.9.1.js');
+                $view->jQuery()->setUiLocalPath('/base/js/jquery/jquery-ui-1.10.2.custom.min.js');
+                $view->addHelperPath('My/View/Helper/', 'My_View_Helper');
                 $view->jQuery()->enable();
                 $view->jQuery()->uiEnable();
                 $viewRenderer = new Zend_Controller_Action_Helper_ViewRenderer();

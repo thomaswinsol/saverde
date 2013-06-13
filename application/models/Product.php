@@ -4,7 +4,7 @@ class Application_Model_Product extends My_Model
     protected $_name = 'product'; //table name
     protected $_id   = 'ID'; //primary key
 
-     public function getProducten($locale=null, $status=null, $vertaald=null, $data=null)
+    public function getProducten($locale=null, $status=null, $vertaald=null, $data=null)
     {
             $sql = $this->db
             ->select()
@@ -32,6 +32,34 @@ class Application_Model_Product extends My_Model
         }
 
         $data = $this->db->fetchAll($sql);
+        return $data;
+    }
+
+
+    /**
+     *
+     * Delete by id
+     * @param mixed array|integer $id
+     * @param string $primaryKey : name of primary key, default id specified in model
+     */
+    public function getProduct($locale=null, $status=null, $id=null)
+    {
+        $sql = $this->db
+        ->select()
+        ->from(array('a' => 'product'), array('ID', 'label', 'status' , 'prijs' ,  'homepagina') )
+        ->join(array('b' => 'productlocale'), ' a.ID = b.IDProduct  ', array('titel','teaser','omschrijving','vertaald', 'locale') );
+
+        If (!empty($locale)) {
+            $sql->where ('locale = '."'".$locale."'");
+        }
+        If (!empty($status)) {
+            $sql->where ('status = '.$status);
+        }
+
+        $sql->where ('a.ID = '.(int)$id);
+
+        $data = $this->db->fetchRow($sql);
+
         return $data;
     }
 

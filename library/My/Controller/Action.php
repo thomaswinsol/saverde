@@ -6,22 +6,27 @@
 abstract class My_Controller_Action extends Zend_Controller_Action
 {
     public $context;
-    public $aantalafbeeldingperrij=3;
+    public $baseUrl='/eindwerk/public';
+    protected $flashMessenger = NULL;
 
     public function init()
     {
         $defaultNamespace = new Zend_Session_Namespace ();
         if(!array_key_exists('context', $_SESSION))
         {
-            $_SESSION['context']=array('username'=>"",'lang'=>"nl_BE");
+            $_SESSION['context']=array('username'=>"",'lang'=>"nl_BE",'winkelmand'=>null);
         }
         if (!isset($_SESSION['context']['Firma'])) {
             $firmaModel = new Application_Model_Firma();
             $firma= $firmaModel->getOne(1);
-            $_SESSION['context']['Firma']=$firma;
-            
+            $_SESSION['context']['Firma']=$firma;            
+        }
+        $module = $this->getRequest()->getModuleName();
+        if (strtolower($module)=="admin") {
+           unset($_SESSION['context']['winkelmand']);
         }
         $this->context = $_SESSION ['context'];
+        $this->flashMessenger = $this->_helper->getHelper('FlashMessenger');
     }    
    
 

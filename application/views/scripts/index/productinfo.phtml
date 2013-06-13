@@ -1,0 +1,50 @@
+<div class="productinfo">
+<h1><?php echo $this->translate('txtProductInfo');?></h1>
+
+<p class="productinfo">
+<?php echo $this->translate('txtLabel');?>:
+</p>
+<?php echo($this->product['label']); ?>
+<br/>
+<br/>
+
+<p class="productinfo">
+<?php echo $this->translate('txtTitel');?>:
+</p>
+<?php echo $this->escape($this->product['titel']); ?>
+<br/>
+<br/>
+
+<p class="productinfo">
+<?php echo $this->translate('txtTeaser');?>:
+</p>
+<?php echo $this->escape($this->product['teaser']); ?>
+<br/>
+<br/>
+
+<p class="productinfo">
+<?php echo $this->translate('txtOpmerking');?>:
+</p>
+<textarea cols="50">
+<?php echo $this->escape(($this->product['teaser'])); ?>
+</textarea>
+<br/>
+<br/>
+<p class="productinfo">
+<?php echo $this->translate('txtFoto');?>:
+</p>
+<?php
+    if (!empty($this->fotos)) {
+        foreach($this->fotos as $f) {
+?>
+            <img src="<?php echo "/".$this->escape($f['filePath']).$this->escape($f['fileName']); ?>"><br/>
+<?php
+       }
+    }
+?>
+</div>
+<div class="voegtoe">
+    <?php echo $this->form; ?>
+</div>
+<div class="divLoading"></div>
+<?php echo $this->render('/index/_jsCustom.phtml'); ?>

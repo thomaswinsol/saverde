@@ -12,16 +12,17 @@ class My_Controller_Plugin_Navigation extends Zend_Controller_Plugin_Abstract
         $container = new Zend_Navigation;
         
         $urls = array (
-         array ( 'label'=> 'Home', 'image'=> 'cal.png', 'action'=> 'home', 'controller'=> 'index', 'params'=> array() ),
+         array ( 'label'=> 'menuHome', 'module'=>'default', 'action'=> 'home', 'controller'=> 'index', 'params'=> array() ),
+         array ( 'label'=> 'menuFotoUpload', 'module'=>'Admin', 'action'=> 'upload', 'controller'=> 'foto', 'params'=> array() ),
         );
         
         foreach  ($urls as $url) {
             $page = new Zend_Navigation_Page_Mvc(array(
                 'label' => $url['label'] ,
-                'image' => $url['image'],
+                'module' => $url['module'],
                 'action'=> $url['action'],
                 'controller'=> $url['controller'],
-                'route'=> 'default',
+                //'route'=> 'default',
                 'params'=> $url['params'],               
             ));
             $container->addPage($page);
