@@ -1,0 +1,79 @@
+<?php $this->placeholder('mainTitle')->set('File Upload'); ?>
+<?php
+    echo $this->CustomerHelper('customerInfo',array('data' => $this->klant));
+?>
+
+<?php
+$this->headLink()->prependStylesheet('/base/js/uploadify/uploadify.css');
+$this->headScript()->prependFile('/base/js/uploadify/swfobject.js')
+				  ->prependFile('/base/js/uploadify/jquery.uploadify.min.js','text/javascript');
+$this->headScript()->captureStart();
+?>
+$(document).ready(function() {
+
+ function initUploadify(elem){
+                var totalFiles = 0 <?php //echo $totalFiles; ?>;
+		var orderId = <?php echo $this->klant['ID']; ?>;
+		var totalAvailableFiles = (10 - totalFiles);
+
+                $('#'+elem).uploadify({
+                    'uploader'  : '/base/js/uploadify/uploadify.swf',
+                    'script'    : '<?php echo $this->url(array('controller' => 'klant','action' => 'ajax-upload')); ?>',
+                    'cancelImg' : '/base/js/uploadify/cancel.png',
+                    'folder'    : '/uploads',
+                    'auto'      : true,
+                    'multi'     : true,
+                    'removeCompleted' : true,
+                    'queueSizeLimit' : totalAvailableFiles<?php //echo (3-$totalFiles); ?>,
+                    'buttonText'  : '<?php echo $this->translate('Bijlage toevoegen');?>',
+                    'sizeLimit' : 2097152,
+                    'queueID'   : 'queue1',
+                    'scriptData'  : {'orderId': orderId,'targetDir' : 'orders'},
+                    'onComplete' : function(event,queueID,fileObj,response,data) {
+			//location.href='<?php echo $this->baseUrl().'/klant/fileupload/id/'.$this->klant['ID']; ?>';
+			//return true;
+			var html = response;
+			if (response == 0 || response == ''){
+				alert('File not saved!  Please contact the Winsol IT department.');
+				return false;
+			}
+			//$('#tableOrderFiles tbody>tr:last').clone(true).insertAfter('#tableOrderFiles tbody>tr:last');
+			if (totalFiles == 0){
+				$('#tableOrderFiles tbody tr').remove();
+			}
+			$("#btn_deleteFiles").show();
+			$('#tableOrderFiles tbody').append(html);
+			totalFiles = (totalFiles + 1) ;
+			$("span#totalFiles").html(totalFiles);
+
+			if (totalFiles >=10){
+                            //alert('elem to hide = '+elem);
+                            //$("#elem").hide(); //doesn't work for some reason
+                            //$("#elem").parent().hide();
+                            $("div#filesButtons").empty();
+			}
+			//return true;
+                    },
+                    'onError'     : function (event,ID,fileObj,errorObj) {
+                        alert(errorObj.type + ' Error: ' + errorObj.info);
+                    }
+                });
+
+            }
+            initUploadify('orderFiles');
+});
+<?php
+$this->headScript()->captureEnd();
+?>
+
+<a href="<?php echo $this->baseUrl . '/klant/detail/id/'.$this->klant['ID']; ?>" class="tab-nav">Ga naar klant</a>
+
+<form name="frm_deletefiles" action="/klant/deletefileupload" method="post" style="margin-left:20px;">
+    <div style="width:970px;overflow:auto;">
+        <?php echo $this->OrderHelper('attachements',array($this->files, $this->totalFiles)).'<br />';?>
+    </div>
+    <div id="filesButtons" style="margin:0;padding:5;">
+    </div>
+
+    <input id="klantId" name="klantId" type="hidden" value="<?php echo $this->klant['ID'];?>" />
+</form>

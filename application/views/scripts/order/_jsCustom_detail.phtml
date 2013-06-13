@@ -1,0 +1,17 @@
+<?php
+// ---------------------------------
+// JAVASCRIPT
+// --------------------------------- 
+$this->jQuery()->onLoadCaptureStart(); ?>
+	
+
+         $('#btn_deleteKlant').click(function() {
+	 	if (confirm("Klant verwijderen?")) {
+	 		return true;
+    	 }
+    	 return false;
+        });
+
+<?php 
+$this->jQuery()->onLoadCaptureEnd();
+?>

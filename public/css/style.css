@@ -1,0 +1,157 @@
+*{margin:0px;padding:0px;}
+body {color:#666; font-size: 12px; font-family: Verdana, sans-serif; background-color:whitesmoke;}
+#container{margin:0 0 0 10; width:1200px; font-size: 12px;}
+aside { float:left; width:100px;}
+header {margin-left:10px;height:100px;width:900px;float:left;}
+/*#logo { float:left; width:200px; height:100px; background-image: url(../images/logo.jpg); background-repeat:no-repeat;  }*/
+#lang { float:left; width:50px; }
+header nav {width:600px;margin-top:10px; float:left; margin-left:10px; }
+nav li {list-style-type:none; font-size:14px; height:50px; display:inline;}
+nav ul li.active{color:red;}
+#producten li {list-style-type:none; font-size:14px; height:50px; display:inline; }
+
+#content{width:900px;float:left;}
+table.frm_01{
+	font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
+	font-size:  95%;
+	border-collapse: collapse;
+	/*background-color:green*/;
+	background-color:#EDECEF;
+	margin-left:25px;
+	border-top:1px solid gray;
+	border-bottom:1px solid gray;
+	margin-top:0px;
+	caption-side:top;
+	width:90%;
+	color:black;
+}
+
+table.frm_01 caption {
+	  /*border:1px solid #333; */
+	  margin-left:50px;  }
+
+table.frm_01 tr{
+	/* background-color: #EDECEF;  */
+	color:black;
+}
+
+table.frm_01 tr.odd{
+	/* background-color: #FFFFFF; */
+}
+
+
+table.frm_01 td{
+	border: 1px dotted #CCCCCC;
+	color:black;
+}
+
+table.frm_01 tbody th{
+	padding: 2px 5px;
+	font-weight:bold;
+	white-space: nowrap;
+	background-color:#EDECEF;;
+	color:black;
+	border-color:#DEDEDE;
+	text-align:right;
+	width:50px;
+}
+
+table.frm_01 tbody td{
+	 /* padding: 0.2em; */
+	 padding: 2px 5px;
+	 vertical-align:middle;
+	 /* width:200px;  */
+}
+
+table.frm_01 tfoot{
+	border-top:1px dashed black;
+}
+
+table.frm_01 tfoot tr{
+	 background-color:#FFFFFF;
+}
+
+table.frm_01 tfoot th{
+	font-size: 110%;
+	text-align: right;
+	padding-right: 0.5em;
+	letter-spacing: 1px;
+	/* background:   */
+}
+
+table.frm_01 tfoot td{
+	text-align: left;
+	padding: 0.5em;
+}
+
+table.frm_01 th .required
+{
+    background-image:url(../base/images/icons/required-field.png);
+    background-position:top right;
+    background-repeat:no-repeat;
+    padding-right:15px;
+}
+
+table.frm_01 input[disabled] {
+	border: 0px solid #999;
+	color:black;
+	font-size:  130%;
+	background-color:#EDECEF;
+}
+table.frm_01 textarea[disabled] {
+	border: 1px solid #000;
+	color:black;
+	background-color:#EDECEF;
+	resize:none;
+}
+table.frm_01 select[disabled] {
+	border: 0px solid #000;
+	color:black;
+	background-color:#EDECEF;
+}
+
+#container .mainTitle{
+	color:black;
+	font-weight:bold;
+	font-size:120%;
+        height:30px;
+	margin-bottom:20px;
+        margin-top:5px;
+        text-align:center;
+        width:970px;
+        background-color:#DEDEDE;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+        border: 0px solid fff;
+}
+
+#container .customerTitle{
+	color:#666;
+	font-size:100%;
+	margin-bottom:5px;
+        margin-top:5px;
+        text-align:center;
+        width:970px;
+        background-color:#FFCCCC;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+        border: 1px solid black;
+}
+
+fieldset {
+        -moz-border-radius: 10px;
+        border-radius: 10px;
+        background : #EDECEF;
+        border : 0px;
+        width:95%;
+        margin-left:10px;
+}
+
+nav {
+    float:left;
+    width:300px;
+}
+
+section {
+    float:left;
+}

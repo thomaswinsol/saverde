@@ -1,0 +1,25 @@
+<a href="<?php echo $this->baseUrl . '/klant/fileupload/id/'. $this->params['id']; ?>" class="tab-nav">File Upload</a>
+<br/>
+<br/>
+<?php if (!empty($this->result)) { ?>
+<table class="orderProducts hic" style="width:60%;margin-left:0px;" border="1" cellpadding="2" cellspacing="0">
+    <thead>
+        <tr>
+            <th>Jaar</th>
+            <th>Totaal bedrag excl.BTW</th>
+            <th>BTW</th>
+            <th>Totaal bedrag incl.BTW</th>
+        </tr>
+    </thead
+    <tbody>
+         <?php  foreach ($this->result as $key => $value) { ?>
+                <tr>
+                    <td><?php echo $value['jaar']; ?></td>
+                    <td align="right"><?php echo number_format($value['TotaalprijsExclBTW'],2,',','.'); ?></td>
+                    <td align="right"><?php echo number_format($value['BTW'],2,',','.'); ?></td>
+                    <td align="right"><?php echo number_format($value['TotaalprijsInclBTW'],2,',','.'); ?></td>
+                </tr>
+         <?php } ?>
+    </tbody>
+</table>
+<?php } ?>

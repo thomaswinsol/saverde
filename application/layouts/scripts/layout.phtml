@@ -1,0 +1,44 @@
+<!doctype>
+<html>    
+    <head>
+        <title>Eindwerk Webmaster Advanced - Webwinkel</title>
+        <link href="/css/style.css" rel="stylesheet" />
+        <?php
+            echo $this->jQuery().PHP_EOL;
+            echo $this->headScript();
+        ?>
+    </head>
+    
+    <body>
+        
+        <div id="container">
+            <aside>                
+                 <figure>
+                        <!---<img src="/images/logo.jpg" width="100" alt="Logo">--->
+                 </figure>
+            </aside>
+            <header>
+                 <nav>
+                    <?php
+                    $partial = array('menu.phtml', 'default');
+                    $this->navigation()->menu()->setPartial($partial);
+                    ?>
+                    <?php echo $this->navigation()->menu()->addPageClassToLi(true); ?>
+                    <br />
+                </nav>
+                <div id="lang">
+                    <a href="<?php echo $this->url(array('controller'=>'taal' , 'action'=>'selecttaal', 'lang'=>'nl_BE') ); ?>">nl</a>
+                    <a href="<?php echo $this->url(array('controller'=>'taal' , 'action'=>'selecttaal', 'lang'=>'fr_BE') ); ?>">fr</a>
+                </div>
+             </header>
+            <section id="content">
+
+                <div class="mainTitle"><?php echo $this->placeholder('mainTitle') ?></div>
+
+                <?php echo $this->layout()->content; ?>
+            </section>    
+        </div>
+    </body>
+</html>
+
+

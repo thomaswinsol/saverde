@@ -1,0 +1,5 @@
+<?php $this->placeholder('mainTitle')->set('Wijzigen klant'); ?>
+<a href="<?php echo $this->baseUrl . '/klant/detail/id/'.$this->id; ?>" class="tab-nav">Ga naar klant</a>
+
+<?php echo $this->form; ?>
+<?php echo $this->render('/klant/_jsCustom_klant.phtml'); ?>

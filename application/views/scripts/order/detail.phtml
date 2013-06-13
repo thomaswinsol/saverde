@@ -1,0 +1,422 @@
+<?php echo $this->CustomerHelper('customerInfo',array('data' => $this->klant));?>
+<fieldset>
+<legend>Header</legend>
+<?php echo $this->form; ?>
+<br/>
+</fieldset>
+<?php
+if (!empty($this->orderid)) {
+    if ($this->order['ID_Type'] >= 3){
+        $this->placeholder('mainTitle')->set('Factuur: '.$this->order['Factuurnr']. " -  Datum factuur: ".date("d-m-Y",strtotime($this->order['DatumFactuur'])). " -  Vervaldatum: ".date("d-m-Y",strtotime($this->order['Vervaldatum'])));
+    }
+    else {
+        $this->placeholder('mainTitle')->set('Wijzigen offerte '.$this->orderid);
+            echo '<fieldset>';
+                echo '<legend>Detail</legend>';
+                echo $this->formDetail;
+            echo '</fieldset>';
+    }
+
+    echo $this->render('/order/_jsCustom_orderdetail.phtml');
+}
+else {
+    $this->placeholder('mainTitle')->set('Nieuwe offerte');
+    echo $this->render('/order/_jsCustom_detail.phtml');
+}
+?>
+<div id="divLoading" style="float:left; margin-left:30px;"></div>
+
+
+<div style="float:right;font-size:120%;margin-right:50px;" class="bold">
+<?php
+if (!empty($this->order['ID']) ){
+//------------------------------------------------------------------------------
+    if (empty($this->orderProducts) ){
+    ?>
+    |
+        <a href="<?php echo $this->baseUrl . '/order/delete/id/'.(int)$this->order['ID'].'';   ?>" id="btn_deleteOrder"  class="tab-nav">Verwijder</a>
+    <?php
+    }
+    //--------------------------------------------------------------------------------
+    ?>
+    <?php
+    //------------------------------------------------------------------------------
+    if ($this->order['ID_Type'] == 1) {
+    ?>
+    |
+    <a href="<?php echo $this->baseUrl . '/order/copy/id/'.(int)$this->order['ID'].'';   ?>" id="btn_copyOrder"  class="tab-nav">Kopieer</a>
+    |
+    <?php
+    }
+    ?>
+    <a href="<?php echo $this->baseUrl() . '/order/show-pdf/noprice/1/id/' . (int)$this->order['ID']; ?>">
+    <img src="<?php echo $this->baseUrl().'/base/images/icons/list.png'; ?>" alt="Download PDF" title="Download PDF" /></a>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="<?php echo $this->baseUrl() . '/order/show-pdf/id/' . (int)$this->order['ID']; ?>">
+    <img src="<?php echo $this->baseUrl().'/base/images/icons/printer.png'; ?>" alt="Download PDF" title="Download PDF" /></a>
+<?php
+}
+//--------------------------------------------------------------------------------
+?>
+
+
+<?php
+$noEdit = FALSE;
+if ($this->order['ID_Type'] >= 3){
+	echo 'Factuur '. $this->order['Factuurnr'];
+	$noEdit = TRUE;
+}
+else {
+        if ($this->order['ID_Type'] == 2){
+            $typeOrder = 'Bestelbon';
+        }
+        else {
+            $typeOrder = 'Offerte';
+        }
+         $typeOrder = trim($typeOrder). " [".$this->order['ID']."]";
+         $typeOrder = !empty($this->order['ID_Parent']) ? $typeOrder."-".$this->order['ID_Parent'] : $typeOrder;
+         echo $typeOrder;
+}
+?>
+</div>
+
+<br />
+<?php
+if (!empty($this->messages)){
+	echo '<div class="msg_ok" style="color:white;">';
+		foreach($this->messages as $v){
+			echo $this->escape($v) . '<br />' .  PHP_EOL;
+		}
+	echo '</div>';
+}
+?>
+<div style="width:100%;float:left;">
+
+<div style="float:left;width:175px;height:30px;vertical-align:middle;margin:2px;border:1px solid black;padding:2px 0px 2px 2px;background-color:<?php echo $this->order['ID_Type']==1? 'lightgreen;color:black;':'lightgray;color:darkgray;';?> margin-left:100px;">
+    <div style="float:left;width:20px;margin:0;font-weight:bold;font-size:140%;">1</div>
+    <div style="float:left;width:150px;height:30px;vertical-align:center;font-size:90%;margin:0;padding:0 0 0 2px;">Offerte</div>
+</div>
+<div style="float:left;width:175px;height:30px;vertical-align:middle;margin:2px;border:1px solid black;padding:2px 0px 2px 2px;background-color:<?php echo $this->order['ID_Type']==2? 'lightgreen;color:black;':'lightgray;color:darkgray;';?>">
+    <div style="float:left;width:20px;margin:0;font-weight:bold;font-size:140%;">2</div>
+    <div style="float:left;width:150px;height:30px;vertical-align:center;font-size:90%;margin:0;padding:0 0 0 2px;">Bestelling</div>
+</div>
+<div style="float:left;width:175px;height:30px;vertical-align:middle;margin:2px;border:1px solid black;padding:2px 0px 2px 2px;background-color:<?php echo $this->order['ID_Type']==3? 'lightgreen;color:black;':'lightgray;color:darkgray;';?>">
+    <div style="float:left;width:20px;margin:0;font-weight:bold;font-size:140%;">3</div>
+    <div style="float:left;width:150px;height:30px;vertical-align:center;font-size:90%;margin:0;padding:0 0 0 2px;">Factuur</div>
+</div>
+<div style="float:left;width:175px;height:30px;vertical-align:middle;margin:2px;border:1px solid black;padding:2px 0px 2px 2px;background-color:<?php echo $this->order['ID_Type']==4? 'lightgreen;color:black;':'lightgray;color:darkgray;';?>">
+    <div style="float:left;width:20px;margin:0;font-weight:bold;font-size:140%;">4</div>
+    <div style="float:left;width:150px;height:30px;vertical-align:center;font-size:90%;margin:0;padding:0 0 0 2px;">Factuur betaald</div>
+</div>
+</div>
+</br>
+
+
+
+
+
+
+
+
+<?php if (!empty($this->orderid)) { ?>
+<h3>Detail</h3>
+<form name="frm_orderProducts" action="/order/product" method="post" style="margin-left:20px;">
+<table class="orderProducts hic" style="width:96%;margin-left:0px;" border="1" cellpadding="2" cellspacing="0">
+<thead>
+<tr style="background-color:lightgray;">
+    	<?php
+		if ($this->order['ID_Type'] < 3){
+        ?>
+		<td style="width:1%;" nowrap="nowrap">
+                <?php /* ?><a href="" ><img src="/base/images/icons/edit.png" alt="Edit" title="Edit" /></a> */ ?>
+                </td>
+	<?php
+		} else { echo "<td></td>";}
+	?>
+    <th style="text-align:center;">Nr</th>
+    <th style="text-align:center;">Product</th>
+    <th style="text-align:center;">Omschrijving</th>
+    <th style="text-align:center;">Aantal</th>
+    <th style="text-align:center;">Eenheid</th>
+    <th style="text-align:center;">Eenheidsprijs excl. btw (EUR)</th>
+    <th style="text-align:center;">Totaalprijs excl. btw (EUR)</th>
+</tr>
+</thead>
+<tbody>
+<?php
+
+$orderSubTotal = 0;
+$orderProductCounter = 0;
+
+if (!empty($this->orderProducts)){
+	foreach($this->orderProducts as $v){
+		$totalProductPriceExclVat = ($v['Prijs'] * $v['Aantal']);
+		$orderSubTotal += $totalProductPriceExclVat;
+
+		?>
+		<tr>
+		<?php
+			if ($this->order['ID_Type'] < 3){
+                ?>
+		<td style="width:1%; text-align:center;" nowrap="nowrap"><input type="checkbox" name="orderProducts[]" value="<?php echo (int)$v['ID']; ?>" />
+                <?php /* ?>	<a href="" ><img src="/base/images/icons/edit.png" alt="Edit" title="Edit" /></a> */ ?>
+                </td>
+		<?php
+			} else { echo "<td></td>"; }
+		?>
+		<td style="text-align:center;">
+                    <?php
+                    if (!$noEdit){
+                    ?>
+                    <a href='/order/detail/order_id/<?php echo $this->order['ID']; ?>/id_orderdetail/<?php echo (int)$v['ID']; ?>'>
+                    <?php
+                    }
+                    ?>
+                    <?php echo ++$orderProductCounter; ?>.
+                    <?php
+                    if ($noEdit){
+                        echo "</a>";
+                    }
+                    ?>
+		</td>
+
+
+                <td style="text-align:center;"><?php  echo $this->escape($v['Omschrijving1']); ?></td>
+                <td>
+		<div style="text-transform:uppercase;">
+                    <!--<a href='/order/id/<?php echo (int)$v['ID_Order']; ?>/product/<?php echo (int)$v['ID']; ?>'>-->
+                    <textarea cols="50" rows="1" class="textarea_readonly" readonly><?php echo trim($this->escape($v['Omschrijving'])); ?></textarea>
+                </div>
+		</td>
+		<td style="text-align:center;"><?php echo number_format($v['Aantal'],2); ?></td>
+                <td style="text-align:center;"><?php echo $v['Eenheid']; ?></td>
+		<td style="text-align:center;"><?php echo number_format($v['Prijs'],2); ?></td>
+                <td style="text-align:center;"><?php echo number_format($totalProductPriceExclVat,2); ?></td>
+		</tr>
+<?php
+	}
+
+}
+else {
+?>
+    <tr>
+        <?php $totalCols=8; ?>
+        <td colspan="<?php echo $totalCols; ?>">Geen detail</td>
+    </tr>
+<?php
+}
+?>
+</tbody>
+
+
+<?php
+if (!empty($orderProductCounter)){
+	//$orderSubTotal =  number_format($orderSubTotal,2);
+	$orderDiscountPercentage = !empty($this->order['KortingGlobaalInProcent']) && $this->order['KortingGlobaalInProcent'] > 0? (int)$this->order['KortingGlobaalInProcent'] : 0;
+	//$orderDiscount = !empty($this->order['Korting']) ? $this->order['Korting'] : 0;
+	$orderDiscount = (($orderSubTotal * $orderDiscountPercentage)/100); //$orderDiscount = !empty($this->order['Korting']) ? $this->order['Korting'] : 0;
+	$orderSellPriceExclVAT = ($orderSubTotal - $orderDiscount); //number_format(($orderSubTotal - $orderDiscount),2);
+	$orderVATpercentage = $this->order['BTWPercentage']; //!empty($this->order['KortingGlobaalInProcent']) && $this->order['KortingGlobaalInProcent'] > 0? $this->order['KortingGlobaalInProcent'] : 0;
+	$orderVAT = (($orderSellPriceExclVAT * $orderVATpercentage)/100);
+	$totalOrderPrice = ($orderSellPriceExclVAT + $orderVAT); //;
+?>
+
+    <tfoot >
+        <tr>
+        <?php
+            $totalCols = 6;
+            if ($this->order['ID_Type'] < 3){
+                //$totalCols = 3;
+            ?>
+
+        <td align="center">
+            <input type="image" id="btn_deleteProduct" name="btn_deleteProduct" src="/base/images/icons/crossLarge.png" style="border:0;" alt="Delete selection" title="Delete selection"  />
+        </td>
+        <?php
+        } else { echo "<td></td>"; }
+        ?>
+
+        <td colspan="<?php echo $totalCols;?>" style="text-align:right;padding-right:3px;color:black;font-weight:normal;" >Totaal</td>
+
+        <td style="color:black;text-align:center;"><?php echo $this->escape(number_format($orderSubTotal,2)); ?>
+            <input type="hidden" id="orderSubTotal" name="orderSubTotal" value="<?php echo $this->escape($orderSubTotal); ?>" />
+        </td>
+        </tr>
+
+        <?php
+        //if ($this->order['ID_Type'] != 3){
+        	$totalCols = 7;
+        //}
+        ?>
+        <tr>
+            <td colspan="<?php echo $totalCols;?>" style="text-align:right;padding-right:3px;color:black;font-weight:normal;" >Korting
+            <?php
+            if ($noEdit){
+                echo $this->escape($orderDiscountPercentage);
+            }
+            else {
+            ?>
+            <input type="text" id="orderDiscountPercentage" name="orderDiscountPercentage" style="width:40px;font-size:12px;" value="<?php echo htmlspecialchars($orderDiscountPercentage); ?>" />
+            <?php
+            }
+            ?>
+            % </td>
+            <td style="text-align:center;color:black;font-weight:normal;">- <?php echo $this->escape(number_format($orderDiscount,2)); ?></td>
+        </tr>
+
+        <tr>
+            <td colspan="<?php echo $totalCols;?>" style="text-align:right;padding-right:3px;color:black;font-weight:normal;">Totaalprijs excl. BTW</td>
+            <td style="text-align:center;color:black;">
+                <?php echo $this->escape(number_format($orderSellPriceExclVAT,2)); ?>
+                <input type="hidden" name="orderSellPriceExclVAT" id="orderSellPriceExclVAT" value="<?php echo $this->escape($orderSellPriceExclVAT); ?>" />
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan="<?php echo $totalCols;?>" style="text-align:right;padding-right:3px;color:black;font-weight:normal;" >BTW
+                        <?php 
+                            $displayDivMedecontractant= false; 
+                            if (!empty($this->order['BTWMedecontractant']) or trim($this->order['BTWPercentage'])=='0' ) {
+                                $displayDivMedecontractant= true;   
+                            } 
+                        ?>
+                <div id="divBTWMedecontractant" style="display:<?php echo $displayDivMedecontractant ? 'block': 'none';?>">
+                        <?php if ( $this->klant['ID_Land']==1 and !empty($this->klant['BTWNummer']) and $displayDivMedecontractant ) { ?>
+                            <?php echo 'BTW Medecontractant';?>:
+                            <input type="checkbox" name="BTWMedecontractant" id="BTWMedecontractant" 
+                                                <?php if (!empty($this->order['BTWMedecontractant'])) {
+                                		echo ' checked="checked"';
+                            			}
+                            			echo $this->noEdit?' disabled="disabled" readonly="readonly"': '';
+                                		?> />
+                        <?php } else { ?>           
+                             <input type="hidden" name="BTWMedecontractant"  id="BTWMedecontractant">                           
+                        <?php } ?>
+            </div>
+            <?php
+                $orderVatCodes = array(
+                                '0' => '0',
+                                '6' => '6',
+                                '21' => '21',
+                );
+            if ($noEdit){
+                    echo $this->escape($orderVATpercentage);
+            }
+            else {
+                    echo $this->formSelect('BTWpercentage',$orderVATpercentage,array('style' => 'width:40px;font-size:12px;'),$orderVatCodes);
+            }
+            ?>
+            %
+            </td>
+
+            <td style="text-align:center;color:black;font-weight:normal;">+<?php echo $this->escape(number_format($orderVAT,2)); ?></td>
+        </tr>
+
+        <tr>
+            <td colspan="<?php echo $totalCols;?>" style="text-align:right;padding-right:3px;background-color:black;color:white;" class="bold">Totaalprijs incl. BTW</td>
+            <td style="text-align:center;background-color:black;color:white;">
+                <?php echo $this->escape(number_format($totalOrderPrice,2)); ?> EUR
+                <input type="hidden" id="totalOrderPrice" name="totalOrderPrice" value="<?php echo $this->escape($totalOrderPrice); ?>" />
+            </td>
+        </tr>
+    </tfoot>
+<?php
+}
+?>
+</table>
+<input type="hidden" name="orderId" value="<?php echo (int)$this->order['ID']; ?>" />
+<input type="hidden" name="ID_Betalingsvoorwaarde" id="ID_Betalingsvoorwaarde" value="<?php echo (int)$this->klant['ID_Betvw']; ?>" />
+
+<? } ?>
+
+
+<?php
+if ($this->order['ID_Type'] != 3 ){
+  if (!empty($orderProductCounter)){
+?>
+    <?php
+    if ($this->order['ID_Type'] == 1 ){
+    ?>
+        <input type="submit" name="btn_confirmOrder" value="Bestelling plaatsen" style="float:right;margin-right:30px;" onclick="return confirm('Bestelling plaatsen?');"  />
+    <?php
+    }
+    ?>
+     <?php
+    if ($this->order['ID_Type'] < 3 ){
+    ?>
+        <input type="submit" name="btn_updatePrices" value="Update prijzen" style="float:right;margin-right:30px;" />
+    <?php
+    }
+    ?>
+    <br clear="all" />
+    <br />
+<?php
+  }}
+?>
+
+<?php
+//Factureer ordernummer
+    if ($this->order['ID_Type'] == 2){
+?>
+<div class="" style="background-color:lightgray;border:1px solid black; width:50%;margin-left:200px;">
+<div class="bold" style="background-color:black;color:white;border:1px solid black;text-align:center;">
+        Factureer ordernummer
+</div>
+    <table class="frm_01" style="width:20%;margin-left:20px; border-color:lightgray; "  cellpadding="2" cellspacing="0">
+    <tr>
+        <th align="right" width="25"><label for="Factuurnr" class="required">Factuurnr:</label></th>
+        <td class="element">
+            <?php echo $this->formText('Factuurnr',$this->orderProduct['Factuurnr'],array('readonly' => 'readonly', 'class' => 'normal14') );?>
+            <h2> <?php echo $this->orderProduct['Factuurnr']; ?> </h2>
+        </td>
+    </tr>
+    <tr>
+        <th align="right"><label for="DatumFactuur" class="required">Datum Factuur:</label></th>     <td class="element"><?php echo $this->formText('DatumFactuur',$this->orderProduct['DatumFactuur'],array("style" => 'width:90px;'));?></td>
+    </tr>
+    <tr>
+        <th align="right"><label for="VervalDatum" class="required">Vervaldatum:</label></th>     <td class="element"><?php echo $this->formText('VervalDatum',$this->orderProduct['VervalDatum'],array("style" => 'width:90px;'));?></td>
+    </tr>
+    </table>
+
+<div style="background-color:lightgray;color:white;text-align:right;padding:2px;height:22px;">
+        <input type="submit" name="btn_invoiceOrder" value="Factureer order" style="float:right;margin-right:30px;" onclick="return confirm('Order factureren?');"  />
+</div>
+</div>
+<br>
+<?php
+    }
+//---------------------------------------------------------------------------------------------------------------------
+?>
+
+
+
+<?php
+//--------------------------------------------------------------------------------------------------------------------
+    if ($this->order['ID_Type'] == 3 or $this->order['ID_Type'] == 4 ){
+?>
+
+<?php
+$bgcolor='darkred';
+if ($this->order['ID_Type']==4){
+    $bgcolor='darkgreen';
+}
+?>
+<div class="" style="background-color:<?php echo $bgcolor ?>;border:1px solid black; width:80%;margin-left:80px;">
+<div class="bold" style="background-color:<?php echo $bgcolor ?>;color:white;border:0px;margin-left:80px;">
+        Factuur betaald ?
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        Bedrag betaald:
+        <?php echo $this->formText('BedragBetaald',$this->order['BedragBetaald'],array("style" => 'width:80px;'));?>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        Volledig betaald:
+        <input type="checkbox" id="chk_Betaald" name="Betaald" <?php if ($this->order['ID_Type']==4) echo 'checked'; ?>>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="submit" name="btn_paidInvoice" value="Betaling boeken" style="float:right;margin-right:30px;" onclick="return confirm('Factuur betaald?');"  />
+</div>
+</div>
+<?php
+    }
+//---------------------------------------------------------------------------------------------------------------------
+?>
+
+</form>

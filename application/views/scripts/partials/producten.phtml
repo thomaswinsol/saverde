@@ -1,0 +1,17 @@
+<?php
+$counter=0;
+if (!empty($this->producten)) {
+    foreach($this->producten as $p){
+                $counter++;
+?>
+<ul>
+    <li><?php echo $p['label']; ?></li>
+    <li><?php echo $p['titel']; ?></li>
+    <li><?php echo $p['teaser']; ?></li>
+    <li><?php echo $p['omschrijving']; ?></li>
+</ul>
+<?php 
+    }
+}
+?>
+

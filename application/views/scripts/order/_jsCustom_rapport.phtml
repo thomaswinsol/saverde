@@ -1,0 +1,27 @@
+<?php
+// ---------------------------------
+// JAVASCRIPT
+// --------------------------------- 
+$this->jQuery()->onLoadCaptureStart(); ?>
+
+     // Detail
+     $(".detail").live('click', function(event){
+        var Id = $(this).attr("id");
+        var strArray = Id.split("-");
+
+        $.ajax({
+          type: "POST",
+          url: "<?php echo $this->baseUrl() . '/order/ajax-get-detail'; ?>",
+          dataType: "html",
+          data: {jaar: strArray[0] , maand: strArray[1]} ,
+          success: function(html){
+            $('#detail').empty().html(html);
+          }
+        });
+
+
+     } );
+
+<?php 
+$this->jQuery()->onLoadCaptureEnd();
+?>

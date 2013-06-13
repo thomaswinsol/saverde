@@ -1,0 +1,81 @@
+
+<?php
+$this->placeholder('mainTitle')->set('Statistieken');
+$year1 = date("Y");
+$year2 = $year1 - 1;
+$year3 = $year1 - 2;
+$year4 = $year1 - 3;
+$year5 = $year1 - 4;
+$year6 = $year1 - 5;
+$year7 = $year1 - 6;
+$year8 = $year1 - 7;
+$year9 = $year1 - 8;
+$year0 = $year1 - 9;
+$t = $this->data;
+$maand = array("Januari", "Februari", "Maart", "April", "Mei", "Juni", "Juli", "Augustus", "September", "Oktober", "November", "December");
+?>
+<table class="orderProducts hic" style="width:96%;margin-left:0px;" border="1" cellpadding="2" cellspacing="0">
+    <thead>
+        <tr>
+            <th></th>
+            <th><?php echo $year1; ?></th>
+            <th><?php echo $year2; ?></th>
+            <th><?php echo $year3; ?></th>
+            <th><?php echo $year4; ?></th>
+            <th><?php echo $year5; ?></th>
+            <th><?php echo $year6; ?></th>
+            <th><?php echo $year7; ?></th>
+            <th><?php echo $year8; ?></th>
+            <th><?php echo $year9; ?></th>
+            <th><?php echo $year0; ?></th>
+        </tr>        
+    </thead>
+    <tbody>
+        <?php
+        if (!empty($t)) {
+            for ($ii = 0; $ii <= 11; $ii++) {
+                $jj = $ii;
+                //$jj= str_pad($ii, 2, '0', STR_PAD_LEFT);
+        ?>
+                <tr>
+                    <td class="som"><?php echo $maand[$ii]; ?></td>
+                    <td class="som"><a href="#" class="detail" id="<?php echo ($year1 . "-" . $jj); ?>"><?php echo isset($t[$year1][$jj]) ? trim(number_format($t[$year1][$jj], 2, ',', '.')) : ""; ?></a></td>
+                    <td class="som"><a href="#" class="detail" id="<?php echo ($year2 . "-" . $jj); ?>"><?php echo isset($t[$year2][$jj]) ? number_format($t[$year2][$jj], 2, ',', '.') : ""; ?></a></td>
+                    <td class="som"><a href="#" class="detail" id="<?php echo ($year3 . "-" . $jj); ?>"><?php echo isset($t[$year3][$jj]) ? number_format($t[$year3][$jj], 2, ',', '.') : ""; ?></a></td>
+                    <td class="som"><a href="#" class="detail" id="<?php echo ($year4 . "-" . $jj); ?>"><?php echo isset($t[$year4][$jj]) ? number_format($t[$year4][$jj], 2, ',', '.') : ""; ?></a></td>
+                    <td class="som"><a href="#" class="detail" id="<?php echo ($year5 . "-" . $jj); ?>"><?php echo isset($t[$year5][$jj]) ? number_format($t[$year5][$jj], 2, ',', '.') : ""; ?></a></td>
+                    <td class="som"><a href="#" class="detail" id="<?php echo ($year6 . "-" . $jj); ?>"><?php echo isset($t[$year6][$jj]) ? number_format($t[$year6][$jj], 2, ',', '.') : ""; ?></a></td>
+                    <td class="som"><a href="#" class="detail" id="<?php echo ($year7 . "-" . $jj); ?>"><?php echo isset($t[$year7][$jj]) ? number_format($t[$year7][$jj], 2, ',', '.') : ""; ?></a></td>
+                    <td class="som"><a href="#" class="detail" id="<?php echo ($year8 . "-" . $jj); ?>"><?php echo isset($t[$year8][$jj]) ? number_format($t[$year8][$jj], 2, ',', '.') : ""; ?></a></td>
+                    <td class="som"><a href="#" class="detail" id="<?php echo ($year9 . "-" . $jj); ?>"><?php echo isset($t[$year9][$jj]) ? number_format($t[$year9][$jj], 2, ',', '.') : ""; ?></a></td>
+                    <td class="som"><a href="#" class="detail" id="<?php echo ($year0 . "-" . $jj); ?>"><?php echo isset($t[$year0][$jj]) ? number_format($t[$year0][$jj], 2, ',', '.') : ""; ?></a></td>
+                </tr>
+        <?php
+            }
+        }
+        ?>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td></td>
+            <td><a href="#" class="detail" id="<?php echo ($year1. "-99"); ?>"><?php echo isset($t[$year1]) ? number_format(array_sum($t[$year1]), 2, ',', '.') : ""; ?></a></td>
+            <td><a href="#" class="detail" id="<?php echo ($year2. "-99"); ?>"><?php echo isset($t[$year2]) ? number_format(array_sum($t[$year2]), 2, ',', '.') : ""; ?></a></td>
+            <td><a href="#" class="detail" id="<?php echo ($year3. "-99"); ?>"><?php echo isset($t[$year3]) ? number_format(array_sum($t[$year3]), 2, ',', '.') : ""; ?></a></td>
+            <td><a href="#" class="detail" id="<?php echo ($year4. "-99"); ?>"><?php echo isset($t[$year4]) ? number_format(array_sum($t[$year4]), 2, ',', '.') : ""; ?></a></td>
+            <td><a href="#" class="detail" id="<?php echo ($year5. "-99"); ?>"><?php echo isset($t[$year5]) ? number_format(array_sum($t[$year5]), 2, ',', '.') : ""; ?></a></td>
+            <td><a href="#" class="detail" id="<?php echo ($year6. "-99"); ?>"><?php echo isset($t[$year6]) ? number_format(array_sum($t[$year6]), 2, ',', '.') : ""; ?></a></td>
+            <td><a href="#" class="detail" id="<?php echo ($year8. "-99"); ?>"><?php echo isset($t[$year8]) ? number_format(array_sum($t[$year8]), 2, ',', '.') : ""; ?></a></td>
+            <td><a href="#" class="detail" id="<?php echo ($year9. "-99"); ?>"><?php echo isset($t[$year9]) ? number_format(array_sum($t[$year9]), 2, ',', '.') : ""; ?></a></td>
+            <td><a href="#" class="detail" id="<?php echo ($year0. "-99"); ?>"><?php echo isset($t[$year0]) ? number_format(array_sum($t[$year0]), 2, ',', '.') : ""; ?></a></td>
+        </tr>
+    </tfoot>
+</table>
+
+<div id="detail">
+</div>
+
+<div style="width:1160px;overflow:auto;">
+    <img src="/order/getgrafiek">
+</div>
+<?php echo $this->render('/order/_jsCustom_rapport.phtml'); ?>
+

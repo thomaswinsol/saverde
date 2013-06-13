@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title></title>
+</head>
+<body>
+<table>
+<tbody>
+<tr >
+<td ></td>
+<td rowspan="2" style="text-align:left;">
+<?php 
+echo $this->escape($this->customer['Naam']) . '<br />';
+echo $this->escape('Tav. ' . $this->customer['ContactpersoonVoornaam'] . ' ' . $this->customer['ContactpersoonAchternaam']). '<br />';
+echo $this->escape($this->customer['Straat'] ) . '<br />' ;
+echo $this->escape($this->customer['Postcode'] . ' ' . strtoupper($this->customer['Gemeente']));
+?>
+</td>
+</tr>
+<tr >
+<td colspan="2">
+<?php //  begin table left ?>
+<table style="width:300px;" border="1" cellpadding="2" cellspacing="0">
+<thead>
+<tr>
+<th colspan="2" style="text-align:center;background-color:lightgray;">
+<strong>
+<?php
+//Zend_Debug::dump($this->order); exit;
+if ($this->order['ID_Type'] == 1){
+	echo 'OFFERTE';
+}
+else if ($this->order['ID_Type'] == 2) {
+	echo 'BESTELBON';	
+}
+?>
+</strong>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th style="width:100px;">Klantnummer</th>
+<td style="width:200px;"><?php echo $this->escape($this->customer['ID']); ?></td>
+</tr>
+<tr>
+<th>BTW-nummer</th>
+<td><?php echo $this->escape($this->customer['BTWNummer']); ?></td>
+</tr>
+<tr>
+<th>Tel</th>
+<td><?php echo $this->escape($this->customer['Telefoon']); ?></td>
+</tr>
+<tr>
+<th>Fax</th>
+<td><?php echo $this->escape($this->customer['Fax']); ?></td>
+</tr>
+<tr>
+<th>GSM</th>
+<td><?php echo $this->escape($this->customer['GSM']); ?></td>
+</tr>
+<tr>
+<th>E-mail</th>
+<td><?php echo $this->escape($this->customer['Emailadres']); ?></td>
+</tr>
+</tbody>
+</table>
+<?php // -------------- end table left ?>
+</td>
+</tr>
+</table><br />
+<table style="width:650px;" border="1" cellpadding="2" cellspacing="0">
+<tbody>
+<tr>
+<th style="width:100px;">Onze referentie</th>
+<td style="width:150px;"><?php echo $this->escape($this->order['ID']); ?></td>
+<td style="width:100px;">Uw referentie</td>
+<td style="width:300px;"><?php echo $this->escape($this->order['ReferentieKlant']); ?></td>
+</tr>
+<tr>
+<th style="width:100px;">Datum</th>
+<td style="width:150px;"><?php echo $this->escape(date('d/m/Y',strtotime($this->order['Datum']))); ?></td>
+<td style="width:100px;">Vertegenwoordiger</td>
+<td style="width:300px;"></td>
+</tr>
+</tbody>
+</table>
+<p>
+Geachte,<br /><br />
+Hartelijk dank voor de interesse die u stelt in ons bedrijf en het gamma.<br />
+We maken u hierbij graag onze beste voorwaarden over voor het leveren en plaatsen van:</p>
+<br /><br />
+<table style="width:650px;" border="1" cellpadding="2" cellspacing="0">
+<thead>
+<tr style="background-color:lightgray;">
+<th align="center">Nr</th>
+<th align="center">Omschrijving</th>
+<th align="center">Prijs</th>
+<th align="center">Aantal</th>
+<th align="center">Bedrag</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td colspan="5">Under construction</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

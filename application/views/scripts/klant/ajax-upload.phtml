@@ -1,0 +1,19 @@
+<?php if (!empty($this->orderFile)){ ?>
+        <tr>
+            <td nowrap="nowrap" style="width:1%;">
+                <input type="checkbox" name="cbx_fileId[]" value="<?php echo (int)$this->orderFile['ID'];?>" />
+                <a href="<?php echo  $this->url(array('controller' => 'order','action' => 'download-file','fileId' => (int)$this->orderFile['ID']));?>" title="Download bestand">
+                   <img src="/base/images/icons/download.gif" style="border:1px solid gray;" />
+                </a>
+            </td>
+            <td style="width:98%;"><?php echo $this->escape($this->orderFile['fileNameOrig']);?>
+<?php           if (!empty($this->orderFile['fileSize']) && file_exists($this->orderPath.$this->orderFile['fileName'])){ ?>
+                    <span style="font-size:85%;"><?php echo $this->OrderHelper('getFormatSize',array('size' => $this->orderFile['fileSize']));?>]</span>
+<?php           } ?>
+            </td>
+            <td style="width:1%;" nowrap="nowrap">
+<?php           echo $this->orderFile['creationDate']; ?>
+            </td>
+        </tr>
+<?php }  ?>
+

@@ -1,0 +1,20 @@
+<?php 
+/*$this->placeholder('mainTitle')->set('Order');
+$this->headLink()->prependStylesheet('/base/datagrid/styles/default.css');*/
+// ------------------------------------------------------
+echo $this->CustomerHelper('customerInfo',array('data' => $this->klant));
+?>
+<?php      
+    	$content = array(			
+                          'info' => $this->action('info','klant',$this->module,$this->params),
+                          'orders' => $this->action('list','order',$this->module,$this->params),
+    	    	        );
+//@todo: view helper
+$this->tabPane('myTabContainer', $content['info'],array('title' => 'Klantinfo'));
+$this->tabPane('myTabContainer', $content['orders'],array('title' => 'Offerten/Orders'));
+
+echo $this->tabContainer('myTabContainer',
+					array('selected' => $this->selectedTabIndex),
+					array('class' => 'start'));
+
+?>

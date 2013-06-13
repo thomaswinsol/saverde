@@ -1,0 +1,33 @@
+<h2><?php echo !empty($this->data1)? substr($this->data1,5,2).'-'.substr($this->data1,0,4):$this->data2; ?></h2>
+<table class="orderProducts hic" style="width:96%;margin-left:0px;" border="1" cellpadding="2" cellspacing="0">
+    <thead>
+        <tr>
+            <th>Klantnr</th>
+            <th>Naam</th>
+            <th>Gemeente</th>
+            <th>Omzet(EUR)</th>
+        </tr>        
+    </thead>
+    <tbody>
+        <?php $totaal=0; ?>
+        <?php  foreach ($this->result as $key => $value) { ?>
+        <tr>
+            <td align="center"><a href='/klant/detail/id/<?php echo ($value['ID']); ?>'><?php echo $value['ID']; ?></a></td>
+            <td><?php echo $value['Naam']; ?></td>
+            <td><?php echo $value['Gemeente']; ?></td>
+            <td align="right"><?php echo number_format($value['som'],2,',','.'); ?></td>
+            <?php $totaal = $totaal + $value['som']; ?>
+        </tr>
+        <?php } ?>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td align="right"><?php echo number_format($totaal,2,',','.'); ?></td>
+        </tr>
+    </tfoot>
+</table>
+        
+        

@@ -1,0 +1,55 @@
+<?php if (!empty($this->invoice)) { ?>
+    <?php 
+        if (trim($this->invoice)=='2') {
+            $this->placeholder('mainTitle')->set('Lijst openstaande facturen');
+            echo "<br/>";
+            ?>
+            <div class="box">
+                <table class="frm_01" style="font-size:large">
+                <tr>
+                    <td align="right">
+                        <?php echo "Openstaand saldo = "; ?>
+                    </td>
+                    <td align="right">
+                        <?php echo number_format($this->saldo[0]['som'],2,",",".")." EUR"; ?>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">
+                        <?php echo "Vervallen saldo = "; ?>
+                    </td>
+                    <td align="right">
+                        <?php echo number_format($this->vervallen[0]['som'],2,",",".")." EUR"; ?>
+                    </td>
+                </tr>
+                </table>
+            </div>
+    <?php
+        } else {
+            $this->placeholder('mainTitle')->set('Lijst facturen'); 
+        }
+    ?>
+<?php } else { ?>
+    <?php if (!empty($this->archive)) {
+             $this->placeholder('mainTitle')->set('Archief');
+           } else {
+             $this->placeholder('mainTitle')->set('Lijst orders/offerten'); 
+           }
+     ?>
+<?php } ?>
+
+    <?php if (!empty($this->id)){ ?>
+        <?php echo $this->render('/order/_jsCustom_detail.phtml'); ?>
+        <a  href="<?php echo ($this->baseUrl() . '/order/detail/id/'.$this->id);?>">Toevoegen</a>
+        <?php if ($this->dataGrid->getTotalRecords()==0) { ?>
+             | <a href="<?php echo ($this->baseUrl() . '/klant/delete/id/'.$this->id);?>" id="btn_deleteKlant">Verwijderen klant</a>
+        <?php } ?>
+    <?php } ?>
+<?php
+
+
+echo $this->render('includes/datagrid/default.phtml');
+
+
+?>
+

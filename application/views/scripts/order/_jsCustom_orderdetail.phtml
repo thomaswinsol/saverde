@@ -1,0 +1,105 @@
+<?php
+// ---------------------------------
+// JAVASCRIPT
+// --------------------------------- 
+$this->jQuery()->onLoadCaptureStart(); ?>
+
+         $('#btn_deleteOrder').click(function() {
+	 	if (confirm("Offerte verwijderen?")) {
+	 		return true;
+    	 }
+    	 return false;
+        });
+
+         $('#btn_copyOrder').click(function() {
+	 	if (confirm("Offerte kopi�ren?")) {
+	 		return true;
+    	 }
+    	 return false;
+        });
+
+        $('#btn_deleteProduct').click(function() {
+	 	if (confirm("Selectie verwijderen?")) {
+	 		return true;
+           //var quantityId = elem.id;
+           //var quantityId = quantityId.replace(/[^0-9]/gi, "");
+           //var data = $('#box_pricing input,select').serialize();
+
+    	}
+    	return false;
+    });
+    
+        $(function() {
+                $("#OrderDate").datepicker({dateFormat: 'yy-mm-dd', firstDay: 1});
+                $("#DatumFactuur").datepicker({dateFormat: 'dd-mm-yy', firstDay: 1});
+                $("#VervalDatum").datepicker({dateFormat: 'dd-mm-yy', firstDay: 1});
+	});
+
+        $('input.onlyDecimals').live('keyup', function(event) {
+            //alert('ok');
+            var newValue = $(this).val().replace(/[^0-9\.,]/g,'');
+            $(this).val(newValue);
+        });
+
+      // Toevoegen detaillijn
+     $("#Toevoegen").live('click', function(event){
+     	event.preventDefault();
+     	$("#divLoading").html('<img src="/base/images/icons/loader_02.gif" /><BR> Loading, please wait...');
+        $("#Toevoegen").hide();
+        var myForm   =  $(this).closest('form');
+        var formId =  myForm.attr('id');
+        var formdata   = myForm.serialize();
+        
+        $.ajax({
+          type: "POST",
+          dataType: "json",
+          url: "<?php echo $this->baseUrl() . '/order/ajax-save-orderdetail/'; ?>",
+          dataType: "html",
+          data: {data: formdata },
+          success: function(html){
+                            var strArray = html.split(":::");
+                            if (strArray[0] == '0') {
+                   		location.href="/order/detail/order_id/"+strArray[1];
+                            }
+                            else {
+                                //alert(html);
+                		alert("Fout bij validatie formulier");
+                		$("#Toevoegen").show();
+                		$("#divLoading").html('');
+                            }
+          		}
+           });
+	   return false;
+       });
+
+
+       $('#DatumFactuur').live('change', function(event) {
+            //alert("datumFactuur=" + $(this).val()+":::"+$('#ID_Betalingsvoorwaarde').val());
+            $.ajax({
+                type: "POST",
+                url: "<?php echo $this->baseUrl() . '/order/ajax-get-factuurnr'; ?>",
+                dataType: "html",
+                data: "param=" + $(this).val()+":::"+$('#ID_Betalingsvoorwaarde').val(),
+                success: function(html){
+                    //alert(html);
+                    var strArray = html.split(":::");
+                    $('#Factuurnr').val(strArray[0]);
+                    $('#VervalDatum').val(strArray[1]);
+                    }
+                });
+             }
+        );
+
+         $('#chk_Betaald').click(function() {
+            $('#BedragBetaald').val(  parseFloat($('#totalOrderPrice').val()).toFixed(2) );
+
+         });
+
+     // Detail
+     $(".detail").live('click', function(event){
+        alert("ok");
+     } );
+
+<?php 
+$this->jQuery()->onLoadCaptureEnd();
+?>
