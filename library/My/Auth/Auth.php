@@ -5,8 +5,8 @@
 * @author webmaster
 */
     class My_Auth_Auth extends Zend_Controller_Plugin_Abstract {
-        private $_excludeAuthActions = array(
-            'foto'  => array('ajax-upload'),
+        private $_includeAuthActions = array(
+            'winkelmand'  => array('winkelmandbestellen'),
         );
 
 
@@ -17,7 +17,7 @@
         //$locale = Zend_Registry::get('Zend_Locale');
         $auth = Zend_Auth::getInstance();
                 
-        // If user is not logged in and is not requesting the login page
+        // If user is not logged in and is  requesting the bestelwinkelmand action
         // - redirect to login page
         if (!$auth->hasIdentity() &&
                 $request->getControllerName() != $loginController
@@ -25,17 +25,18 @@
         {
             $controllerName = $request->getControllerName();
             $actionName     = $request->getActionName();
-            if (array_key_exists($controllerName,$this->_excludeAuthActions)
-                && in_array($actionName,$this->_excludeAuthActions[$controllerName])) {
-                // no need to check auth
-                return;
+           
+
+            if (array_key_exists($controllerName,$this->_includeAuthActions)
+                    && in_array($actionName,$this->_includeAuthActions[$controllerName])) {
+                 //die("ok".$controllerName."-".$actionName );
+                $redirector = Zend_Controller_Action_HelperBroker::getStaticHelper('redirector');
+                $redirector->gotoUrl('/winkelmand/userhasnoidentity');
             }
-            /*$redirector = Zend_Controller_Action_HelperBroker::getStaticHelper('redirector');
-            $redirector->gotoUrl('/gebruiker/login');*/
+            
         }
        
     }
 
 }
-
 ?>

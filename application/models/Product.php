@@ -47,7 +47,7 @@ class Application_Model_Product extends My_Model
         $sql = $this->db
         ->select()
         ->from(array('a' => 'product'), array('ID', 'label', 'status' , 'prijs' ,  'homepagina') )
-        ->join(array('b' => 'productlocale'), ' a.ID = b.IDProduct  ', array('titel','teaser','omschrijving','vertaald', 'locale') );
+        ->joininner(array('b' => 'productlocale'), ' a.ID = b.IDProduct  ', array('titel','teaser','omschrijving','vertaald', 'locale') );
 
         If (!empty($locale)) {
             $sql->where ('locale = '."'".$locale."'");

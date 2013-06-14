@@ -115,6 +115,19 @@ class Application_Model_Foto extends My_Model
     	return $totalInsert;
     }
 
+     public function getFoto($where=NULL){
+        $foto = parent::getAll($where);
+
+	$matches = array();
+        foreach ( $foto as $f ) {
+
+        		$p['value'] = trim($f['ID']);
+                        $p['label'] = "{$f['ID']}, {$f['fileName']}";
+                        $p['label'] = "<p>".trim($f['fileName'])."</p>". "<img width='100' src='/uploads/foto/".trim($f['fileName'])."'</>";
+			$matches[] = $p;
+        }
+        return $matches;
+     }
 }
 
 ?>

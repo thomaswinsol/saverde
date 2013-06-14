@@ -14,4 +14,18 @@ txtAantal;Aantal
 txtProductInfo;Product Info
 txtLabel;Label
 txtCategorie;Categorie
-
+txtBestellen;Bestellen
+txtPrijs;Eenheidsprijs
+txtNoIdentity;Gelieve in te loggen of te registreren om de winkelmand te bestellen 
+txtAlert1;Aantal verplicht in te vullen
+txtBevestigingBestellingWinkelmand;Druk op OK om de winkelmand te bestellen
+txtToegevoegd;Artikel toegevoegd aan winkelmand
+txtFoto;Foto
+btnRegister;Registreer
+btnLostPassword;Wachtwoord vergeten
+lblVoornaam;Voornaam
+txtProduct;Product
+txtRegisterEmail;Een e-mail werd naar u verstuurd. Gelieve te klikken op de link om uw account te activeren
+txtWinkelmand;Winkelmand
+txtWinkelmandLeeg;Winkelmand is leeg
+txtWinkelmandLeegmaken;Winkelmand leegmaken

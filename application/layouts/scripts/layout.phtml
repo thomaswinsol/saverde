@@ -1,7 +1,12 @@
 <!doctype>
+<?php
+// -------------------------
+header('Content-Type: text/html; charset=utf-8');
+echo '<?xml version="1.0" encoding="UTF-8" ?>'.PHP_EOL;
+echo $this->doctype().PHP_EOL; ?>
 <html>    
     <head>
-        <title>Eindwerk Webmaster Advanced - Webwinkel</title>
+        <title>Eindwerk SyntraWest - Webmaster Advanced - Webwinkel - Thomas Vanhuysse</title>
         <link href="/css/style.css" rel="stylesheet" />
         <?php
             echo $this->jQuery().PHP_EOL;
@@ -12,16 +17,26 @@
     <body>
         
         <div id="container">
-            <aside>                
+            <aside>
+                <div class="logo">
                  <figure>
                         <img src="/images/logo.jpg" width="100" alt="Logo">
                  </figure>
+                </div>
                 <br/>
+                <div class="firma">
+                    <?php
+                        if (isset($_SESSION['context']['Firma'])) {
+                            echo $this->ShowFirm($_SESSION['context']['Firma']);
+                        }
+                    ?>
+                </div>
                 <div class="winkelmand">
-
                     <?php
                         if (isset($_SESSION['context']['winkelmand'])) {
                             echo $this->toonWinkelmand($_SESSION['context']['winkelmand']);
+                        } else {
+                            echo $this->toonWinkelmand(null);
                         }
                     ?>
                 </div>

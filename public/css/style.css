@@ -1,16 +1,16 @@
 *{margin:0px;padding:0px;}
 body {color:#666; font-size: 12px; font-family: Verdana, sans-serif; background-color:whitesmoke;}
 #container{margin:0 0 0 10; width:1200px; font-size: 12px;}
-aside { float:left; width:100px;}
-header {margin-left:10px;height:120px;width:900px;float:left;}
+aside { float:left; width:175px;}
+header {margin-left:10px;height:130px;width:900px;float:left;}
 /*#logo { float:left; width:200px; height:100px; background-image: url(../images/logo.jpg); background-repeat:no-repeat;  }*/
 #lang { float:left; width:50px; }
 header nav {width:600px;margin-top:10px; float:left; margin-left:10px; }
 nav li {list-style-type:none; font-size:14px; height:50px; display:inline; margin-left:10px;}
 nav ul li.active{color:red;}
 
+#content{width:900px;float:left;}
 
-/*#producten li {list-style-type:none; font-size:14px; height:50px; display:inline; }*/
 
 .table ul
 {
@@ -20,12 +20,15 @@ padding:0;
 border:1px solid #C9C9C9;
 height:210px;
 width:170px;
+-moz-border-radius: 5px;
+border-radius: 5px;
 }
 
 .table ul li
 {
 list-style:none;
 padding:5px 10px;
+text-align:center;
 }
 
 .table ul li.title
@@ -35,20 +38,8 @@ background:#5C3317;
 color:#fff;
 }
 
-.table ul li.even
-{
-background:#fff;
-text-align: center;
-}
 
-.table ul li.odd
-{
-background:#D7EDFB;
-}
-
-
-#content{width:900px;float:left;}
-table.frm_01{
+table.frm_01 , .frm_02{
 	font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
 	font-size:  95%;
 	border-collapse: collapse;
@@ -61,6 +52,10 @@ table.frm_01{
 	caption-side:top;
 	width:90%;
 	color:black;
+}
+table.frm_02{
+        margin-left:1px;
+        width:80%;
 }
 
 table.frm_01 caption {
@@ -75,7 +70,6 @@ table.frm_01 tr{
 table.frm_01 tr.odd{
 	/* background-color: #FFFFFF; */
 }
-
 
 table.frm_01 td{
 	border: 1px dotted #CCCCCC;
@@ -100,6 +94,10 @@ table.frm_01 tbody td{
 	 /* width:200px;  */
 }
 
+table.frm_01 tbody td.price{
+	 text-align:right;
+}
+
 table.frm_01 tfoot{
 	border-top:1px dashed black;
 }
@@ -119,6 +117,10 @@ table.frm_01 tfoot th{
 table.frm_01 tfoot td{
 	text-align: left;
 	padding: 0.5em;
+}
+
+table.frm_01 tfoot td.price{
+	 text-align:right;
 }
 
 table.frm_01 th .required
@@ -157,22 +159,6 @@ table.frm_01 select[disabled] {
         text-align:center;
         width:970px;
         background-color:#DEDEDE;
-        -moz-border-radius: 5px;
-        border-radius: 5px;
-        border: 0px solid fff;
-}
-
-#container .customerTitle{
-	color:#666;
-	font-size:100%;
-	margin-bottom:5px;
-        margin-top:5px;
-        text-align:center;
-        width:970px;
-        background-color:#FFCCCC;
-        -moz-border-radius: 5px;
-        border-radius: 5px;
-        border: 1px solid black;
 }
 
 fieldset {
@@ -195,10 +181,11 @@ section {
 
 div.productinfo {
     border:1px solid #C9C9C9;
-    margin-left:10px;
+    margin-left:25px;
     -moz-border-radius: 5px;
     border-radius: 5px;
     float:left;
+    background-color: #fff;
 }
 
 div.voegtoe {
@@ -211,14 +198,24 @@ p.productinfo {
     text-decoration: underline;
 }
 
-div.winkelmand {
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-    border: 1px solid #bbb;
+div .winkelmand {
+    margin-top:15px;
 }
 
+.winkelmandempty {
+    border:1px solid #C9C9C9;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    text-align:center;
+}
 div .winkelmand li {
     list-style-type:none;
     display:inline;
+    margin-left:10px;
+}
+
+h1  {
+    margin-left:25px;
+    margin-bottom:10px;
 }
 

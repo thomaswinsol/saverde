@@ -11,13 +11,14 @@ class Application_Form_Voegtoe extends My_Form  {
          $this->addElement(new Zend_Form_Element_Text('Aantal',array(
             'label'=>"txtAantal",
             'size'=>5,
+            'maxlength'=>5,
             'required'=>true,
             'class'=>"onlyDecimals",
             'filters' => array('StringTrim')
             )));
          $this->setElementDecorators($this->elementDecorators);
 
-           // element button
+        // element button
         $this->addElement(new Zend_Form_Element_Button('VoegToe', array(
             'type'=>"submit",
             'label'=>'btnVoegtoe',

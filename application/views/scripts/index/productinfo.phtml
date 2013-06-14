@@ -23,9 +23,16 @@
 <br/>
 
 <p class="productinfo">
+<?php echo $this->translate('txtPrijs');?>:
+</p>
+<?php echo $this->ShowCurrency($this->product['prijs']); ?>
+<br/>
+<br/>
+
+<p class="productinfo">
 <?php echo $this->translate('txtOpmerking');?>:
 </p>
-<textarea cols="50">
+<textarea cols="50" readonly>
 <?php echo $this->escape(($this->product['teaser'])); ?>
 </textarea>
 <br/>
@@ -47,4 +54,4 @@
     <?php echo $this->form; ?>
 </div>
 <div class="divLoading"></div>
-<?php echo $this->render('/index/_jsCustom.phtml'); ?>
+<?php echo $this->render('/index/_jsCustom_productinfo.phtml'); ?>

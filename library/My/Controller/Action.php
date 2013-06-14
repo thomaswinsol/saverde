@@ -5,12 +5,13 @@
  */
 abstract class My_Controller_Action extends Zend_Controller_Action
 {
-    public $context;
-    public $baseUrl='/eindwerk/public';
+    protected $context;
+    protected $baseUrl='/eindwerk/public';
     protected $flashMessenger = NULL;
 
     public function init()
     {
+        
         $defaultNamespace = new Zend_Session_Namespace ();
         if(!array_key_exists('context', $_SESSION))
         {
@@ -24,9 +25,11 @@ abstract class My_Controller_Action extends Zend_Controller_Action
         $module = $this->getRequest()->getModuleName();
         if (strtolower($module)=="admin") {
            unset($_SESSION['context']['winkelmand']);
+           unset($_SESSION['context']['Firma']);
         }
-        $this->context = $_SESSION ['context'];
+        $this->context = $_SESSION ['context'];        
         $this->flashMessenger = $this->_helper->getHelper('FlashMessenger');
+        $this->flashMessenger->setNamespace('Errors');       
     }    
    
 

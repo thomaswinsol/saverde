@@ -64,7 +64,19 @@ abstract class My_Model extends Zend_Db_Table_Abstract
     {
     	$data = $this->fetchAll($where,$order);
         return $data->toArray();
-    }    
+    }
+
+    public function getOneLocale($id,$colName = 'ID')
+    {
+        $row = parent::fetchRow($colName. ' = ' .(int)$id);
+        if (!$row) {
+            return FALSE;
+        }
+        return $row->toArray();
+        var_dump($this->getTable());
+    }
+
+
 
 
     /**

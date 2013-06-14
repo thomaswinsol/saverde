@@ -21,7 +21,14 @@ class My_Form extends Zend_Form
 		array(array('row' => 'HtmlTag'), array('tag' => 'tfoot')),
 	);    
        
-    
+        protected $formJQueryElements = array(
+        array('UiWidgetElement', array('tag' => '')), // it necessary to include for jquery elements
+        array('Errors'),
+        array('Description', array('tag' => 'span')),
+        array('HtmlTag', array('tag' => 'td')),
+        array('Label', array('tag' => 'th')),
+        array(array('row' => 'HtmlTag'), array('tag' => 'tr')),
+	);
 
      /**
      * Create a new form
