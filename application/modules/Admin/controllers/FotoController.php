@@ -6,6 +6,16 @@ class Admin_FotoController extends My_Controller_Action
     {
          $form = new Admin_Form_Foto();
          $this->view->form = $form;
+         $pagesModel = new Application_Model_Pages();
+         $info= $pagesModel->forminfo(1);
+         echo '<pre>';
+         print_r($info);
+         die("ok");
+         //$pagesModel->insert($info);
+
+         $pagesModel = new Application_Model_Pages();
+         print_r($pagesModel->getLangFields());
+         die("ok");
     }
 
     public function ajaxUploadAction() {
