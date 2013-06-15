@@ -51,5 +51,31 @@ abstract class My_Controller_Action extends Zend_Controller_Action
         }
         return true;
     }*/
+
+
+    public function processForm($detailform)
+    {
+         $controller = ucfirst($this->getRequest()->getControllerName());
+         $model= 'Application_Model_'.trim($controller);               
+         $detailModel = new $model;
+         $id = (int) $this->_getParam('id');
+         If (!empty($id)) {
+             $formData= $detailModel->GetDataAndTranslation($id);
+             $formData['ID']=$id;
+             $detailform->populate($formData);
+         }
+         $this->view->form = $detailform;
+         if ($this->getRequest()->isPost()){
+            $postParams= $this->getRequest()->getPost();
+            if (!$detailform->isValid($postParams)) {
+                return;
+            }
+            $formData  = $this->_request->getPost();
+
+            $data= $detailModel->SplitDataAndTranslation($formData);
+            $detailModel->save($data, $data['ID']);
+            $this->_helper->redirector('lijst', 'pagina');
+         }
+    }
    
 }

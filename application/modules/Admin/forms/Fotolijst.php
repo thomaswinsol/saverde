@@ -1,15 +1,16 @@
 <?php
-class Admin_Form_Paginalijst extends My_Form
+class Admin_Form_Fotolijst extends My_Form
 {
 
     public function init()
     {
 
-        $elem = new ZendX_JQuery_Form_Element_AutoComplete("Pagina", array('label' => 'lblPagina', 'size'=>30 , 'maxlength'=>8));
-	$elem->setJQueryParam('source', '/Admin/pagina/autocompletepagina');
+        $elem = new ZendX_JQuery_Form_Element_AutoComplete("Foto", array('label' => 'Foto', 'size'=>30 , 'maxlength'=>8));
+	$elem->setJQueryParam('source', '/Admin/foto/autocompletefoto');
 	$elem->setJQueryParams( array("select" => new Zend_Json_Expr(
 	    							"function(event, ui) {
-                                                                        location.href='/Admin/pagina/detail/id/'+ui.item.id; }") ));
+    									//$('#IDFoto').val(ui.item.ID);
+                                                                        location.href='/Admin/foto/detail/id/'+ui.item.id; }") ));
      	$elem->setDecorators($this->formJQueryElements);
   	$this->addElements( array ($elem));
         

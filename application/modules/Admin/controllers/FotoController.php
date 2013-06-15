@@ -4,9 +4,23 @@ class Admin_FotoController extends My_Controller_Action
 
     public function uploadAction()
     {
-         $form = new Admin_Form_Foto();
+         $form = new Admin_Form_Fotolijst();
          $this->view->form = $form;
     }
+
+    public function detailAction()
+    {
+         $detailModel = new Application_Model_Foto;
+         $param["langFields"]= $detailModel->getLangFields();
+
+         $taalModel = new Application_Model_Taal();
+         $param["languages"]= $taalModel->getTaal();
+
+
+         $form = new Admin_Form_Foto(null,$param);
+         $this->processForm($form);
+    }
+
 
     public function ajaxUploadAction() {
         $this->_helper->layout->disableLayout();

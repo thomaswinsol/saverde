@@ -2,8 +2,11 @@
 class Application_Model_Foto extends My_Model
 {
     protected $_name = 'foto';
-    protected $_id = 'ID'; //primary key
+    protected $_sName = 'foto_vertaling.foto';
+    protected $_id = 'id'; //primary key
 
+    protected $lang_fields = array('titel', 'teaser', 'inhoud');
+    
     protected $pathUpload;
 
     public function __construct(){
@@ -77,6 +80,11 @@ class Application_Model_Foto extends My_Model
         
     }
 
+    public function getLangFields()
+    {
+        return $this->lang_fields;
+    }
+    
 
     public function saveMultipleFiles($files,$data)
     {
@@ -120,11 +128,10 @@ class Application_Model_Foto extends My_Model
 
 	$matches = array();
         foreach ( $foto as $f ) {
-
-        		$p['value'] = trim($f['ID']);
-                        $p['label'] = "{$f['ID']}, {$f['fileName']}";
-                        $p['label'] = "<p>".trim($f['fileName'])."</p>". "<img width='100' src='/uploads/foto/".trim($f['fileName'])."'</>";
-			$matches[] = $p;
+                        $f['id']  =trim($f['id']);
+        		$f['value'] = trim($f['id']);
+                        $f['label'] = "<p>".trim($f['fileName'])."</p>". "<img width='100' src='/uploads/foto/".trim($f['fileName'])."'</>";
+			$matches[] = $f;
         }
         return $matches;
      }

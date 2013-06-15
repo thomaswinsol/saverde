@@ -4,18 +4,11 @@ class Application_Model_Taal extends My_Model
     protected $_name = 'taal';
     protected $_id   = 'id'; //primary key
     
-    public function getTaal($where=NULL){
-        $talen = parent::getAll($where,"id");
-        $talen_array=array();
-	foreach ( $talen as $t ) {
-            $talen_array[$t['id']] = $t['code'];
-        }
-        return $talen_array;
-     }
 
-/*protected $_list = 'taal';*/
 
-/*public function init()
+protected $_list = 'taal';
+
+public function init()
 {
 $this->_list = $this->fetchAll();
 }
@@ -50,7 +43,7 @@ $instance->init();
 }
 return $instance;
 }
-}*/
+
 }
 ?>
 

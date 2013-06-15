@@ -7,37 +7,19 @@ class Admin_PaginaController extends My_Controller_Action
         $form = new Admin_Form_Paginalijst();
         $this->view->form = $form;
     }
-
-    public function addpaginaAction()
+    
+    public function detailAction()
     {
-         $paginaModel = new Application_Model_Pagina();
-         $param['langFields']= $paginaModel->getLangFields();
-         $param['languages']= array("nl","fr");
+         $detailModel = new Application_Model_Pagina;
+         $param["langFields"]= $detailModel->getLangFields();
+ 
+         $taalModel = new Application_Model_Taal();
+         $param["languages"]= $taalModel->getTaal();
 
          $form = new Admin_Form_Pagina(null,$param);
-
-         $id = (int) $this->_getParam('id');
-         If (!empty($id)) {
-             $formData= $paginaModel->GetDataAndTranslation($id);
-             $formData['ID']=$id;
-             $form->populate($formData);
-         }
-         $this->view->form = $form;
-         if ($this->getRequest()->isPost()){
-            $postParams= $this->getRequest()->getPost();
-            if (!$form->isValid($postParams)) {
-                return;
-            }
-            $formData  = $this->_request->getPost();
-           
-            $data= $paginaModel->SplitDataAndTranslation($formData);
-            $paginaModel->save($data, $data['ID']);
-            $this->_helper->redirector('lijst', 'pagina');
-         }
-         
+         $this->processForm($form);
     }
 
-    
     public function autocompletepaginaAction() {
                 $this->_helper->layout->disableLayout();
                 $this->_helper->viewRenderer->setNoRender();

@@ -146,13 +146,14 @@ abstract class My_Model extends Zend_Db_Table_Abstract
     }
 
     private function separateLangRows( array $data) {
-        $languages = Application_Model_Taal::instance()->getList();
+        $taalModel = new Application_Model_Taal;
+        $languages = $taalModel->getTaal();
         $langData = array();
         foreach ($this->lang_fields as $field) {
-            foreach ($languages as $language) {
-                $colName = $field . '_' . $language->code;
+            foreach ($languages as $key => $value) {
+                $colName = $field . '_' . $value;
                 if (isset($data[$colName])) {
-                    $langData[$language->id][$field] = $data[$colName];
+                    $langData[$key][$field] = $data[$colName];
                     unset($data[$colName]);
                 }
             }
@@ -177,7 +178,7 @@ abstract class My_Model extends Zend_Db_Table_Abstract
         ->from($this->getLangTable(), $this->lang_fields)
         ->join('taal', $this->getLangTable() . '.taal_id = taal.id', 'code')
              ->where($this->_sName . '_id = ?', $rowArray['id']));
-
+          
         foreach ($langRows as $langRow) {
             foreach ($this->lang_fields as $field) {
                 $colName = $field . '_' . $langRow['code'];

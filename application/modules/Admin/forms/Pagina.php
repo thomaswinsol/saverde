@@ -16,7 +16,7 @@ class Admin_Form_Pagina extends My_Form
         $this->setMethod(Zend_Form::METHOD_POST);
         //$this->setAttrib('enctype', 'multiparts/form-data');
         $this->setAttrib('enctype', Zend_Form::ENCTYPE_MULTIPART);
-        $this->setAction('/Admin/pagina/addpagina');
+        $this->setAction('/Admin/pagina/detail');
 
          // element ID
         $this->addElement(new Zend_Form_Element_Hidden('ID',array(
