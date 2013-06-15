@@ -6,19 +6,11 @@
  */
 class My_Controller_Plugin_Translate extends Zend_Controller_Plugin_Abstract
 {   
-	
-    //protected $auth;
     protected $languages = array('nl' => 1, 'fr' => 2);
     private $_excludeActions = array('product'  => array('ajax-calculate-price'),);
 
-
     public function dispatchLoopStartup(Zend_Controller_Request_Abstract $request)
     {
-
-        /*if(!Zend_Auth::getInstance()->hasIdentity()) {
-            return;
-        }*/
-        //$this->auth = Zend_Auth::getInstance()->getIdentity();
 
         $lang_default = 'nl';
         $locale_default = 'nl_BE';
@@ -29,8 +21,6 @@ class My_Controller_Plugin_Translate extends Zend_Controller_Plugin_Abstract
             $localeValue = $session->language;
         }
         else {
-            //retrieve lang selection from user
-            //@todo, locale can also be retrieved from database, low low low priority
             $langValue   = $lang_default;
             $localeValue = $locale_default;
         }
@@ -53,7 +43,6 @@ class My_Controller_Plugin_Translate extends Zend_Controller_Plugin_Abstract
         } 
 
         Zend_Registry::set('Zend_Translate', $translator);
-
     }
     
 }

@@ -1,0 +1,91 @@
+<?php
+class Application_Model_Pagina extends My_Model
+{
+    protected $_name  = 'pagina';
+    protected $_sName = 'pagina_vertaling.pagina';
+    protected $_id    = 'id';
+
+    protected $lang_fields = array('titel', 'teaser', 'inhoud');
+
+    public function save($data,$id = NULL)
+    {
+    	$currentTime =  date("Y-m-d H:i:s", time());
+        $isUpdate = FALSE;
+        $dbFields = array(
+        	'label'      => $data['label'],
+                'status'     => (int)$data['status'],
+        );
+        
+        if (!empty($id)) {
+        	$isUpdate = TRUE;
+        	$this->update($dbFields,$id);
+                $this->savetranslation($data, $id);
+        	return $id;
+        }
+        $id = $this->insert($dbFields);
+        $this->savetranslation($data, $id);
+    }
+
+    public function savetranslation($data,$id = NULL)
+    {
+        $paginavertalingModel = new Application_Model_Paginavertaling();
+        $paginavertalingModel->deleteById($id, "pagina_id");
+        foreach ($data['translation'] as $key => $value) {
+            $translated= !empty($value['titel'])?1:0;
+            $dbFields=array(
+                "pagina_id"   => $id,
+                "taal_id"     => $key,
+                "titel"       => trim($value['titel']),
+                "teaser"      => trim($value['teaser']),
+                "inhoud"      => trim($value['inhoud']),
+                "vertaald"    => $translated
+            );
+            $paginavertalingModel->save($dbFields);
+        }
+    }
+    /**
+     * Insert
+     * @return int last insert ID
+     */
+    public function insert($data)
+    {
+        return parent::insert($data);       
+    }
+
+    /**
+     * Update
+     * @return int numbers of rows updated
+     */
+    public function update($data,$id)
+    {
+        return parent::update($data, 'id = '. (int)$id);
+    }
+
+
+    public function getLangFields()
+    {
+        return $this->lang_fields;
+    }
+
+
+     public function getPagina($where=NULL){
+        $page = parent::getAll($where);
+
+	$matches = array();
+        foreach ( $page as $p ) {
+                        $p['id']  =trim($p['id']);
+        		$p['naam']=trim($p['label']);
+        		$p['value'] = trim($p['id']);
+                        if ($p['status']) {
+                            $p['label'] = trim($p['label']);
+                        } else {
+                            $p['label'] = "<span style='text-decoration:line-through;'>".trim($p['label'])."</span>";
+                        }
+                        
+			$matches[] = $p;
+        }
+        return $matches;
+     }
+
+
+}

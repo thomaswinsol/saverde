@@ -5,7 +5,7 @@ txtInloggen;Inloggen
 btnInloggen;Inloggen
 txtWelkom;Welkom
 menuHome;Home
-menuFotoUpload;Foto Upload
+menuFotoUpload;Beheer foto's
 txtTitel;Titel
 txtTeaser;Teaser
 txtOpmerking;Opmerking
@@ -29,6 +29,15 @@ txtRegisterEmail;Een e-mail werd naar u verstuurd. Gelieve te klikken op de link
 txtWinkelmand;Winkelmand
 txtWinkelmandLeeg;Winkelmand is leeg
 txtWinkelmandLeegmaken;Winkelmand leegmaken
-menuPages;Pages
+menuPages;Beheer pagina's
 lbllabel;label
 btnOpslaan;Opslaan
+txtNewPage;Nieuwe pagina
+lblstatus;status
+lblPagina;Pagina
+title_nl;Titel
+nl;Nederlands
+titel;Titel
+teaser;Teaser
+inhoud;Inhoud
+fr;Français

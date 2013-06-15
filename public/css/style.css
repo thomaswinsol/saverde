@@ -164,12 +164,17 @@ table.frm_01 select[disabled] {
 fieldset {
         -moz-border-radius: 10px;
         border-radius: 10px;
-        background : #EDECEF;
-        border : 0px;
-        width:95%;
+        background : #fff;
+        border : 1px solid #666;
+        width:50%;
         margin-left:10px;
+        float:right;
+        padding-bottom: 10px;
 }
 
+legend {
+       margin-left:10px;
+}
 nav {
     float:left;
     width:300px;

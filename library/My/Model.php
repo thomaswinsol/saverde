@@ -21,8 +21,6 @@ abstract class My_Model extends Zend_Db_Table_Abstract
         parent::__construct($config);
     }    
     
-
-
  // -------------------------
  // CRUD
     public function getOne($id,$colName = 'ID')
@@ -140,16 +138,15 @@ abstract class My_Model extends Zend_Db_Table_Abstract
         return $result;
     } 
 
-    public function GetDataAndTranslation(array $insertData)
+    public function SplitDataAndTranslation(array $insertData)
     {
         list($data, $langData) = $this->separateLangRows($insertData);
         $data['translation']=$langData;
         return $data;
     }
 
-
     private function separateLangRows( array $data) {
-        $languages = Application_Model_Languages::instance()->getList();
+        $languages = Application_Model_Taal::instance()->getList();
         $langData = array();
         foreach ($this->lang_fields as $field) {
             foreach ($languages as $language) {
@@ -163,8 +160,38 @@ abstract class My_Model extends Zend_Db_Table_Abstract
         return array($data, $langData);
     }
     
-    
-    
+
+    public function GetDataAndTranslation($id){
+        $select = new Zend_Db_Table_Select($this);
+        $row = $this->fetchRow($select->where('ID = ?', $id));
+        $rowArray = $row->toArray();
+        if ($row) {
+            $rowArray = $this->getLangArray($rowArray);
+        }
+        return ($rowArray);
+    }
+
+    function getLangArray($rowArray){
+        $langRows = $this->_db->fetchAll(
+        $this->_db->select()
+        ->from($this->getLangTable(), $this->lang_fields)
+        ->join('taal', $this->getLangTable() . '.taal_id = taal.id', 'code')
+             ->where($this->_sName . '_id = ?', $rowArray['id']));
+
+        foreach ($langRows as $langRow) {
+            foreach ($this->lang_fields as $field) {
+                $colName = $field . '_' . $langRow['code'];
+                $rowArray[$colName] = $langRow[$field];
+            }
+        }
+        return $rowArray;
+    }
+
+    public function getLangTable()
+    {
+        return $this->_name . '_vertaling';
+    }
+
     /**
      * Check on errors
      *

@@ -2,40 +2,6 @@
 abstract class My_Modeltranslation extends Zend_Db_Table
 {
 
-public function formInfo($id){
-    $select = new Zend_Db_Table_Select($this);
-    $row = $this->fetchRow($select->where('ID = ?', $id));
-    $rowArray = $row->toArray();
-
-    if ($row) {
-        $rowArray = $this->getLangArray($rowArray);
-    }
-    // echo '<pre>';
-       //  print_r($rowArray);
-       //  die("ok");
-         return ($rowArray);
-
-   // return $this->buildLangRow($rowArray);
-}
-
-function getLangArray($rowArray){
-  
-    $langRows = $this->_db->fetchAll(
-    $this->_db->select()
-    ->from($this->getLangTable(), $this->lang_fields)
-    ->join('languages',
-    $this->getLangTable() . '.language_id = languages.id', 'code')
-    ->where($this->_sName . '_id = ?', $rowArray['id']));
-
-
-    foreach ($langRows as $langRow) {
-        foreach ($this->lang_fields as $field) {
-            $colName = $field . '_' . $langRow['code'];
-            $rowArray[$colName] = $langRow[$field];
-        }
-    }
-    return $rowArray;
-}
 
 function buildLangRow($array) {
     $rowClass = $this->getRowClass();
@@ -59,10 +25,7 @@ public function select()
     return $select;
 }
 
-public function getLangTable()
-{
-    return $this->_name . '_translation';
-}
+
 
 public function countRecords($where = false)
 {

@@ -14,7 +14,7 @@ class My_Controller_Plugin_Navigation extends Zend_Controller_Plugin_Abstract
         $urls = array (
          array ( 'label'=> 'menuHome', 'module'=>'default', 'action'=> 'home', 'controller'=> 'index', 'params'=> array() ),
          array ( 'label'=> 'menuFotoUpload', 'module'=>'Admin', 'action'=> 'upload', 'controller'=> 'foto', 'params'=> array() ),
-         array ( 'label'=> 'menuPages', 'module'=>'Admin', 'action'=> 'list', 'controller'=> 'page', 'params'=> array() ),
+         array ( 'label'=> 'menuPages', 'module'=>'Admin', 'action'=> 'lijst', 'controller'=> 'pagina', 'params'=> array() ),
         );
         
         foreach  ($urls as $url) {
