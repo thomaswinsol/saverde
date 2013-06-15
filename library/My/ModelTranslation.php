@@ -78,107 +78,10 @@ public function countRecords($where = false)
     return $row->num;
 }
 
-public function delete($where)
-{
-    $tableSpec = ($this->_schema ? $this->_schema . '.' : ')' . $this->_name);
 
-    $rows = $this->_db->fetchAll($this->_db->select()
-        ->from($this->_name, array('id'))
-        ->where(implode(' && ', $where)));
-        $this->_db->delete($tableSpec, $where);
 
-    $tableSpec = ($this->_schema ? $this->_schema . '.' : ')' . $this->getLangTable());
-    foreach ($rows as $row) {
-        $newWhere[] = $this->_db->quoteInto('{$this->getLangTable()}.{$this->_sName}_id = ?', $row['id'], 'INT(11)');
-    }
-    $this->_db->delete($tableSpec, $newWhere);
 
-    return;
-}
 
-/**
-* Inserts a new row.
-*
-* @param array $data Column-value pairs.
-* @return mixed The primary key of the row inserted.
-*/
-public function insert(array $insertData)
-{
-    list($data, $langData) = $this->separateLangRows($insertData);
-
-    echo '<pre>';
-    print_r($data);
-    echo '<hr>';
-    print_r($langData);
-    die("ok");
-    
-    if (is_array($data) && count($data)>0) {
-        $tableSpec = ($this->_schema ? $this->_schema . '.' : ')' . $this->_name);
-        $this->_db->insert($tableSpec, $data);
-        $insertData['id'] = $this->_db->lastInsertId();
-    }
-
-    if (is_array($langData) && count($langData)>0) {
-        $tableSpec = ($this->_schema ? $this->_schema . '.' : ')' . $this->getLangTable());
-
-        foreach ($langData as $language_id=>$data) {
-            $data[$this->_sName . '_id'] = $insertData['id'];
-            $data['language_id'] = $language_id;
-            $this->_db->insert($tableSpec, $data);
-        }
-    }
-
-    return $this->buildLangRow($insertData);
-}
-
-/**
-* Updates existing rows.
-*
-* @param array $data Column-value pairs.
-* @param array|string $where An SQL WHERE clause, or an array of SQL WHERE clauses.
-* @return int The number of rows updated.
-*/
-public function update(array $data, $where)
-{
-    list($data, $langData) = $this->separateLangRows($data);
-
-    if (is_array($data) && count($data)>0) {
-        $tableSpec = ($this->_schema ? $this->_schema . '.' : ')' . $this->_name);
-        $result = $this->_db->update($tableSpec, $data, $where);
-    }
-
-    if (is_array($langData) && count($langData)>0) {
-        $tableSpec = ($this->_schema ? $this->_schema . '.' : ')' . $this->getLangTable());
-        $db = $this->getAdapter();
-
-        $where[0] = str_replace($this->_name, $this->_sName, $where[0]);
-        $where[0] = str_replace('`.`', '_', $where[0]);
-
-        foreach ($langData as $language_id=>$data) {
-            $where[1] = $db->quoteInto('{$tableSpec}.language_id = ?', $language_id, 'int(11)');
-            $this->_db->update($tableSpec, $data, $where);
-        }
-    }
-
-    return;
-}
-
-private function separateLangRows( array $data) {
-    $languages = Application_Model_Languages::instance()->getList();
-    $langData = array();
-
-    foreach ($this->lang_fields as $field) {
-        foreach ($languages as $language) {
-        $colName = $field . '_' . $language->code;
-            if (isset($data[$colName])) {
-                $langData[$language->id][$field] = $data[$colName];
-                unset($data[$colName]);
-            }
-        }
-    }
-
-    return array($data, $langData);
-}
 
 }
 ?>

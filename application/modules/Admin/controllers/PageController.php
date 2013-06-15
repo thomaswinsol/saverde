@@ -2,6 +2,12 @@
 class Admin_PageController extends My_Controller_Action
 {
 
+    public function listAction()
+    {
+        $form = new Admin_Form_Pagelist();
+        $this->view->form = $form;
+    }
+
     public function addpageAction()
     {
          $pagesModel = new Application_Model_Pages();
@@ -17,21 +23,24 @@ class Admin_PageController extends My_Controller_Action
             }
             $formData  = $this->_request->getPost();
             /*echo '<pre>';
-            print_r($formData);
-            die("ok");*/
+            print_r($formData);*/
+            //die("ok");
+           
+            $data= $pagesModel->GetDataAndTranslation($formData);
+            $pagesModel->save($data);
+            $this->_helper->redirector('list', 'page');
         }
 
          $this->view->form = $form;
+
          /*$pagesModel = new Application_Model_Pages();
          $info= $pagesModel->forminfo(1);*/
 
-        // echo '<pre>';
-         //print_r($info);
-         //$pagesModel->insert($info);
+        
     }
 
     
-    /*public function autocompletePageAction() {
+    public function autocompletepageAction() {
                 $this->_helper->layout->disableLayout();
                 $this->_helper->viewRenderer->setNoRender();
  		$param= $this->_getParam('term');
@@ -39,6 +48,6 @@ class Admin_PageController extends My_Controller_Action
  		$data['naam']=trim($param);
  		$result=$pagesModel->getPage(null);
  		$this->_helper->json(array_values($result));
-    }*/
+    }
 }
 

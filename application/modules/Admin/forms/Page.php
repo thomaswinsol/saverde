@@ -35,6 +35,13 @@ class Admin_Form_Page extends My_Form
             'filters' => array('StringTrim')
             )));
 
+        $elem = $this->createElement('select','status');
+		   	$elem->setLabel("lblstatus")
+			->addMultiOptions(array('1' => 'JA' , '0' => 'NEE') )
+                        ->setRequired(true)
+			->setSeparator('');
+			$this->addElement($elem);
+
         foreach ($this->_languages as $language) {
             foreach ($this->_langFields as $langfield) {
                     $field=$langfield."_".$language;

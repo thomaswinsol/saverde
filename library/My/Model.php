@@ -66,18 +66,6 @@ abstract class My_Model extends Zend_Db_Table_Abstract
         return $data->toArray();
     }
 
-    public function getOneLocale($id,$colName = 'ID')
-    {
-        $row = parent::fetchRow($colName. ' = ' .(int)$id);
-        if (!$row) {
-            return FALSE;
-        }
-        return $row->toArray();
-        var_dump($this->getTable());
-    }
-
-
-
 
     /**
      * 
@@ -151,7 +139,29 @@ abstract class My_Model extends Zend_Db_Table_Abstract
         $result = $this->getTable()->fetchSearchResults($keyword);
         return $result;
     } 
-    
+
+    public function GetDataAndTranslation(array $insertData)
+    {
+        list($data, $langData) = $this->separateLangRows($insertData);
+        $data['translation']=$langData;
+        return $data;
+    }
+
+
+    private function separateLangRows( array $data) {
+        $languages = Application_Model_Languages::instance()->getList();
+        $langData = array();
+        foreach ($this->lang_fields as $field) {
+            foreach ($languages as $language) {
+                $colName = $field . '_' . $language->code;
+                if (isset($data[$colName])) {
+                    $langData[$language->id][$field] = $data[$colName];
+                    unset($data[$colName]);
+                }
+            }
+        }
+        return array($data, $langData);
+    }
     
     
     
