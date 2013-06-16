@@ -67,7 +67,8 @@ abstract class My_Controller_Action extends Zend_Controller_Action
                 $model= 'Application_Model_'.trim($controller);
                 $autocompleteModel = new $model;
  		$data['naam']=trim($param);
- 		$result=$autocompleteModel->getAutocomplete(null);
+                $where = "label like '%".trim($param)."%'";
+ 		$result=$autocompleteModel->getAutocomplete($where);
  		$this->_helper->json(array_values($result));
     }
 

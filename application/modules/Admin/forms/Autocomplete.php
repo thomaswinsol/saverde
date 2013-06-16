@@ -4,12 +4,14 @@ class Admin_Form_Autocomplete extends My_Form
 
     protected $_controller;
     protected $_productid;
+    protected $_productdetail;
 
     public function __construct($id = NULL, $params = NULL)
     {
 	    $this->_controller = $params['controller'];
             if (isset($params['productid'])) {
-                $this->_productid = $params['productid'];
+                $this->_productid     = $params['productid'];
+                $this->_productdetail = $params['productdetail'];
             }
             parent::__construct($id);
     }
@@ -17,19 +19,29 @@ class Admin_Form_Autocomplete extends My_Form
     public function init()
     {
         if ( !empty($this->_productid) ) {
-            $source  ='/Admin/foto/autocomplete';
-            $location='/Admin/product/selecteer/productid/'.$this->_productid.'/id/';
-            $label = "lblFoto";
+            
+            $location='/Admin/product/selecteer/productid/'.$this->_productid.'/productdetail/'.$this->_productdetail.'/id/';
+            if (trim($this->_productdetail)=="F") {
+                $label = "lblFoto";
+                $source  ='/Admin/foto/autocomplete';
+                $elem = new ZendX_JQuery_Form_Element_AutoComplete("AutocompleteF", array('label' => $label, 'size'=>30 , 'maxlength'=>8));
+            }
+            else {
+                $label = "lblCategorie";
+                $source  ='/Admin/categorie/autocomplete';
+                $elem = new ZendX_JQuery_Form_Element_AutoComplete("AutocompleteC", array('label' => $label, 'size'=>30 , 'maxlength'=>8));
+            }
         }
         else {
             $source  ='/Admin/'. trim($this->_controller). '/autocomplete';
             $location='/Admin/'. trim($this->_controller). '/detail/id/';
             $label = "lbl".trim(ucfirst($this->_controller));
+             $elem = new ZendX_JQuery_Form_Element_AutoComplete("Autocomplete", array('label' => $label, 'size'=>30 , 'maxlength'=>8));
         }
         
-        $elem = new ZendX_JQuery_Form_Element_AutoComplete("Autocomplete", array('label' => $label, 'size'=>30 , 'maxlength'=>8));
+       
 	$elem->setJQueryParam('source', $source);
-	$elem->setJQueryParams( array("select" => new Zend_Json_Expr(
+	$elem->setJQueryParams( array("minLength"=>0, "select" => new Zend_Json_Expr(
 	    							"function(event, ui) {
                                                                         location.href='$location'+ui.item.id; }") ));
      	$elem->setDecorators($this->formJQueryElements);

@@ -1,5 +1,5 @@
 <?php
-class Application_Model_ProductFoto extends My_Model
+class Application_Model_Productfoto extends My_Model
 {
     protected $_name = 'product_foto'; //table name
     protected $_id   = 'id'; //primary key
