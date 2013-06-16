@@ -4,7 +4,7 @@ class Application_Model_Product extends My_Model
     protected $_name = 'product'; //table name
     protected $_sName = 'product_vertaling.product';
     protected $_id    = 'id';
-
+    protected $model_fields = array('dec_eenheidsprijs','sel_homepagina');
     protected $lang_fields = array('titel', 'teaser', 'inhoud');
 
     public function getProducten($locale=null, $status=null, $vertaald=null, $data=null)
@@ -71,6 +71,10 @@ class Application_Model_Product extends My_Model
         return $this->lang_fields;
     }
 
+    public function getModelFields()
+    {
+        return $this->model_fields;
+    }
 
     public function save($data,$id = NULL)
     {
@@ -109,4 +113,21 @@ class Application_Model_Product extends My_Model
         }
     }
 
+    public function getAutocomplete($where=NULL){
+        $product = parent::getAll($where);
+
+	$matches = array();
+        foreach ( $product as $p ) {
+                        $p['id']  =trim($p['id']);
+        		$p['naam']=trim($p['label']);
+        		$p['value'] = trim($p['id']);
+                        if ($p['status']) {
+                            $p['label'] = trim($p['label']);
+                        } else {
+                            $p['label'] = "<span style='text-decoration:line-through;'>".trim($p['label'])."</span>";
+                        }
+			$matches[] = $p;
+        }
+        return $matches;
+     }
 }

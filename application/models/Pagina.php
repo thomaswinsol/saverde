@@ -5,7 +5,8 @@ class Application_Model_Pagina extends My_Model
     protected $_sName = 'pagina_vertaling.pagina';
     protected $_id    = 'id';
 
-    protected $lang_fields = array('titel', 'teaser', 'inhoud');
+    protected $lang_fields  = array('titel', 'teaser', 'inhoud');
+    protected $model_fields = array();
 
     public function save($data,$id = NULL)
     {
@@ -67,6 +68,10 @@ class Application_Model_Pagina extends My_Model
         return $this->lang_fields;
     }
 
+    public function getModelFields()
+    {
+        return $this->model_fields;
+    }
 
      public function getAutocomplete($where=NULL){
         $page = parent::getAll($where);

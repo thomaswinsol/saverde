@@ -1,0 +1,14 @@
+<?php
+// ---------------------------------
+// JAVASCRIPT
+// --------------------------------- 
+$this->jQuery()->onLoadCaptureStart(); ?>
+        
+        $(document).on("keyup", ".onlyDecimals", function() {
+            var newValue = $(this).val().replace(/[^0-9\.,]/g,'');
+            $(this).val(newValue);
+        });
+
+<?php 
+$this->jQuery()->onLoadCaptureEnd();
+?>

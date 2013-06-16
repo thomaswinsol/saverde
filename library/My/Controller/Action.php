@@ -77,7 +77,8 @@ abstract class My_Controller_Action extends Zend_Controller_Action
          $model= 'Application_Model_'.trim($controller);               
          $detailModel = new $model;
 
-         $param["langFields"]= $detailModel->getLangFields();
+         $param["langFields"] = $detailModel->getLangFields();
+         $param["modelFields"]= $detailModel->getModelFields();
 
          $taalModel = new Application_Model_Taal();
          $param["languages"]= $taalModel->getTaal();

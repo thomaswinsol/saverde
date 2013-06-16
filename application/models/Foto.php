@@ -6,7 +6,7 @@ class Application_Model_Foto extends My_Model
     protected $_id = 'id'; //primary key
 
     protected $lang_fields = array('titel', 'teaser', 'inhoud');
-    
+    protected $model_fields = array();
     protected $pathUpload;
 
     public function __construct(){
@@ -84,7 +84,11 @@ class Application_Model_Foto extends My_Model
     {
         return $this->lang_fields;
     }
-    
+
+    public function getModelFields()
+    {
+        return $this->model_fields;
+    }
 
     public function saveMultipleFiles($files,$data)
     {

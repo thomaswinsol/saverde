@@ -2,12 +2,14 @@
 class Admin_Form_Detail extends My_Form
 {
     protected $_langFields;
+    protected $_modelFields;
     protected $_languages;
     protected $_controller;
 
     public function __construct($id = NULL, $params = NULL)
     {
 	    $this->_langFields = $params['langFields'];
+            $this->_modelFields = $params['modelFields'];
             $this->_languages  = $params['languages'];
             $this->_controller = $params['controller'];
             parent::__construct($id);
@@ -41,6 +43,29 @@ class Admin_Form_Detail extends My_Form
                         ->setRequired(true)
 			->setSeparator('');
 			$this->addElement($elem);
+
+        // model fields
+        foreach ($this->_modelFields as $modelfield) {
+                    $field    =substr($modelfield,4,15);
+                    $fieldtype=substr($modelfield,0,3);
+                    $fields[]=$field;
+                    if ($fieldtype=='dec') {
+                        $this->addElement(new Zend_Form_Element_Text($field,array(
+                        'label'=>"lbl".$field,
+                        'size'=>10,
+                        'maxlength'=>10,
+                        'filters' => array('StringTrim') ,
+                        'class'=>"onlyDecimals",
+                        )));
+                    }
+                    if ($fieldtype=='sel') {
+                       $elem = $this->createElement('select',$field);
+		   	$elem->setLabel("lbl".$field)
+			->addMultiOptions(array('1' => 'JA' , '0' => 'NEEN') )
+			->setSeparator('');
+			$this->addElement($elem);
+                    }
+        }
         $this->setElementDecorators($this->elementDecorators);
 
         // translation fields
