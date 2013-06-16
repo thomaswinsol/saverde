@@ -1,9 +1,19 @@
 <?php
 class Application_Model_ProductFoto extends My_Model
 {
-    protected $_name = 'productfoto'; //table name
-    protected $_id   = 'ID'; //primary key
- 
+    protected $_name = 'product_foto'; //table name
+    protected $_id   = 'id'; //primary key
+
+    public function save($data,$id = NULL)
+    {
+        $dbFields = array(
+                'idfoto'     => (int)$data['idfoto'],
+                'idproduct'  => (int)$data['idproduct'],
+        );
+        $this->deleteFotoByProductId($data['idfoto'],$data['idproduct']);
+        $id = $this->insert($dbFields);
+    }
+
     /**
      * Insert
      * @return int last insert ID
@@ -20,6 +30,11 @@ class Application_Model_ProductFoto extends My_Model
     public function update($data,$id)
     {
         return parent::update($data, 'id = '. (int)$id);
+    }
+
+    public function deleteFotoByProductId($id,$productid)
+    {
+        return parent::delete('idfoto = '. (int)$id. ' and idproduct='.(int)$productid );
     }
 
     public function getFotosForProductId($id=null)

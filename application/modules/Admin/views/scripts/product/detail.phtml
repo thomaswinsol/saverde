@@ -1,4 +1,56 @@
 <h1><?php echo $this->translate("lblProduct"); ?>:</h1>
+<div id="productform">
 <?php echo $this->form; ?>
+</div>
+<div id="fotoform" style="margin-top:60px;">
+<?php
+    if (!empty($this->id)) {
+         echo "<br/>";
+         echo $this->fotoform;
+         ?>
+
+         <div style="margin-left:20px; width:76%;float:left;">
+         <form name="frm_productfotos" action="<?php echo $this->baseUrl; ?>/planning/deletePlaatserForActiviteit" method="post" >
+            <table class="frm_01 frm_02"style="width:40%;margin-left:5px;" border="1" cellpadding="2" cellspacing="0">
+            <thead>
+                <tr style="background-color:lightgray;">
+                    <th style="text-align:center;"></th>
+                    <th style="text-align:center;"><?php echo $this->translate('txtselectiefoto'); ?></th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php
+            $counter=0;
+            if (!empty($this->productfotos)){
+                foreach($this->productfotos as $p){
+                $counter++;
+		?>
+		<tr>
+                    <td style="width:1%; text-align:center;" nowrap="nowrap">
+                        <input type="checkbox" name="foto[]" value="<?php echo (int)$p['id']; ?>" />
+                    </td>
+                    <td>
+                        <?php echo $this->toonFoto($p['idfoto']);?>
+                    </td>
+		</tr>
+        <?php
+            }
+    }
+    ?>
+            </tbody>
+            <tfoot>
+                <tr>
+                <td align="left"><?php if ($counter>0  ) { ?><input type="image" src="/base/images/icons/btn_delete.gif" id="btn_deleteFoto" name="btn_deleteFoto" alt="Delete" /><?php } ?></td>
+                <td></td>
+                </tr>
+            </tfoot>
+        </table>
+        <input type="hidden" name="productId" value="<?php echo (int)$this->id; ?>" />
+</form>
+</div>
+<?php
+    }
+?>
+</div>
 
 <?php echo $this->render('product/_jsCustom_product.phtml'); ?>

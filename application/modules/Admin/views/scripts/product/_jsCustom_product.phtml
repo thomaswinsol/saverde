@@ -9,6 +9,14 @@ $this->jQuery()->onLoadCaptureStart(); ?>
             $(this).val(newValue);
         });
 
+        // Autocomplete foto
+        $[ "ui" ][ "autocomplete" ].prototype["_renderItem"] = function( ul, item) {
+            return $( "<li></li>" )
+            .data( "item.autocomplete", item )
+            .append( $( "<a></a>" ).html( item.label ) )
+            .appendTo( ul );
+        };
+
 <?php 
 $this->jQuery()->onLoadCaptureEnd();
 ?>

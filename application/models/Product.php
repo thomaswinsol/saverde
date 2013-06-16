@@ -4,7 +4,7 @@ class Application_Model_Product extends My_Model
     protected $_name = 'product'; //table name
     protected $_sName = 'product_vertaling.product';
     protected $_id    = 'id';
-    protected $model_fields = array('dec_eenheidsprijs','sel_homepagina');
+    protected $model_fields = array('dec_eenheidsprijs','sel_homepage');
     protected $lang_fields = array('titel', 'teaser', 'inhoud');
 
     public function getProducten($locale=null, $status=null, $vertaald=null, $data=null)
@@ -79,10 +79,13 @@ class Application_Model_Product extends My_Model
     public function save($data,$id = NULL)
     {
     	$currentTime =  date("Y-m-d H:i:s", time());
+        $eenheidsprijs= empty($data['eenheidsprijs'])?0:$data['eenheidsprijs'];
         $isUpdate = FALSE;
         $dbFields = array(
-        	'label'      => $data['label'],
-                'status'     => (int)$data['status'],
+        	'label'          => $data['label'],
+                'status'         => (int)$data['status'],
+                'eenheidsprijs'  => $eenheidsprijs,
+                'homepage'       => (int)$data['homepagina'],
         );
 
         if (!empty($id)) {
@@ -130,4 +133,22 @@ class Application_Model_Product extends My_Model
         }
         return $matches;
      }
+
+     /**
+     * Insert
+     * @return int last insert ID
+     */
+    public function insert($data)
+    {
+        return parent::insert($data);
+    }
+
+    /**
+     * Update
+     * @return int numbers of rows updated
+     */
+    public function update($data,$id)
+    {
+        return parent::update($data, 'id = '. (int)$id);
+    }
 }
