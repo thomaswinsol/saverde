@@ -3,6 +3,10 @@ class Application_Model_Product extends My_Model
 {
     protected $_name = 'product'; //table name
     protected $_id   = 'ID'; //primary key
+    protected $_sName = 'product_vertaling.product';
+    protected $_id    = 'id';
+
+    protected $lang_fields = array('titel', 'teaser', 'inhoud');
 
     public function getProducten($locale=null, $status=null, $vertaald=null, $data=null)
     {

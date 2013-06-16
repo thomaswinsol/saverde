@@ -1,5 +1,5 @@
 <?php
-class Admin_Form_Foto extends My_Form
+class Admin_Form_Product extends My_Form
 {
     protected $_langFields;
     protected $_languages;
@@ -16,7 +16,7 @@ class Admin_Form_Foto extends My_Form
         $this->setMethod(Zend_Form::METHOD_POST);
         //$this->setAttrib('enctype', 'multiparts/form-data');
         $this->setAttrib('enctype', Zend_Form::ENCTYPE_MULTIPART);
-        $this->setAction('/Admin/foto/detail');
+        $this->setAction('/Admin/pagina/detail');
 
          // element ID
         $this->addElement(new Zend_Form_Element_Hidden('ID',array(

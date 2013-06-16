@@ -2,11 +2,6 @@
 class Admin_FotoController extends My_Controller_Action
 {
 
-    public function uploadAction()
-    {
-         $form = new Admin_Form_Fotolijst();
-         $this->view->form = $form;
-    }
 
     public function detailAction()
     {
@@ -57,14 +52,5 @@ class Admin_FotoController extends My_Controller_Action
         $this->view->response=$response;
    }
 
-    public function autocompletefotoAction() {
-                $this->_helper->layout->disableLayout();
-                $this->_helper->viewRenderer->setNoRender();
- 		$param= $this->_getParam('term');
- 		$fotoModel = new Application_Model_Foto();
- 		$data['naam']=trim($param);
- 		$result=$fotoModel->getFoto(null);
- 		$this->_helper->json(array_values($result));
-    }
 }
 

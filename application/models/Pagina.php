@@ -28,8 +28,8 @@ class Application_Model_Pagina extends My_Model
 
     public function savetranslation($data,$id = NULL)
     {
-        $paginavertalingModel = new Application_Model_Paginavertaling();
-        $paginavertalingModel->deleteById($id, "pagina_id");
+        $vertalingModel = new Application_Model_Paginavertaling();
+        $vertalingModel->deleteById($id, "pagina_id");
         foreach ($data['translation'] as $key => $value) {
             $translated= !empty($value['titel'])?1:0;
             $dbFields=array(
@@ -40,7 +40,7 @@ class Application_Model_Pagina extends My_Model
                 "inhoud"      => trim($value['inhoud']),
                 "vertaald"    => $translated
             );
-            $paginavertalingModel->save($dbFields);
+            $vertalingModel->save($dbFields);
         }
     }
     /**
@@ -68,7 +68,7 @@ class Application_Model_Pagina extends My_Model
     }
 
 
-     public function getPagina($where=NULL){
+     public function getAutocomplete($where=NULL){
         $page = parent::getAll($where);
 
 	$matches = array();

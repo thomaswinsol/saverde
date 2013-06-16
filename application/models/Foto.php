@@ -123,7 +123,7 @@ class Application_Model_Foto extends My_Model
     	return $totalInsert;
     }
 
-     public function getFoto($where=NULL){
+     public function getAutocomplete($where=NULL){
         $foto = parent::getAll($where);
 
 	$matches = array();
@@ -135,6 +135,44 @@ class Application_Model_Foto extends My_Model
         }
         return $matches;
      }
+
+     public function save($data,$id = NULL)
+    {
+    	$currentTime =  date("Y-m-d H:i:s", time());
+        $isUpdate = FALSE;
+        $dbFields = array(
+        	'label'      => $data['label'],
+                'status'     => (int)$data['status'],
+        );
+
+        if (!empty($id)) {
+        	$isUpdate = TRUE;
+        	$this->update($dbFields,$id);
+                $this->savetranslation($data, $id);
+        	return $id;
+        }
+        $id = $this->insert($dbFields);
+        $this->savetranslation($data, $id);
+    }
+
+    public function savetranslation($data,$id = NULL)
+    {
+        $vertalingModel = new Application_Model_Fotovertaling();
+        $vertalingModel->deleteById($id, "foto_id");
+        foreach ($data['translation'] as $key => $value) {
+            $translated= !empty($value['titel'])?1:0;
+            $dbFields=array(
+                "foto_id"   => $id,
+                "taal_id"     => $key,
+                "titel"       => trim($value['titel']),
+                "teaser"      => trim($value['teaser']),
+                "inhoud"      => trim($value['inhoud']),
+                "vertaald"    => $translated
+            );
+            $vertalingModel->save($dbFields);
+        }
+    }
+
 }
 
 ?>

@@ -52,6 +52,24 @@ abstract class My_Controller_Action extends Zend_Controller_Action
         return true;
     }*/
 
+    public function lijstAction()
+    {
+         $params['controller'] = $this->getRequest()->getControllerName();
+         $form = new Admin_Form_Autocomplete(null,$params);
+         $this->view->form = $form;
+    }
+
+    public function autocompleteAction() {
+                $this->_helper->layout->disableLayout();
+                $this->_helper->viewRenderer->setNoRender();
+ 		$param= $this->_getParam('term');
+                $controller = ucfirst($this->getRequest()->getControllerName());
+                $model= 'Application_Model_'.trim($controller);
+                $autocompleteModel = new $model;
+ 		$data['naam']=trim($param);
+ 		$result=$autocompleteModel->getAutocomplete(null);
+ 		$this->_helper->json(array_values($result));
+    }
 
     public function processForm($detailform)
     {
@@ -74,8 +92,9 @@ abstract class My_Controller_Action extends Zend_Controller_Action
 
             $data= $detailModel->SplitDataAndTranslation($formData);
             $detailModel->save($data, $data['ID']);
-            $this->_helper->redirector('lijst', 'pagina');
+            $this->_helper->redirector('lijst', $this->getRequest()->getControllerName());
          }
+         
     }
    
 }
