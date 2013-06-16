@@ -1,5 +1,5 @@
 <div class="productinfo">
-<h1><?php echo $this->translate('txtProductInfo');?></h1>
+<h1 class="productinfo"><?php echo $this->translate('txtProductInfo');?></h1>
 
 <p class="productinfo">
 <?php echo $this->translate('txtLabel');?>:
@@ -32,7 +32,7 @@
 <p class="productinfo">
 <?php echo $this->translate('txtOpmerking');?>:
 </p>
-<textarea cols="50" readonly>
+<textarea class="productinfo">
 <?php echo $this->escape(($this->product['teaser'])); ?>
 </textarea>
 <br/>

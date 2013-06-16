@@ -28,11 +28,24 @@ class My_Controller_Plugin_Translate extends Zend_Controller_Plugin_Abstract
         $locale = new Zend_Locale($localeValue);
         Zend_Registry::set('Zend_Locale', $locale);
 
-        $translator = new Zend_Translate(
+        try
+        {
+            $translator = new Zend_Translate(
                 'csv',
                 APPLICATION_PATH . '/configs/lang/' . $langValue . '.csv',
                 $langValue
-        );
+            );
+        }
+        catch (Exception $e)
+        {
+            $langValue = 'nl';
+            $translator = new Zend_Translate(
+                'csv',
+                APPLICATION_PATH . '/configs/lang/' . $langValue . '.csv',
+                $langValue
+            );
+        }
+        
  
         $controllerName = $request->getControllerName();
         $actionName     = $request->getActionName();

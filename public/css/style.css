@@ -2,9 +2,9 @@
 body {color:#666; font-size: 12px; font-family: Verdana, sans-serif; background-color:whitesmoke;}
 #container{margin:0 0 0 10; width:1200px; font-size: 12px;}
 aside { float:left; width:175px;}
-header {margin-left:10px;height:141px;width:900px;float:left;}
+header {margin-left:10px;width:900px;float:left;}
 #lang { float:left; width:50px; }
-header nav {width:600px;margin-top:10px; float:left; margin-left:10px; }
+header nav {width:450px;margin-top:10px; float:left; margin-left:10px; }
 nav li {list-style-type:none; font-size:14px; height:50px; display:inline; margin-left:10px;}
 nav ul li.active{color:red;}
 
@@ -159,7 +159,7 @@ section {
 
 div.productinfo {
     border:1px solid #C9C9C9;
-    margin-left:25px;
+    margin-left:50px;
     -moz-border-radius: 5px;
     border-radius: 5px;
     float:left;
@@ -176,14 +176,14 @@ p.productinfo {
     text-decoration: underline;
 }
 
-div .winkelmand {
+div.winkelmand {
     margin-top:15px;
 }
 
 .winkelmandempty {
     text-align:left;
 }
-div .winkelmand li {
+div.winkelmand li {
     list-style-type:none;
     display:inline;
     margin-left:10px;
@@ -194,7 +194,16 @@ h1  {
     margin-bottom:10px;
 }
 
-div .login {
+h1.productinfo{
+     background-color:#DEDEDE;
+     -moz-border-radius: 5px;
+     border-radius: 5px;
+     text-align:center;
+     margin-left:0px;
+}
+
+div.login {
+        margin-top:20px;
         -moz-border-radius: 10px;
         border-radius: 10px;
         background : #fff;
@@ -216,7 +225,7 @@ div .login {
 .l_prom_new {
     cursor: pointer;
     float: left;
-    margin: 0 30px 30px 0;
+    margin: 0 10px 10px 0;
     width: 209px;
 }
 .l_prom_top_g_new {
@@ -273,4 +282,22 @@ div .login {
     width: 209px;
 }
 
+textarea.productinfo {
+    width:400px;
+    height:100px;
+    background-color:#fff;
+    resize:none;
+    border: 0px;
+}
 
+.btnbasket {
+    background-image: url(/base/images/icons/icon_basket.png); /* 16px x 16px */
+    background-color: transparent; /* make the button transparent */
+    background-repeat: no-repeat;  /* make the background image appear only once */
+    background-position: 0px 0px;  /* equivalent to 'top left' */
+    border: none;           /* assuming we don't want any borders */
+    cursor: pointer;        /* make the cursor like hovering over an <a> element */
+    height: 16px;           /* make this the size of your image */
+    padding-left: 16px;     /* make text start to the right of the image */
+    vertical-align: middle; /* align the text vertically centered */
+}

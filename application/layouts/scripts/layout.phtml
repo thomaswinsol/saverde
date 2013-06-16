@@ -50,10 +50,12 @@ echo $this->doctype().PHP_EOL; ?>
                     <?php echo $this->navigation()->menu()->addPageClassToLi(true); ?>
                     <br />
                 </nav>
-                             
+                            <div id="lang">                            
+                            <?php echo $this->toonLocale(); ?>
+                            </div>
                             <div class="login">
-                                <?php echo $this->signupForm($this->signupForm); ?>                           </div>
-                
+                                <?php echo $this->signupForm($this->signupForm); ?>
+                            </div>
              </header>
             <section id="content">
 

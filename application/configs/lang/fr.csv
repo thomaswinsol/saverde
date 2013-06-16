@@ -29,7 +29,7 @@ btnLostPassword;Oublier mot de passe
 lblVoornaam:Prénom
 txtProduct;Produit
 txtRegisterEmail;Een e-mail werd naar u verstuurd. Gelieve te klikken op de link om uw account te activeren
-txtWinkelmand;Winkelmand
+txtWinkelmand;Chariot
 txtWinkelmandLeeg;Winkelmand is leeg
 txtWinkelmandLeegmaken;Vider
 menuPages;Pages
@@ -40,3 +40,5 @@ titel;Titel
 teaser;Teaser
 inhoud;Inhoud
 fr;Français
+Frans;Français
+Titel;Titre

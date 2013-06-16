@@ -10,6 +10,7 @@ class Application_Model_Product extends My_Model
     public function getProducten($status=null, $data=null)
     {
             $locale= Zend_Registry::get('Zend_Locale');
+           
             $taalcode=(!empty($locale))?substr($locale,0,2):'nl';
             $sql = $this->db
             ->select()
@@ -17,7 +18,6 @@ class Application_Model_Product extends My_Model
             ->join(array('v' => 'product_vertaling'), ' p.id = v.product_id  ', array('titel','teaser','inhoud','vertaald', 'taal_id') )
             ->join(array('t' => 'taal'), ' t.id = v.taal_id  ', array('code') );;
 
-        
             $sql->where ('t.code = '."'".$taalcode."'");
 
         If (!empty($status)) {
@@ -34,8 +34,8 @@ class Application_Model_Product extends My_Model
         if (!empty($data['titel'])){
             $sql->where ('v.titel like '."'%".trim($data['titel'])."%'");
         }
-
         $data = $this->db->fetchAll($sql);
+
         return $data;
     }
 

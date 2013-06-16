@@ -21,9 +21,10 @@ class Application_Form_Voegtoe extends My_Form  {
         // element button
         $this->addElement(new Zend_Form_Element_Button('VoegToe', array(
             'type'=>"submit",
-            'label'=>'btnVoegtoe',
+            'label'=>'',
             'required'=> false,
             'ignore'=> true,
+            'class'=>'btnbasket',
             'decorators'=>$this->buttonDecorators
             )));
 
