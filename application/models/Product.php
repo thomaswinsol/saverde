@@ -2,7 +2,6 @@
 class Application_Model_Product extends My_Model
 {
     protected $_name = 'product'; //table name
-    protected $_id   = 'ID'; //primary key
     protected $_sName = 'product_vertaling.product';
     protected $_id    = 'id';
 
@@ -65,6 +64,49 @@ class Application_Model_Product extends My_Model
         $data = $this->db->fetchRow($sql);
 
         return $data;
+    }
+
+    public function getLangFields()
+    {
+        return $this->lang_fields;
+    }
+
+
+    public function save($data,$id = NULL)
+    {
+    	$currentTime =  date("Y-m-d H:i:s", time());
+        $isUpdate = FALSE;
+        $dbFields = array(
+        	'label'      => $data['label'],
+                'status'     => (int)$data['status'],
+        );
+
+        if (!empty($id)) {
+        	$isUpdate = TRUE;
+        	$this->update($dbFields,$id);
+                $this->savetranslation($data, $id);
+        	return $id;
+        }
+        $id = $this->insert($dbFields);
+        $this->savetranslation($data, $id);
+    }
+
+    public function savetranslation($data,$id = NULL)
+    {
+        $vertalingModel = new Application_Model_Productvertaling();
+        $vertalingModel->deleteById($id, "product_id");
+        foreach ($data['translation'] as $key => $value) {
+            $translated= !empty($value['titel'])?1:0;
+            $dbFields=array(
+                "product_id"   => $id,
+                "taal_id"     => $key,
+                "titel"       => trim($value['titel']),
+                "teaser"      => trim($value['teaser']),
+                "inhoud"      => trim($value['inhoud']),
+                "vertaald"    => $translated
+            );
+            $vertalingModel->save($dbFields);
+        }
     }
 
 }

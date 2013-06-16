@@ -71,11 +71,20 @@ abstract class My_Controller_Action extends Zend_Controller_Action
  		$this->_helper->json(array_values($result));
     }
 
-    public function processForm($detailform)
+    public function detailAction()
     {
          $controller = ucfirst($this->getRequest()->getControllerName());
          $model= 'Application_Model_'.trim($controller);               
          $detailModel = new $model;
+
+         $param["langFields"]= $detailModel->getLangFields();
+
+         $taalModel = new Application_Model_Taal();
+         $param["languages"]= $taalModel->getTaal();
+         $param["controller"]= strtolower($controller);
+
+         $detailform = new Admin_Form_Detail(null,$param);
+
          $id = (int) $this->_getParam('id');
          If (!empty($id)) {
              $formData= $detailModel->GetDataAndTranslation($id);
@@ -92,7 +101,7 @@ abstract class My_Controller_Action extends Zend_Controller_Action
 
             $data= $detailModel->SplitDataAndTranslation($formData);
             $detailModel->save($data, $data['ID']);
-            $this->_helper->redirector('lijst', $this->getRequest()->getControllerName());
+            $this->_helper->redirector('lijst', strtolower($controller));
          }
          
     }
