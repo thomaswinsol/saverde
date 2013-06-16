@@ -25,7 +25,7 @@
 <p class="productinfo">
 <?php echo $this->translate('txtPrijs');?>:
 </p>
-<?php echo $this->ShowCurrency($this->product['prijs']); ?>
+<?php echo $this->ShowCurrency($this->product['eenheidsprijs']); ?>
 <br/>
 <br/>
 
@@ -44,7 +44,7 @@
     if (!empty($this->fotos)) {
         foreach($this->fotos as $f) {
 ?>
-            <img src="<?php echo "/".$this->escape($f['filePath']).$this->escape($f['fileName']); ?>"><br/>
+            <img width="200" src="<?php echo "/".$this->escape($f['filePath']).$this->escape($f['fileName']); ?>"><br/>
 <?php
        }
     }

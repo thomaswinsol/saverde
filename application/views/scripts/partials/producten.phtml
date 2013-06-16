@@ -2,23 +2,34 @@
 $counter=0;
 if (!empty($this->producten)) {
 ?>
-<div class="table">
+<div class="promoblokken">
 <?php
     foreach($this->producten as $p){
                 $counter++;
 ?>
-<ul>
-    <li class="title"><?php echo $p['titel']; ?></li>
-    <li class="odd"even”>
-        <a href="<?php echo $this->url(array('controller'=>'index' , 'action'=>'productinfo', 'id'=>$p['ID']) ); ?>">
-            <?php echo $p['label']; ?></li>
-        </a>
-    <li class="even">
-        <a href="<?php echo $this->url(array('controller'=>'index' , 'action'=>'productinfo', 'id'=>$p['ID']) ); ?>">
-            <?php echo $this->ProductHelper('getFoto',array($p['ID'])); ?>
-        </a>
-    </li>
-</ul>
+<div class="l_prom_new">
+    <div class="l_prom_top_g_new">
+        <div class="l_iconset">
+            <img src="/images/promoblok/red.png" alt="">
+        </div>
+        promotie
+    </div>
+    <div class="l_prom_mid" align="center" style="height: 210px; ">
+        <div class="l_fotobox">
+            <a href="<?php echo $this->url(array('controller'=>'index' , 'action'=>'productinfo', 'id'=>$p['id']) ); ?>">
+            <?php echo $this->getFoto($p['id']); ?>
+            </a>
+        </div>
+        <div class="l_Titels">
+             <a href="<?php echo $this->url(array('controller'=>'index' , 'action'=>'productinfo', 'id'=>$p['id']) ); ?>">
+             <?php echo $p['label']; ?>
+             </a>
+        </div>
+    </div>
+    <div class="l_prom_bottom_new">
+        <img width="1" height="1" src="/images/promoblok/empty.png" alt="">
+    </div>
+</div>
 <?php 
     }
 ?>

@@ -36,7 +36,7 @@ class Admin_Form_Autocomplete extends My_Form
             $source  ='/Admin/'. trim($this->_controller). '/autocomplete';
             $location='/Admin/'. trim($this->_controller). '/detail/id/';
             $label = "lbl".trim(ucfirst($this->_controller));
-             $elem = new ZendX_JQuery_Form_Element_AutoComplete("Autocomplete", array('label' => $label, 'size'=>30 , 'maxlength'=>8));
+            $elem = new ZendX_JQuery_Form_Element_AutoComplete("Autocomplete", array('label' => $label, 'size'=>30 , 'maxlength'=>8));
         }
         
        

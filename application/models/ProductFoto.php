@@ -41,9 +41,9 @@ class Application_Model_Productfoto extends My_Model
     {
             $sql = $this->db
             ->select()
-            ->from(array('a' => 'foto'), array('a.ID', 'fileName', 'filePath') )
-            ->join(array('b' => 'productfoto'), ' a.ID = b.IDFoto  ', array('IDProduct') );
-            $sql->where ('b.IDProduct ='. (int)$id);
+            ->from(array('a' => 'foto'), array('a.id', 'fileName', 'filePath') )
+            ->join(array('b' => 'product_foto'), ' a.id = b.idfoto  ', array('idproduct') );
+            $sql->where ('b.idproduct ='. (int)$id);
             $data = $this->db->fetchAll($sql);
             return $data;
     }

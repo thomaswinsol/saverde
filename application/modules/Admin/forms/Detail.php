@@ -57,14 +57,7 @@ class Admin_Form_Detail extends My_Form
                         'filters' => array('StringTrim') ,
                         'class'=>"onlyDecimals",
                         )));
-                    }
-                    if ($fieldtype=='sel') {
-                       $elem = $this->createElement('select',$field);
-		   	$elem->setLabel("lbl".$field)
-			->addMultiOptions(array('1' => 'JA' , '0' => 'NEEN') )
-			->setSeparator('');
-			$this->addElement($elem);
-                    }
+                    }                    
         }
         $this->setElementDecorators($this->elementDecorators);
 

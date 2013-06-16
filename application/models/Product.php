@@ -4,34 +4,35 @@ class Application_Model_Product extends My_Model
     protected $_name = 'product'; //table name
     protected $_sName = 'product_vertaling.product';
     protected $_id    = 'id';
-    protected $model_fields = array('dec_eenheidsprijs','sel_homepage');
+    protected $model_fields = array('dec_eenheidsprijs');
     protected $lang_fields = array('titel', 'teaser', 'inhoud');
 
-    public function getProducten($locale=null, $status=null, $vertaald=null, $data=null)
+    public function getProducten($status=null, $data=null)
     {
+            $locale= Zend_Registry::get('Zend_Locale');
+            $taalcode=(!empty($locale))?substr($locale,0,2):'nl';
             $sql = $this->db
             ->select()
-            ->from(array('a' => 'product'), array('ID', 'label', 'status' , 'prijs' ,  'homepagina') )
-            ->join(array('b' => 'productlocale'), ' a.ID = b.IDProduct  ', array('titel','teaser','omschrijving','vertaald', 'locale') );
+            ->from(array('p' => 'product'), array('id', 'label', 'status' , 'eenheidsprijs' ) )
+            ->join(array('v' => 'product_vertaling'), ' p.id = v.product_id  ', array('titel','teaser','inhoud','vertaald', 'taal_id') )
+            ->join(array('t' => 'taal'), ' t.id = v.taal_id  ', array('code') );;
 
-        If (!empty($locale)) {
-            $sql->where ('locale = '."'".$locale."'");
-        }
+        
+            $sql->where ('t.code = '."'".$taalcode."'");
+
         If (!empty($status)) {
             $sql->where ('status = '.$status);
         }
-        If (!empty($vertaald)) {
-            $sql->where ('vertaald = '.(int)$vertaald);
-        }
+        
         if (!empty($data['Categorie'])){
-            $sql->join(array('c' => 'categorieproduct'), ' b.IDProduct = c.IDProduct  ', array('c.IDCategorie') );
-            $sql->where ('c.IDCategorie = '. $data['Categorie'] );
+            $sql->join(array('c' => 'product_categorie'), ' p.id = c.idproduct  ', array('c.idcategorie') );
+            $sql->where ('c.idcategorie = '. (int)$data['Categorie'] );
         }
-        if (!empty($data['Label'])){
-            $sql->where ('Label like '."'%".trim($data['Label'])."%'");
+        if (!empty($data['label'])){
+            $sql->where ('label like '."'%".trim($data['label'])."%'");
         }
-        if (!empty($data['Titel'])){
-            $sql->where ('b.Titel like '."'%".trim($data['Titel'])."%'");
+        if (!empty($data['titel'])){
+            $sql->where ('v.titel like '."'%".trim($data['titel'])."%'");
         }
 
         $data = $this->db->fetchAll($sql);
@@ -39,28 +40,22 @@ class Application_Model_Product extends My_Model
     }
 
 
-    /**
-     *
-     * Delete by id
-     * @param mixed array|integer $id
-     * @param string $primaryKey : name of primary key, default id specified in model
-     */
-    public function getProduct($locale=null, $status=null, $id=null)
+    public function getProduct($status=null, $id=null)
     {
-        $sql = $this->db
-        ->select()
-        ->from(array('a' => 'product'), array('ID', 'label', 'status' , 'prijs' ,  'homepagina') )
-        ->joininner(array('b' => 'productlocale'), ' a.ID = b.IDProduct  ', array('titel','teaser','omschrijving','vertaald', 'locale') );
+            $locale= Zend_Registry::get('Zend_Locale');
+            $taalcode=(!empty($locale))?substr($locale,0,2):'nl';
+            $sql = $this->db
+            ->select()
+            ->from(array('p' => 'product'), array('id', 'label', 'status' , 'eenheidsprijs' ) )
+            ->join(array('v' => 'product_vertaling'), ' p.id = v.product_id  ', array('titel','teaser','inhoud','vertaald', 'taal_id') )
+            ->join(array('t' => 'taal'), ' t.id = v.taal_id  ', array('code') );;
 
-        If (!empty($locale)) {
-            $sql->where ('locale = '."'".$locale."'");
-        }
+            $sql->where ('t.code = '."'".$taalcode."'");
+
         If (!empty($status)) {
             $sql->where ('status = '.$status);
         }
-
-        $sql->where ('a.ID = '.(int)$id);
-
+        $sql->where ('p.id = '.(int)$id);
         $data = $this->db->fetchRow($sql);
 
         return $data;
@@ -85,7 +80,6 @@ class Application_Model_Product extends My_Model
         	'label'          => $data['label'],
                 'status'         => (int)$data['status'],
                 'eenheidsprijs'  => $eenheidsprijs,
-                'homepage'       => (int)$data['homepagina'],
         );
 
         if (!empty($id)) {

@@ -2,42 +2,13 @@
 body {color:#666; font-size: 12px; font-family: Verdana, sans-serif; background-color:whitesmoke;}
 #container{margin:0 0 0 10; width:1200px; font-size: 12px;}
 aside { float:left; width:175px;}
-header {margin-left:10px;height:130px;width:900px;float:left;}
-/*#logo { float:left; width:200px; height:100px; background-image: url(../images/logo.jpg); background-repeat:no-repeat;  }*/
+header {margin-left:10px;height:141px;width:900px;float:left;}
 #lang { float:left; width:50px; }
 header nav {width:600px;margin-top:10px; float:left; margin-left:10px; }
 nav li {list-style-type:none; font-size:14px; height:50px; display:inline; margin-left:10px;}
 nav ul li.active{color:red;}
 
 #content{width:900px;float:left;}
-
-
-.table ul
-{
-float:left;
-margin:0;
-padding:0;
-border:1px solid #C9C9C9;
-height:210px;
-width:170px;
--moz-border-radius: 5px;
-border-radius: 5px;
-}
-
-.table ul li
-{
-list-style:none;
-padding:5px 10px;
-text-align:center;
-}
-
-.table ul li.title
-{
-font-weight:bold;
-background:#5C3317;
-color:#fff;
-}
-
 
 table.frm_01 , .frm_02{
 	font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
@@ -157,8 +128,10 @@ table.frm_01 select[disabled] {
 	margin-bottom:20px;
         margin-top:5px;
         text-align:center;
-        width:970px;
+        width:910px;
         background-color:#DEDEDE;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
 }
 
 fieldset {
@@ -208,10 +181,7 @@ div .winkelmand {
 }
 
 .winkelmandempty {
-    border:1px solid #C9C9C9;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-    text-align:center;
+    text-align:left;
 }
 div .winkelmand li {
     list-style-type:none;
@@ -223,4 +193,84 @@ h1  {
     margin-left:25px;
     margin-bottom:10px;
 }
+
+div .login {
+        -moz-border-radius: 10px;
+        border-radius: 10px;
+        background : #fff;
+        border : 1px solid #666;
+        width:270px;
+        float:right;
+        padding-bottom: 10px;
+        padding-left:10px;
+        padding-top:10px;
+}
+
+.promoblokken {
+    display: inline-block;
+    padding: 10px;
+    position: relative;
+    width: 100%;
+    z-index: 0;
+}
+.l_prom_new {
+    cursor: pointer;
+    float: left;
+    margin: 0 30px 30px 0;
+    width: 209px;
+}
+.l_prom_top_g_new {
+    background-image: url("/images/promoblok/spc_top.png");
+    background-repeat: no-repeat;
+    clear: both;
+    color: #000000;
+    font-size: 12px;
+    font-weight: bold;
+    height: 28px;
+    line-height: 30px;
+    text-align: left;
+    text-transform: capitalize;
+    width: 209px;
+}
+.l_iconset {
+    float: left;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 7px;
+    width: 20px;
+}
+.l_prom_mid {
+    background-image: url("/images/promoblok/spc_bg.png");
+    background-repeat: repeat-y;
+    height: 210px !important;
+    padding-left: 2px;
+    padding-right: 2px;
+    padding-top: 10px;
+    position: relative;
+    width: 209px;
+}
+
+.l_fotobox {
+    height: 120px;
+    text-align: center;
+    width: 180px;
+}
+
+.l_Titels {
+    float: left;
+    padding-left: 5px;
+    padding-top: 10px;
+    text-align: center;
+    width: 180px;
+}
+.l_prom_bottom_new {
+    background-color: #FFFFFF;
+    background-image: url("/images/promoblok/spc_bottom.png");
+    background-repeat: no-repeat;
+    clear: both;
+    height: 10px;
+    overflow: hidden;
+    width: 209px;
+}
+
 

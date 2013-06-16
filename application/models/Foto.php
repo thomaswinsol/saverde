@@ -130,7 +130,6 @@ class Application_Model_Foto extends My_Model
      public function getAutocomplete($where=NULL){
 
         $foto = parent::getAll($where);
-
 	$matches = array();
         foreach ( $foto as $f ) {
                         $f['id']  =trim($f['id']);

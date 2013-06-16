@@ -12,22 +12,22 @@ class Application_Form_ZoekProduct extends My_Form  {
         $this->addElement(new Zend_Form_Element_Hidden('ID',array( )));
         // element Categorie
         $titelModel = new Application_Model_Categorie();
-        $defaultOptions = array('key'=> 'ID', 'value' =>'Omschrijving', 'emptyRow' => True);
-        $titel = $titelModel->buildSelect($defaultOptions, null, "Omschrijving");
+        $defaultOptions = array('key'=> 'id', 'value' =>'label', 'emptyRow' => True);
+        $titel = $titelModel->buildSelect($defaultOptions, null, "label");
         $elem = new Zend_Form_Element_Select('Categorie');
         $elem->setLabel('txtCategorie')
              ->setMultiOptions($titel);
         $this->addElement($elem);
 
          // element label
-        $this->addElement(new Zend_Form_Element_Text('Label',array(
+        $this->addElement(new Zend_Form_Element_Text('label',array(
             'label'=>"txtLabel",
             'filters' => array('StringTrim'),
             'validators' => array( array('StringLength',true, array('max'=>255)))
             )));
 
           // element titel
-        $this->addElement(new Zend_Form_Element_Text('Titel',array(
+        $this->addElement(new Zend_Form_Element_Text('titel',array(
             'label'=>"txtTitel",
             'filters' => array('StringTrim'),
             'validators' => array( array('StringLength',true, array('max'=>255)))

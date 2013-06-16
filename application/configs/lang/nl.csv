@@ -26,8 +26,7 @@ btnLostPassword;Wachtwoord vergeten
 lblVoornaam;Voornaam
 txtProduct;Product
 txtRegisterEmail;Een e-mail werd naar u verstuurd. Gelieve te klikken op de link om uw account te activeren
-txtWinkelmand;Winkelmand
-txtWinkelmandLeeg;Winkelmand is leeg
+txtWinkelmand;Winkelwagen
 txtWinkelmandLeegmaken;Winkelmand leegmaken
 menuPages;Pagina's
 lbllabel;label

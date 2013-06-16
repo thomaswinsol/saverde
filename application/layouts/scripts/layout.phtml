@@ -50,14 +50,9 @@ echo $this->doctype().PHP_EOL; ?>
                     <?php echo $this->navigation()->menu()->addPageClassToLi(true); ?>
                     <br />
                 </nav>
-                <div id="lang">
-                    <a href="<?php echo $this->url(array('controller'=>'taal' , 'action'=>'selecttaal', 'lang'=>'nl_BE') ); ?>">nl</a>
-                    <a href="<?php echo $this->url(array('controller'=>'taal' , 'action'=>'selecttaal', 'lang'=>'fr_BE') ); ?>">fr</a>
-                </div>
-              
-                            <div id="login">
-                                <span style="float:right"><?php echo $this->signupForm($this->signupForm); ?></span>
-                            </div>
+                             
+                            <div class="login">
+                                <?php echo $this->signupForm($this->signupForm); ?>                           </div>
                 
              </header>
             <section id="content">

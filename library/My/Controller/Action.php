@@ -15,7 +15,7 @@ abstract class My_Controller_Action extends Zend_Controller_Action
         $defaultNamespace = new Zend_Session_Namespace ();
         if(!array_key_exists('context', $_SESSION))
         {
-            $_SESSION['context']=array('username'=>"",'lang'=>"nl_BE",'winkelmand'=>null);
+            $_SESSION['context']=array('winkelmand'=>null);
         }
         if (!isset($_SESSION['context']['Firma'])) {
             $firmaModel = new Application_Model_Firma();
