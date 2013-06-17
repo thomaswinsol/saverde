@@ -22,8 +22,9 @@ if (!empty($this->producten)) {
         </div>
         <div class="l_Titels">
              <a href="<?php echo $this->url(array('controller'=>'index' , 'action'=>'productinfo', 'id'=>$p['id']) ); ?>">
-             <?php echo $p['titel']; ?>
+             <?php echo !empty($p['titel'])?$p['titel']:$p['label']; ?>
              </a>
+             <?php echo $this->getCategorie($p['id']); ?>
         </div>
     </div>
     <div class="l_prom_bottom_new">

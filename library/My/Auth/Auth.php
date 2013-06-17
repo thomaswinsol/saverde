@@ -18,7 +18,7 @@
         $auth = Zend_Auth::getInstance();
                 
         // If user is not logged in and is  requesting the bestelwinkelmand action
-        // - redirect to login page
+        // - redirect to registration page
         if (!$auth->hasIdentity() &&
                 $request->getControllerName() != $loginController
                  && $request->getActionName() != $loginAction)
@@ -29,8 +29,7 @@
 
             if (array_key_exists($controllerName,$this->_includeAuthActions)
                     && in_array($actionName,$this->_includeAuthActions[$controllerName])) {
-                 //die("ok".$controllerName."-".$actionName );
-                $redirector = Zend_Controller_Action_HelperBroker::getStaticHelper('redirector');
+                 $redirector = Zend_Controller_Action_HelperBroker::getStaticHelper('redirector');
                 $redirector->gotoUrl('/winkelmand/userhasnoidentity');
             }
             

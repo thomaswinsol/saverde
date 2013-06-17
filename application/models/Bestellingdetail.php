@@ -9,8 +9,8 @@ class Application_Model_Bestellingdetail extends My_Model
     {
              $productModel = new Application_Model_Product();
 	     foreach ($winkelmand as $key => $value) {
-                $product=$productModel->getProduct(Zend_Registry::get('Zend_Locale'),1,$key);
-                $dbFields=array("IDBestelling"=>$id, "IDProduct"=>$key,"AantalBesteld"=>$value,"Prijs"=>$product['Prijs']);
+                $product=$productModel->getProduct(1,$key);
+                $dbFields=array("IDBestelling"=>$id, "IDProduct"=>$key,"AantalBesteld"=>$value,"Prijs"=>$product['Eenheidsprijs']);
                 $this->insert($dbFields);
              }
     }

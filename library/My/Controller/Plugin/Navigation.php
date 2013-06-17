@@ -9,15 +9,26 @@ class My_Controller_Plugin_Navigation extends Zend_Controller_Plugin_Abstract
     public function preDispatch(Zend_Controller_Request_Abstract $request) {
         
         //make navigation
+        $role=1;
+        $auth = Zend_Auth::getInstance();
+        if ($auth->hasIdentity() ) {
+            $gebruiker= $auth->getIdentity();
+            $role = $gebruiker->idrole;
+        }
+
+        $menuModel = new Application_Model_Menu();
+        $urls= $menuModel->getMenu($role);
+
+
         $container = new Zend_Navigation;
-        
-        $urls = array (
+
+        /*$urls = array (
          array ( 'label'=> 'menuHome', 'module'=>'default', 'action'=> 'home', 'controller'=> 'index', 'params'=> array() ),
-         array ( 'label'=> 'menuProduct', 'module'=>'Admin', 'action'=> 'lijst', 'controller'=> 'product', 'params'=> array() ),
-         array ( 'label'=> 'menuCategorie', 'module'=>'Admin', 'action'=> 'lijst', 'controller'=> 'categorie', 'params'=> array() ),
-         array ( 'label'=> 'menuFotoUpload', 'module'=>'Admin', 'action'=> 'lijst', 'controller'=> 'foto', 'params'=> array() ),
-         array ( 'label'=> 'menuPages', 'module'=>'Admin', 'action'=> 'lijst', 'controller'=> 'pagina', 'params'=> array() ),
-        );
+         array ( 'label'=> 'menuProduct', 'module'=>'dealer', 'action'=> 'lijst', 'controller'=> 'product', 'params'=> array() ),
+         array ( 'label'=> 'menuCategorie', 'module'=>'dealer', 'action'=> 'lijst', 'controller'=> 'categorie', 'params'=> array() ),
+         array ( 'label'=> 'menuFotoUpload', 'module'=>'dealer', 'action'=> 'lijst', 'controller'=> 'foto', 'params'=> array() ),
+         array ( 'label'=> 'menuPages', 'module'=>'dealer', 'action'=> 'lijst', 'controller'=> 'pagina', 'params'=> array() ),
+        );*/
         
         foreach  ($urls as $url) {
             $page = new Zend_Navigation_Page_Mvc(array(

@@ -23,7 +23,7 @@ abstract class My_Controller_Action extends Zend_Controller_Action
             $_SESSION['context']['Firma']=$firma;            
         }
         $module = $this->getRequest()->getModuleName();
-        if (strtolower($module)=="admin") {
+        if (strtolower($module)=="dealer") {
            unset($_SESSION['context']['winkelmand']);
            unset($_SESSION['context']['Firma']);
         }
@@ -55,7 +55,7 @@ abstract class My_Controller_Action extends Zend_Controller_Action
     public function lijstAction()
     {
          $params['controller'] = $this->getRequest()->getControllerName();
-         $form = new Admin_Form_Autocomplete(null,$params);
+         $form = new dealer_Form_Autocomplete(null,$params);
          $this->view->form = $form;
     }
 
@@ -85,7 +85,7 @@ abstract class My_Controller_Action extends Zend_Controller_Action
          $param["languages"]= $taalModel->getTaal();
          $param["controller"]= strtolower($controller);
 
-         $detailform = new Admin_Form_Detail(null,$param);
+         $detailform = new dealer_Form_Detail(null,$param);
 
          $id = (int) $this->_getParam('id');
          If (!empty($id)) {
@@ -104,8 +104,8 @@ abstract class My_Controller_Action extends Zend_Controller_Action
             $data= $detailModel->SplitDataAndTranslation($formData);
             $detailModel->save($data, $data['ID']);
             $this->_helper->redirector('lijst', strtolower($controller));
-         }
-         
+         }         
     }
+
    
 }

@@ -1,6 +1,5 @@
 <!doctype>
 <?php
-// -------------------------
 header('Content-Type: text/html; charset=utf-8');
 echo '<?xml version="1.0" encoding="UTF-8" ?>'.PHP_EOL;
 echo $this->doctype().PHP_EOL; ?>
@@ -59,7 +58,7 @@ echo $this->doctype().PHP_EOL; ?>
              </header>
             <section id="content">
 
-                <div class="mainTitle"><?php echo $this->placeholder('mainTitle') ?></div>
+                <div id="mainTitle"><?php echo $this->placeholder('mainTitle') ?></div>
 
                 <?php echo $this->layout()->content; ?>
             </section>    

@@ -17,7 +17,7 @@ class GebruikerController extends My_Controller_Action
         if (!$form->isValid($formData))
         {
             $this->flashMessenger->setNamespace('Errors');
-            $this->flashMessenger->addMessage('Invalid user or password');
+            $this->flashMessenger->addMessage('-Invalid user or password');
             $this->_helper->redirector('home', 'index');
         }
 
@@ -40,16 +40,11 @@ class GebruikerController extends My_Controller_Action
         { //auth OK
             $auth->getStorage()
                 ->write($adapter->getResultRowObject(null, "password"));
-            $identity = $adapter->getResultRowObject();
-            $modelGebruiker = new Application_Model_Gebruiker();
-            $result = $modelGebruiker->getOneByField("email", $formData['email']);
-            $this->context['IDUser']= $result['ID'];
-            $this->SaveContext();
-            
+            $identity = $adapter->getResultRowObject();           
         } else
         {        
             $this->flashMessenger->setNamespace('Errors');
-            $this->flashMessenger->addMessage('Invalid user or password');
+            $this->flashMessenger->addMessage('-Invalid user or password');
         }
         $this->_helper->redirector('home', 'index');
     }

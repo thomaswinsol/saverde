@@ -14,7 +14,6 @@ table.frm_01 , .frm_02{
 	font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
 	font-size:  95%;
 	border-collapse: collapse;
-	/*background-color:green*/;
 	background-color:#EDECEF;
 	margin-left:25px;
 	border-top:1px solid gray;
@@ -30,11 +29,9 @@ table.frm_02{
 }
 
 table.frm_01 caption {
-	  /*border:1px solid #333; */
 	  margin-left:50px;  }
 
 table.frm_01 tr{
-	/* background-color: #EDECEF;  */
 	color:black;
 }
 
@@ -59,10 +56,8 @@ table.frm_01 tbody th{
 }
 
 table.frm_01 tbody td{
-	 /* padding: 0.2em; */
 	 padding: 2px 5px;
 	 vertical-align:middle;
-	 /* width:200px;  */
 }
 
 table.frm_01 tbody td.price{
@@ -82,7 +77,6 @@ table.frm_01 tfoot th{
 	text-align: right;
 	padding-right: 0.5em;
 	letter-spacing: 1px;
-	/* background:   */
 }
 
 table.frm_01 tfoot td{
@@ -121,23 +115,17 @@ table.frm_01 select[disabled] {
 }
 
 #container .mainTitle{
-	color:red;
-	font-weight:bold;
-	font-size:120%;
         height:20px;
 	margin-bottom:20px;
         margin-top:5px;
         text-align:center;
-        width:910px;
-        background-color:#DEDEDE;
-        -moz-border-radius: 5px;
-        border-radius: 5px;
+        width:970px;
 }
 
 fieldset {
         -moz-border-radius: 10px;
         border-radius: 10px;
-        background : #fff;
+        background-color : #EDECEF;
         border : 1px solid #666;
         width:50%;
         margin-left:10px;
@@ -147,6 +135,7 @@ fieldset {
 
 legend {
        margin-left:10px;
+       font-weight: bold;
 }
 nav {
     float:left;
@@ -300,4 +289,27 @@ textarea.productinfo {
     height: 16px;           /* make this the size of your image */
     padding-left: 16px;     /* make text start to the right of the image */
     vertical-align: middle; /* align the text vertically centered */
+}
+
+.msg_error{
+	border:1px dashed darkred;
+	padding:0px;
+	text-align:left;
+	color:#fff;
+	margin-left:25px;
+	background-color: darkred;
+}
+
+.msg_ok{
+	border:1px solid black;
+	padding:0px;
+	text-align:left;
+	color:#fff;
+	background-color:darkgreen;
+	margin-left:25px;
+}
+
+#productform {
+    float:left;
+    width:70%;
 }

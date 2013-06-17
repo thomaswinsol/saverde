@@ -5,7 +5,7 @@ txtInloggen;Inloggen
 btnInloggen;Inloggen
 txtWelkom;Welkom
 menuHome;Home
-menuFotoUpload;Foto's
+menuFoto;Foto's
 txtTitel;Titel
 txtTeaser;Teaser
 txtOpmerking;Opmerking
@@ -16,8 +16,8 @@ txtLabel;Label
 txtCategorie;Categorie
 txtBestellen;Bestellen
 txtPrijs;Eenheidsprijs
-txtNoIdentity;Gelieve in te loggen of te registreren om de winkelmand te bestellen 
-txtAlert1;Aantal verplicht in te vullen
+txtNoIdentity;-Gelieve in te loggen of te registreren om de winkelmand te bestellen 
+txtAlert1;-Aantal verplicht in te vullen
 txtBevestigingBestellingWinkelmand;Druk op OK om de winkelmand te bestellen
 txtToegevoegd;Artikel toegevoegd aan winkelmand
 txtFoto;Foto
@@ -28,7 +28,7 @@ txtProduct;Product
 txtRegisterEmail;Een e-mail werd naar u verstuurd. Gelieve te klikken op de link om uw account te activeren
 txtWinkelmand;Winkelwagen
 txtWinkelmandLeegmaken;Winkelmand leegmaken
-menuPages;Pagina's
+menuPagina;Pagina's
 lbllabel;label
 btnOpslaan;Opslaan
 txtNewPage;Nieuwe pagina
@@ -52,3 +52,6 @@ txtselectiefoto;Productfoto's
 lblProduct;Product
 txtselectiecategorie;Productcategorieën
 Frans;Français
+en;Engels
+de;Duits
+es;Spaans

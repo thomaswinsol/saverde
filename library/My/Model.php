@@ -5,6 +5,7 @@ abstract class My_Model extends Zend_Db_Table_Abstract
     public $db;    
     protected $dataGrid;
     protected $enableDataGrid = FALSE;
+
     
  // -----------------------------------------
     public function init()

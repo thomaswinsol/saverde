@@ -55,11 +55,18 @@ class WinkelmandController extends My_Controller_Action
         $this->_helper->viewRenderer->setNoRender();
         // Bestelling header
         $bestellingheaderModel = new Application_Model_Bestellingheader();
-        $dbFields=array("userID"=>$this->context['IDUser']);
+        $auth = Zend_Auth::getInstance();
+        if ($auth->hasIdentity() ) {
+            $gebruiker= $auth->getIdentity();
+            $userid = $gebruiker->id;
+        }
+        $dbFields=array("userID"=>(int)$userid);
         $bestellingid=$bestellingheaderModel->save($dbFields);
+        
         // Bestelling detail
         $bestellingdetailModel = new Application_Model_Bestellingdetail();
         $bestellingdetailModel->save($this->context['winkelmand'],$bestellingid);
+        
         // Winkelmand leegmaken
         $this->context['winkelmand']=null;
         $this->SaveContext();

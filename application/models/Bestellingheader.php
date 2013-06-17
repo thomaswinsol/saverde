@@ -15,8 +15,8 @@ class Application_Model_Bestellingheader extends My_Model
                 'datumbestelling'   => $currentTime,
                 'leveringsadres'    => "xxxx",
         );
-        
-        return $this->insert($dbFields);        
+
+        return $this->insert($dbFields);                               
     }
 
     

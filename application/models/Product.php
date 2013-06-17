@@ -16,12 +16,12 @@ class Application_Model_Product extends My_Model
             ->select()
             ->from(array('p' => 'product'), array('id', 'label', 'status' , 'eenheidsprijs' ) )
             ->join(array('v' => 'product_vertaling'), ' p.id = v.product_id  ', array('titel','teaser','inhoud','vertaald', 'taal_id') )
-            ->join(array('t' => 'taal'), ' t.id = v.taal_id  ', array('code') );;
+            ->join(array('t' => 'taal'), ' t.id = v.taal_id  ', array('code', 'status as t.satus') );;
 
             $sql->where ('t.code = '."'".$taalcode."'");
 
         If (!empty($status)) {
-            $sql->where ('status = '.$status);
+            $sql->where ('p.status = '.$status);
         }
         
         if (!empty($data['Categorie'])){
@@ -48,12 +48,12 @@ class Application_Model_Product extends My_Model
             ->select()
             ->from(array('p' => 'product'), array('id', 'label', 'status' , 'eenheidsprijs' ) )
             ->join(array('v' => 'product_vertaling'), ' p.id = v.product_id  ', array('titel','teaser','inhoud','vertaald', 'taal_id') )
-            ->join(array('t' => 'taal'), ' t.id = v.taal_id  ', array('code') );;
+            ->join(array('t' => 'taal'), ' t.id = v.taal_id  ', array('code', 'status as t.satus') );;
 
             $sql->where ('t.code = '."'".$taalcode."'");
 
         If (!empty($status)) {
-            $sql->where ('status = '.$status);
+            $sql->where ('p.status = '.$status);
         }
         $sql->where ('p.id = '.(int)$id);
         $data = $this->db->fetchRow($sql);

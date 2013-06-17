@@ -40,14 +40,22 @@ class Application_Model_Productcategorie extends My_Model
 
     public function getCategorieForProduct($id=null)
     {
+            $locale= Zend_Registry::get('Zend_Locale');
+            $taalcode=(!empty($locale))?substr($locale,0,2):'nl';
+
             $sql = $this->db
             ->select()
-            ->from(array('a' => 'categorie'), array('id', 'label', 'status') )
-            ->join(array('b' => 'product_categorie'), ' a.id = b.idcategorie  ', array('id as b.id', 'idproduct') );
+            ->from(array('c' => 'categorie'), array('id', 'label', 'status') )
+            ->join(array('p' => 'product_categorie'), ' c.id = p.idcategorie  ', array('id as c.id', 'idproduct') )
+            ->join(array('v' => 'categorie_vertaling'), ' c.id = v.categorie_id  ', array('titel','vertaald', 'taal_id') )
+            ->join(array('t' => 'taal'), ' t.id = v.taal_id  ', array('code') );;
+
+            $sql->where ('t.code = '."'".$taalcode."'");
 
         If (!empty($id)) {
-            $sql->where ('b.idproduct = '.$id);
+            $sql->where ('p.idproduct = '.$id);
         }
+
         $data = $this->db->fetchAll($sql);
         return $data;
     }
