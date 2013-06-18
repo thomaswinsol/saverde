@@ -3,7 +3,6 @@ class Application_Model_Categorievertaling extends My_Model
 {
     protected $_name = 'categorie_vertaling'; //table name
     protected $_id   = 'id'; //primary key
-
     
     public function save($data,$id = NULL)
     {

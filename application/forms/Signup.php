@@ -15,6 +15,8 @@ class Application_Form_Signup extends Zend_Form {
             'required'=>true,
             'size'=>35,
             // filters
+            'validators' => array(
+                            array('EmailAddress',true)),
             'filters' => array('StringTrim')
             )));
 

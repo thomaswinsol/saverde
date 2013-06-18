@@ -5,7 +5,7 @@ class Zend_View_Helper_toonLocale extends Zend_View_Helper_Abstract
     {
         $html=null;
         $localeModel = new Application_Model_Locale();
-        $locale = $localeModel->getAll();
+        $locale = $localeModel->getAll("status=1");
         if (!empty($locale)) {
             foreach ($locale as $l) {
                 $html.= 

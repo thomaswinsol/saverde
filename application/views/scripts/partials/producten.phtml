@@ -9,10 +9,12 @@ if (!empty($this->producten)) {
 ?>
 <div class="l_prom_new">
     <div class="l_prom_top_g_new">
+        <?php if ($p['status']==3) { ?>
         <div class="l_iconset">
-            <img src="/images/promoblok/red.png" alt="">
+            <img src="/images/promoblok/orange.png" alt="">
         </div>
-        promotie
+        <?php echo $this->translate("txtProductInDeKijker"); ?>
+        <?php } ?>
     </div>
     <div class="l_prom_mid" align="center" style="height: 210px; ">
         <div class="l_fotobox">

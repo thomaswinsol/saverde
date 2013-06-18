@@ -2,9 +2,7 @@
 class Application_Model_Bestellingheader extends My_Model
 {
     protected $_name = 'bestellingheader'; //table name
-    protected $_id = 'ID'; //primary key
-    /*protected $_dependentTables = array('dealers','talen','orders', 'aanspreektitels');*/    
-    protected $enableDataGrid = TRUE;
+    protected $_id = 'id'; //primary key
         
     public function save($data,$id = NULL)
     {

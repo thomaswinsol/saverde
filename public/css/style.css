@@ -4,7 +4,7 @@ body {color:#666; font-size: 12px; font-family: Verdana, sans-serif; background-
 aside { float:left; width:175px;}
 header {margin-left:10px;width:900px;float:left;}
 #lang { float:left; width:50px; }
-header nav {width:450px;margin-top:10px; float:left; margin-left:10px; }
+header nav {width:550px;margin-top:10px; float:left; margin-left:10px; }
 nav li {list-style-type:none; font-size:14px; height:50px; display:inline; margin-left:10px;}
 nav ul li.active{color:red;}
 

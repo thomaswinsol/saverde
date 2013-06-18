@@ -7,6 +7,7 @@ class Application_Model_Pagina extends My_Model
 
     protected $lang_fields  = array('titel', 'teaser', 'inhoud');
     protected $model_fields = array();
+    protected $status = '';
 
     public function save($data,$id = NULL)
     {
@@ -71,6 +72,11 @@ class Application_Model_Pagina extends My_Model
     public function getModelFields()
     {
         return $this->model_fields;
+    }
+
+    public function getStatus()
+    {
+        return $this->status;
     }
 
      public function getAutocomplete($where=NULL){

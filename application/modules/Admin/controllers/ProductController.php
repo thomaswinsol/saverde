@@ -1,5 +1,5 @@
 <?php
-class Admin_ProductController extends My_Controller_Action
+class admin_ProductController extends My_Controller_Action
 {
     public function detailAction()
     {
@@ -9,12 +9,12 @@ class Admin_ProductController extends My_Controller_Action
               $params['productid']  = $id;
               //Productfoto's
               $params['productdetail']  = "F";
-              $this->view->fotoform = new Admin_Form_Autocomplete(null,$params);
+              $this->view->fotoform = new admin_Form_Autocomplete(null,$params);
               $productfotoModel = new Application_Model_Productfoto();
               $this->view->productfotos=$productfotoModel->getAll("idproduct=".$id);
               //Productcategorieën
               $params['productdetail']  = "C";
-              $this->view->categorieform = new Admin_Form_Autocomplete(null,$params);
+              $this->view->categorieform = new admin_Form_Autocomplete(null,$params);
               $productcategorieModel = new Application_Model_Productcategorie();
               $this->view->productcategorie=$productcategorieModel->getCategorieForProduct($id);
          }
@@ -39,7 +39,7 @@ class Admin_ProductController extends My_Controller_Action
             $productcategorieModel->save($dbFields);
         }
         $params = array('id' => $productid);
-        $this->_helper->redirector('detail', 'product', 'Admin', $params);
+        $this->_helper->redirector('detail', 'product', 'admin', $params);
     }
 
     public function deleteproductdetailAction() {
@@ -58,7 +58,7 @@ class Admin_ProductController extends My_Controller_Action
                 }
             }
             $params = array('id' => $data['productid']);
-            $this->_helper->redirector('detail', 'product', 'Admin', $params);
+            $this->_helper->redirector('detail', 'product', 'admin', $params);
     }
     
 }

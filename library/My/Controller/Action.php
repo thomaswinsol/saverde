@@ -23,7 +23,7 @@ abstract class My_Controller_Action extends Zend_Controller_Action
             $_SESSION['context']['Firma']=$firma;            
         }
         $module = $this->getRequest()->getModuleName();
-        if (strtolower($module)=="dealer") {
+        if (strtolower($module)=="admin") {
            unset($_SESSION['context']['winkelmand']);
            unset($_SESSION['context']['Firma']);
         }
@@ -55,11 +55,16 @@ abstract class My_Controller_Action extends Zend_Controller_Action
     public function lijstAction()
     {
          $params['controller'] = $this->getRequest()->getControllerName();
-         $form = new dealer_Form_Autocomplete(null,$params);
+         $form = new admin_Form_Autocomplete(null,$params);
          $this->view->form = $form;
     }
 
     public function autocompleteAction() {
+                $field='label';
+                $id =  $this->_getParam('id');
+                If (!empty($id)) {
+                    $field="email";
+                }
                 $this->_helper->layout->disableLayout();
                 $this->_helper->viewRenderer->setNoRender();
  		$param= $this->_getParam('term');
@@ -67,7 +72,7 @@ abstract class My_Controller_Action extends Zend_Controller_Action
                 $model= 'Application_Model_'.trim($controller);
                 $autocompleteModel = new $model;
  		$data['naam']=trim($param);
-                $where = "label like '%".trim($param)."%'";
+                $where = $field. " like '%".trim($param)."%'";
  		$result=$autocompleteModel->getAutocomplete($where);
  		$this->_helper->json(array_values($result));
     }
@@ -80,12 +85,12 @@ abstract class My_Controller_Action extends Zend_Controller_Action
 
          $param["langFields"] = $detailModel->getLangFields();
          $param["modelFields"]= $detailModel->getModelFields();
-
+         $param["status"]= $detailModel->getStatus();
          $taalModel = new Application_Model_Taal();
          $param["languages"]= $taalModel->getTaal();
          $param["controller"]= strtolower($controller);
 
-         $detailform = new dealer_Form_Detail(null,$param);
+         $detailform = new admin_Form_Detail(null,$param);
 
          $id = (int) $this->_getParam('id');
          If (!empty($id)) {

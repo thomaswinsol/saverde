@@ -10,7 +10,7 @@ $(document).ready(function() {
                    
                 $('#'+elem).uploadify({
                     'uploader'  : '/base/js/uploadify/uploadify.swf',
-                    'script'    : '<?php echo $this->url(array('module'=>'Admin', 'controller' => 'foto','action' => 'ajax-upload')); ?>',
+                    'script'    : '<?php echo $this->url(array('module'=>'admin', 'controller' => 'foto','action' => 'ajax-upload')); ?>',
                     'cancelImg' : '/base/js/uploadify/cancel.png',
                     'folder'    : '/uploads',
                     'auto'      : true,

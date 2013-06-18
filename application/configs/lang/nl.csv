@@ -25,7 +25,7 @@ btnRegister;Registreer
 btnLostPassword;Wachtwoord vergeten
 lblVoornaam;Voornaam
 txtProduct;Product
-txtRegisterEmail;Een e-mail werd naar u verstuurd. Gelieve te klikken op de link om uw account te activeren
+txtRegisterEmail;Bedankt om te registreren, na ontvangst e-mail , kan u inloggen in onze webshop
 txtWinkelmand;Winkelwagen
 txtWinkelmandLeegmaken;Winkelmand leegmaken
 menuPagina;Pagina's
@@ -55,3 +55,11 @@ Frans;Français
 en;Engels
 de;Duits
 es;Spaans
+txtProductInDeKijker;Product in de kijker
+txtUserAlreadyRegistrated;-Dit e-mail adres is reeds geregistreerd
+menuUser;Gebruikers
+lblGebruiker;Gebruiker
+lblGebruikerstatus;Status gebruiker
+btnVerzenden;Verzenden
+txtEmailNotFound;-E-mailadres is niet geregistreerd
+txtLostPassword;Wachtwoord vergeten

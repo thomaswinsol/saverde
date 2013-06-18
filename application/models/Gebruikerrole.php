@@ -1,7 +1,7 @@
 <?php
-class Application_Model_Firma extends My_Model
+class Application_Model_Gebruikerrole extends My_Model
 {
-    protected $_name = 'firma'; //table name
+    protected $_name = 'gebruiker_role'; //table name
     protected $_id   = 'id'; //primary key
  
     /**

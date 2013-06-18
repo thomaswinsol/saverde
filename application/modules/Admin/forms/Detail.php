@@ -1,10 +1,13 @@
 <?php
-class Admin_Form_Detail extends My_Form
+class admin_Form_Detail extends My_Form
 {
     protected $_langFields;
     protected $_modelFields;
     protected $_languages;
     protected $_controller;
+    protected $_statustabel;
+    
+    protected $_textareafields = array('inhoud');
 
     public function __construct($id = NULL, $params = NULL)
     {
@@ -12,6 +15,7 @@ class Admin_Form_Detail extends My_Form
             $this->_modelFields = $params['modelFields'];
             $this->_languages  = $params['languages'];
             $this->_controller = $params['controller'];
+            $this->_statustabel  = $params['status'];
             parent::__construct($id);
     }
 
@@ -20,7 +24,7 @@ class Admin_Form_Detail extends My_Form
         $this->setMethod(Zend_Form::METHOD_POST);
         //$this->setAttrib('enctype', 'multiparts/form-data');
         $this->setAttrib('enctype', Zend_Form::ENCTYPE_MULTIPART);
-        $action='/Admin/'.trim($this->_controller).'/detail';
+        $action='/admin/'.trim($this->_controller).'/detail';
         $this->setAction($action);
 
          // element ID
@@ -37,19 +41,33 @@ class Admin_Form_Detail extends My_Form
             'filters' => array('StringTrim')
             )));
         // element status
-        $elem = $this->createElement('select','status');
+        If (empty($this->_statustabel)) {
+                $elem = $this->createElement('select','status');
 		   	$elem->setLabel("lblstatus")
 			->addMultiOptions(array('1' => 'Actief' , '0' => 'Inactief') )
                         ->setRequired(true)
 			->setSeparator('');
 			$this->addElement($elem);
+        }
+        else {
+            $model = "Application_Model_".trim($this->_statustabel);
+            $detailModel = new $model;
+            $defaultOptions = array('key'=> 'id', 'value' =>'omschrijving');
+            $statuslist   = $detailModel->buildSelect($defaultOptions);
+            $elem = new Zend_Form_Element_Select('status');
+            $elem->setLabel('lblstatus')
+                 ->setMultiOptions($statuslist)
+                 ->addValidator('NotEmpty', TRUE)
+                 ->setRequired(true);
+           $this->addElement($elem);
+
+        }
 
         // model fields
         foreach ($this->_modelFields as $modelfield) {
-                    $field    =substr($modelfield,4,15);
-                    $fieldtype=substr($modelfield,0,3);
+                    $field    =$modelfield['name'];
                     $fields[]=$field;
-                    if ($fieldtype=='dec') {
+                    if ($modelfield['type']=='decimal') {
                         $this->addElement(new Zend_Form_Element_Text($field,array(
                         'label'=>"lbl".$field,
                         'size'=>10,
@@ -60,7 +78,6 @@ class Admin_Form_Detail extends My_Form
                     }                    
         }
         $this->setElementDecorators($this->elementDecorators);
-
         // translation fields
         foreach ($this->_languages as $language) {
    
@@ -68,12 +85,23 @@ class Admin_Form_Detail extends My_Form
             foreach ($this->_langFields as $langfield) {
                     $field=$langfield."_".$language;
                     $fields[]=$field;
-                    $this->addElement(new Zend_Form_Element_Text($field,array(
-                    'label'=>$langfield,
-                    'size'=>50,
-                    'maxlength'=>50,
-                    'filters' => array('StringTrim')
-            )));
+
+                    if (in_array($langfield, $this->_textareafields)) {
+                         $this->addElement(new Zend_Form_Element_Textarea($field,array(
+                        'label'=>$langfield,
+                        'filters' => array('StringTrim'),
+                        'cols'=>30,
+                        'rows'=>6
+                        )));
+                    }
+                    else {
+                        $this->addElement(new Zend_Form_Element_Text($field,array(
+                        'label'=>$langfield,
+                        'size'=>30,
+                        'maxlength'=>50,
+                        'filters' => array('StringTrim')
+                        )));
+                    }
             }
             $this->addDisplayGroup($fields, 'groups'.$language, array("legend" => $language));
 
@@ -81,7 +109,7 @@ class Admin_Form_Detail extends My_Form
             $group->setDecorators(array(
                 'FormElements',
                 'Fieldset',
-                array('HtmlTag',array('tag'=>'div','closeOnly'=>true))
+                array('HtmlTag',array('tag'=>'div', 'closeOnly=>true', 'style'=>'float:right;margin-right:70px;'))
         ));
 
 

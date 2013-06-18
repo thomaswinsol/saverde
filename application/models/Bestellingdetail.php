@@ -2,14 +2,13 @@
 class Application_Model_Bestellingdetail extends My_Model
 {
     protected $_name = 'bestellingdetail'; //table name
-    protected $_id = 'ID'; //primary key  
-    protected $enableDataGrid = false;
+    protected $_id = 'id'; //primary key
 
     public function save($winkelmand, $id)
     {
              $productModel = new Application_Model_Product();
 	     foreach ($winkelmand as $key => $value) {
-                $product=$productModel->getProduct(1,$key);
+                $product=$productModel->getProduct($key);
                 $dbFields=array("IDBestelling"=>$id, "IDProduct"=>$key,"AantalBesteld"=>$value,"Prijs"=>$product['Eenheidsprijs']);
                 $this->insert($dbFields);
              }

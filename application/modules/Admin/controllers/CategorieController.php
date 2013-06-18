@@ -1,5 +1,5 @@
 <?php
-class Admin_CategorieController extends My_Controller_Action
+class admin_CategorieController extends My_Controller_Action
 {
 
 }

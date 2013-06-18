@@ -1,6 +1,17 @@
 <?php
-class Admin_FotoController extends My_Controller_Action
+class admin_FotoController extends My_Controller_Action
 {
+
+
+    public function detailAction()
+    {
+        $id = (int) $this->_getParam('id');
+        if (!empty($id)) {
+         $fotoModel = new Application_Model_Foto();
+         $this->view->foto= $fotoModel->getOne($id);
+        }
+         parent::detailAction();
+    }
 
 
     public function ajaxUploadAction() {

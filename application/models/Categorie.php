@@ -7,6 +7,7 @@ class Application_Model_Categorie extends My_Model
 
     protected $lang_fields  = array('titel');
     protected $model_fields = array();
+    protected $status = '';
 
     public function save($data,$id = NULL)
     {
@@ -60,6 +61,29 @@ class Application_Model_Categorie extends My_Model
         return parent::update($data, 'id = '. (int)$id);
     }
 
+    public function getAll($where=null, $order=null)
+    {        
+          $locale= Zend_Registry::get('Zend_Locale');
+          $taalcode=(!empty($locale))?substr($locale,0,2):'nl';
+
+            $sql = $this->db
+            ->select()
+            ->from(array('c' => 'categorie'), array('id', 'label', 'status') )
+            ->join(array('v' => 'categorie_vertaling'), ' c.id = v.categorie_id  ', array('titel','vertaald', 'taal_id') )
+            ->join(array('t' => 'taal'), ' t.id = v.taal_id  ', array('code') );
+            $sql->where ('t.code = '."'".$taalcode."'");
+
+            $data = $this->db->fetchAll($sql);
+            
+            $counter=0;
+            foreach ($data as $d) {
+                if ( empty($d['titel'])) {                   
+                    $data[$counter]['titel']=$d['label'];
+                }
+                $counter++;
+            }
+            return $data;
+    }
 
     public function getLangFields()
     {
@@ -69,6 +93,11 @@ class Application_Model_Categorie extends My_Model
     public function getModelFields()
     {
         return $this->model_fields;
+    }
+
+    public function getStatus()
+    {
+        return $this->status;
     }
 
      public function getAutocomplete($where=NULL){

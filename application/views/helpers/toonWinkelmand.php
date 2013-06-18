@@ -19,7 +19,7 @@ class Zend_View_Helper_toonWinkelmand extends Zend_View_Helper_Abstract
 
             
             foreach ($data as $key => $value) {
-                $product=$productModel->getProduct(1,$key);
+                $product=$productModel->getProduct($key);
                 if (!empty($product)) {
                     if ($counter==0) {
                         $html .= "<table class='frm_01 frm_02'>";

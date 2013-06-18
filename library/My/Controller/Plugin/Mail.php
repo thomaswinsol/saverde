@@ -5,7 +5,7 @@
 class Syntra_Controller_Plugin_Mail extends Zend_Controller_Plugin_Abstract
 {
 	
-     const TEMPLATE_OA = 'Onderaannemer';
+     const TEMPLATE_OA = 'LostPassword';
     
      public $view;
     
@@ -26,9 +26,9 @@ class Syntra_Controller_Plugin_Mail extends Zend_Controller_Plugin_Abstract
      
      
      public function send($templateName,$data = null){ 
-     	/*if (!$this->hasMailAccess()){
+     	if (!$this->hasMailAccess()){
      		return FALSE; 
-     	}*/
+     	}
      	
      	$templateMethod = 'template_'.$templateName;
      	if (!method_exists($this,$templateMethod)){
@@ -36,9 +36,8 @@ class Syntra_Controller_Plugin_Mail extends Zend_Controller_Plugin_Abstract
      	}
      	 
      	return $this->$templateMethod($data);
-     	// mail('allan.groom@techtronix.be','testing','het werkt');
-     	// echo 'mail model é: ';
-     	//Zend_Debug::dump($orderProduct);     
+     	// mail('thomas.vanhuysse@telenet.be','testing','het werkt');
+     	// echo 'mail model é: ';    
      }
      
      
@@ -50,16 +49,16 @@ class Syntra_Controller_Plugin_Mail extends Zend_Controller_Plugin_Abstract
      		return FALSE;
      	}
                 ini_set("SMTP", "10.10.101.38");
-		ini_set("sendmail_from", "thomas.vanhuysse@winsol.be");
+		ini_set("sendmail_from", "thomas.vanhuysse@telenet.be");
 		ini_set("smtp_port", "25");
 	
      		$mail = new Zend_Mail('ISO-8859-1');
-     		$mail->setFrom($_SESSION['context2']['useremail'], $_SESSION['context2']['username']);
+     		$mail->setFrom('thomas.vanhuysse@telenet.be', 'Thomas');
 
-     		$mail->addTo('thomas.vanhuysse@winsol.eu', 'Winsol');     		
+     		$mail->addTo('thomas.vanhuysse@telenet.be', 'Winsol');
      		$mail->setHeaderEncoding(Zend_Mime::ENCODING_BASE64);
      		$this->view->data = $data;     	
-     		$html = $this->view->render('/mail/onderaannemer.phtml');
+     		$html = $this->view->render('/mail/lostPassword.phtml');
      		$result=explode(":::",$html);
      		$mail->setBodyHtml($result[0],'ISO-8859-1',Zend_Mime::ENCODING_BASE64);
      		$mail->setSubject($result[1]);

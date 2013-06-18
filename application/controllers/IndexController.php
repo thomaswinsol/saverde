@@ -32,7 +32,7 @@ class IndexController extends My_Controller_Action
         $this->view->form = $form;
         //Uitvoern query op Producten
         $productModel = new Application_Model_Product();
-        $this->view->producten=$productModel->getProducten(1,$this->context['Zoeken']);
+        $this->view->producten=$productModel->getProducten($this->context['Zoeken']);
     }
 
 
@@ -40,7 +40,7 @@ class IndexController extends My_Controller_Action
     {
         $id = (int) $this->_getParam('id');
         $productModel = new Application_Model_Product();
-        $this->view->product= $productModel->getProduct(1,$id);
+        $this->view->product= $productModel->getProduct($id);
         //Ophalen Productfoto's
         $productfotoModel = new Application_Model_ProductFoto();
         $this->view->fotos= $productfotoModel->getFotosForProductId($id);

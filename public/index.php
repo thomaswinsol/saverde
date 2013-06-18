@@ -2,7 +2,7 @@
 define('PROJECT_PATH',str_replace('\\', '/', realpath(dirname(__FILE__) . '/..')).'/');
 define('MY_PATH',PROJECT_PATH.'library/');
 if (!defined('APPLICATION_NAME') || APPLICATION_NAME=='') {
-	define('APPLICATION_NAME','keppens'); 
+	define('APPLICATION_NAME','webshop');
 }
 
 // Define path to application directory

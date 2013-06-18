@@ -1,6 +1,9 @@
 <?php
 class GebruikerController extends My_Controller_Action
-{   
+{
+    /**
+    * Login
+    */
     public function loginAction()
     {
 	$this->_helper->layout->disableLayout();   
@@ -24,14 +27,14 @@ class GebruikerController extends My_Controller_Action
         $adapter = new Zend_Auth_Adapter_DbTable(
             Zend_Db_Table::getDefaultAdapter() // set earlier in Bootstrap
         );
-       
+
         $adapter->setTableName('gebruiker'); 
         $adapter->setIdentityColumn('email'); 
         $adapter->setCredentialColumn('paswoord'); 
         $adapter->setIdentity($values['email']);
         $adapter->setCredential($values['paswoord']); 
-        //$adapter->setCredentialTreatment('md5(?) AND status = 1');
-        $adapter->setCredentialTreatment('? AND status = 1');
+        $adapter->setCredentialTreatment('md5(?) AND status = 1');
+        //$adapter->setCredentialTreatment('? AND status = 1');
         $auth = Zend_Auth::getInstance();
         $result = $auth->authenticate($adapter); 
        
@@ -44,26 +47,41 @@ class GebruikerController extends My_Controller_Action
         } else
         {        
             $this->flashMessenger->setNamespace('Errors');
-            $this->flashMessenger->addMessage('-Invalid user or password');
+            $this->flashMessenger->addMessage('-Authentication failed');
         }
         $this->_helper->redirector('home', 'index');
     }
 
+    /**
+    * Registreer
+    */
     public function registerAction()
     {
-        $this->flashMessenger->setNamespace('Errors');
-        $this->view->flashMessenger = $this->flashMessenger->getMessages();
+         $this->flashMessenger->setNamespace('Errors');
+         $this->view->flashMessenger = $this->flashMessenger->getMessages();
          $form = new Application_Form_Registreer;
          $this->view->form = $form;
+
          if ($this->getRequest()->isPost()){
             $postParams= $this->getRequest()->getPost();
             if (!$form->isValid($postParams)) {
                 return;
             }
             $formData  = $this->_request->getPost();
-            
-            $this->flashMessenger->setNamespace('Errors');
+            $gebruikerModel = new Application_Model_Gebruiker();
+            $gebruiker = $gebruikerModel->getOneByField('email', $formData['email']);
             $tr= Zend_Registry::get('Zend_Translate');
+            if (!empty($gebruiker)){
+                $this->flashMessenger->setNamespace('Errors');
+                $this->flashMessenger->addMessage($tr->translate('txtUserAlreadyRegistrated'));
+                $this->_helper->redirector('register', 'gebruiker');
+            }
+            else {
+                $dbFields=array("naam"=>$formData['naam'],"email"=>$formData['email'],"paswoord"=>md5($formData['paswoord']),"idrole"=>1,"status"=>2);
+                $gebruikerModel->insert($dbFields);
+            }
+            
+            $this->flashMessenger->setNamespace('Errors');            
             $this->flashMessenger->addMessage($tr->translate('txtRegisterEmail'));
             $this->_helper->redirector('home', 'index');
         }
@@ -81,5 +99,42 @@ class GebruikerController extends My_Controller_Action
         $this->_helper->redirector('home','index');
     }
 
+    /**
+    * Lost Password
+    */
+    public function lostpasswordAction()
+    {
+         $this->flashMessenger->setNamespace('Errors');
+         $this->view->flashMessenger = $this->flashMessenger->getMessages();
+         $form = new Application_Form_Lostpassword;
+         $this->view->form = $form;
+         if ($this->getRequest()->isPost()){
+            $postParams= $this->getRequest()->getPost();
+            if (!$form->isValid($postParams)) {
+                return;
+            }
+            $formData  = $this->_request->getPost();
+            $gebruikerModel = new Application_Model_Gebruiker();
+            $gebruiker = $gebruikerModel->getOneByField('email', $formData['email']);
+            $tr= Zend_Registry::get('Zend_Translate');
+            if (empty($gebruiker)){
+                $this->flashMessenger->setNamespace('Errors');
+                $message=$tr->translate('txtEmailNotFound').":".$formData['email'];
+                $this->flashMessenger->addMessage($message);
+                $this->_helper->redirector('lostpassword', 'gebruiker');
+            }
+            try {
+            $templateName = My_Controller_Plugin_Mail::TEMPLATE_LOST_PASSWORD;
+            $data['eId'] = $gebruikerModel->saveIdentifier($gebruiker['id']);
+            $data['email'] = $userRow['username'];
+            $data['url']   = $this->getFullUrl() .'/dealergebruiker/reset/eId/' . $data['eId'];
+            $this->mail->send($templateName,$data);
+            //$this->_helper->redirector('lost',$this->getRequest()->getControllerName(),false,array('msg' => 1));
+            $this->_redirect('/Index/Home');
+            } catch (Exception $e){
+                throw $e;
+            }
+         }
+    }
       
 }

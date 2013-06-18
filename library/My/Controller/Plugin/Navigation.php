@@ -31,13 +31,19 @@ class My_Controller_Plugin_Navigation extends Zend_Controller_Plugin_Abstract
         );*/
         
         foreach  ($urls as $url) {
+            $param=null;
+            if (!empty($url['params'])) {
+                $urlparam=explode(',',$url['params']);
+                $param[$urlparam[0]]=$urlparam[1];
+            }
+            
             $page = new Zend_Navigation_Page_Mvc(array(
                 'label' => $url['label'] ,
                 'module' => $url['module'],
                 'action'=> $url['action'],
                 'controller'=> $url['controller'],
                 //'route'=> 'default',
-                'params'=> $url['params'],               
+                'params'=> $param,
             ));
             $container->addPage($page);
         }

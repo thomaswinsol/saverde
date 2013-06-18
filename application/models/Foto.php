@@ -7,6 +7,7 @@ class Application_Model_Foto extends My_Model
 
     protected $lang_fields = array('titel', 'teaser', 'inhoud');
     protected $model_fields = array();
+    protected $status = '';
     protected $pathUpload;
 
     public function __construct(){
@@ -63,7 +64,9 @@ class Application_Model_Foto extends My_Model
     					'filePath'      => $this->pathUpload,
     					'identifier'    => (isset($data['identifier']) ? (int)$data['identifier'] : 0),
     					'creationDate'  => $currentTime,
-    					'lastUpdate'    => $currentTime
+    					'lastUpdate'    => $currentTime,
+                                        'label'         => "",
+                                        'status'        => 1
     			);
 
         try {
@@ -71,7 +74,7 @@ class Application_Model_Foto extends My_Model
         } catch (Exception $e) {
             echo 'Caught exception: ',  $e->getMessage(), "\n";
             echo '<hr><pre>';
-                print_r($dbFields);
+            print_r($dbFields);
             die("ok");
         }
 
@@ -88,6 +91,11 @@ class Application_Model_Foto extends My_Model
     public function getModelFields()
     {
         return $this->model_fields;
+    }
+
+    public function getStatus()
+    {
+        return $this->status;
     }
 
     public function saveMultipleFiles($files,$data)
@@ -134,7 +142,7 @@ class Application_Model_Foto extends My_Model
         foreach ( $foto as $f ) {
                         $f['id']  =trim($f['id']);
         		$f['value'] = trim($f['id']);
-                        $f['label'] = "<p>".trim($f['fileName'])."</p>". "<img width='100' src='/uploads/foto/".trim($f['fileName'])."'</>";
+                        $f['label'] = "<p>".trim($f['fileName'])."</p>". "<img height='120' src='/uploads/foto/".trim($f['fileName'])."'</>";
 			$matches[] = $f;
         }
         return $matches;

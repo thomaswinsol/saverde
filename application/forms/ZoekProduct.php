@@ -11,12 +11,12 @@ class Application_Form_ZoekProduct extends My_Form  {
         // element ID
         $this->addElement(new Zend_Form_Element_Hidden('ID',array( )));
         // element Categorie
-        $titelModel = new Application_Model_Categorie();
-        $defaultOptions = array('key'=> 'id', 'value' =>'label', 'emptyRow' => True);
-        $titel = $titelModel->buildSelect($defaultOptions, null, "label");
+        $categorieModel = new Application_Model_Categorie();
+        $defaultOptions = array('key'=> 'id', 'value' =>'titel', 'emptyRow' => True);
+        $categorie = $categorieModel->buildSelect($defaultOptions, null, "label");
         $elem = new Zend_Form_Element_Select('Categorie');
         $elem->setLabel('txtCategorie')
-             ->setMultiOptions($titel);
+             ->setMultiOptions($categorie);
         $this->addElement($elem);
 
          // element label

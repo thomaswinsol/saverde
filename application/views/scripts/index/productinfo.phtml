@@ -1,5 +1,5 @@
 <div class="productinfo">
-<h1 class="productinfo"><?php echo $this->translate('txtProductInfo');?></h1>
+<h1 class="productinfo"><?php echo $this->escape($this->product['titel']); ?></h1>
 
 <p class="productinfo">
 <?php echo $this->translate('txtLabel');?>:
@@ -30,7 +30,7 @@
 <br/>
 
 <p class="productinfo">
-<?php echo $this->translate('txtOpmerking');?>:
+<?php echo $this->translate('txtBeschrijving');?>:
 </p>
 <textarea class="productinfo" readonly>
 <?php echo $this->escape(($this->product['teaser'])); ?>
@@ -55,7 +55,7 @@
     if (!empty($this->fotos)) {
         foreach($this->fotos as $f) {
 ?>
-            <img width="200" src="<?php echo "/".$this->escape($f['filePath']).$this->escape($f['fileName']); ?>"><br/>
+            <img height="120" src="<?php echo "/".$this->escape($f['filePath']).$this->escape($f['fileName']); ?>"><br/>
 <?php
        }
     }

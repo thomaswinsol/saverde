@@ -1,8 +1,8 @@
 <?php
-class Application_Model_Firma extends My_Model
+class Application_Model_Productstatus extends My_Model
 {
-    protected $_name = 'firma'; //table name
-    protected $_id   = 'id'; //primary key
+    protected $_name = 'product_status'; //table name
+    protected $_id   = 'ID'; //primary key
  
     /**
      * Insert

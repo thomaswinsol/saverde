@@ -3,18 +3,11 @@ abstract class My_Model extends Zend_Db_Table_Abstract
 {
     protected $errors = array();    
     public $db;    
-    protected $dataGrid;
-    protected $enableDataGrid = FALSE;
-
     
  // -----------------------------------------
     public function init()
     {
     	$this->db = $this->getAdapter();
-        if ($this->enableDataGrid){
-        	$dataGrid       = new My_DataGrid();
-        	$this->dataGrid = $dataGrid->getGrid();
-        }
     }
 
     public function __construct($config = array())
@@ -24,11 +17,20 @@ abstract class My_Model extends Zend_Db_Table_Abstract
     
  // -------------------------
  // CRUD
-    public function getOne($id,$colName = 'ID')
+    public function getOne($id,$colName = 'id')
     {
         $row = parent::fetchRow($colName. ' = ' .(int)$id);
         if (!$row) {
             return FALSE; 
+        }
+        return $row->toArray();
+    }
+
+    public function getOneAlpha($id,$colName = 'id')
+    {
+        $row = parent::fetchRow($colName.' = ' ."'".$id."'");
+        if (!$row) {
+            return FALSE;
         }
         return $row->toArray();
     }
@@ -165,7 +167,7 @@ abstract class My_Model extends Zend_Db_Table_Abstract
 
     public function GetDataAndTranslation($id){
         $select = new Zend_Db_Table_Select($this);
-        $row = $this->fetchRow($select->where('ID = ?', $id));
+        $row = $this->fetchRow($select->where('id = ?', $id));
         $rowArray = $row->toArray();
         if ($row) {
             $rowArray = $this->getLangArray($rowArray);

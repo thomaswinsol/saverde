@@ -5,7 +5,7 @@ class Application_Model_Taal extends My_Model
     protected $_id   = 'id'; //primary key
     
     public function getTaal($where=NULL){
-        $where="Status=1";
+        $where="status=1";
         $talen = parent::getAll($where,"id");
         $talen_array=array();
 	foreach ( $talen as $t ) {

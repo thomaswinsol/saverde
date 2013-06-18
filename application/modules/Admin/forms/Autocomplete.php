@@ -1,5 +1,5 @@
 <?php
-class Admin_Form_Autocomplete extends My_Form
+class admin_Form_Autocomplete extends My_Form
 {
 
     protected $_controller;
@@ -20,21 +20,26 @@ class Admin_Form_Autocomplete extends My_Form
     {
         if ( !empty($this->_productid) ) {
             
-            $location='/Admin/product/selecteer/productid/'.$this->_productid.'/productdetail/'.$this->_productdetail.'/id/';
+            $location='/admin/product/selecteer/productid/'.$this->_productid.'/productdetail/'.$this->_productdetail.'/id/';
             if (trim($this->_productdetail)=="F") {
                 $label = "lblFoto";
-                $source  ='/Admin/foto/autocomplete';
+                $source  ='/admin/foto/autocomplete';
                 $elem = new ZendX_JQuery_Form_Element_AutoComplete("AutocompleteF", array('label' => $label, 'size'=>30 , 'maxlength'=>8));
             }
             else {
                 $label = "lblCategorie";
-                $source  ='/Admin/categorie/autocomplete';
+                $source  ='/admin/categorie/autocomplete';
                 $elem = new ZendX_JQuery_Form_Element_AutoComplete("AutocompleteC", array('label' => $label, 'size'=>30 , 'maxlength'=>8));
             }
         }
         else {
-            $source  ='/Admin/'. trim($this->_controller). '/autocomplete';
-            $location='/Admin/'. trim($this->_controller). '/detail/id/';
+            if (trim(strtolower($this->_controller))=='gebruiker') {
+                 $source  ='/admin/'. trim($this->_controller). '/autocomplete/id/email';
+            }
+            else {
+                $source  ='/admin/'. trim($this->_controller). '/autocomplete';
+            }
+            $location='/admin/'. trim($this->_controller). '/detail/id/';
             $label = "lbl".trim(ucfirst($this->_controller));
             $elem = new ZendX_JQuery_Form_Element_AutoComplete("Autocomplete", array('label' => $label, 'size'=>30 , 'maxlength'=>8));
         }
@@ -48,7 +53,6 @@ class Admin_Form_Autocomplete extends My_Form
   	$this->addElements( array ($elem));
         
     }
-
 
     public function loadDefaultDecorators()
     {

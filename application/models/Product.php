@@ -4,10 +4,11 @@ class Application_Model_Product extends My_Model
     protected $_name = 'product'; //table name
     protected $_sName = 'product_vertaling.product';
     protected $_id    = 'id';
-    protected $model_fields = array('dec_eenheidsprijs');
+    protected $model_fields = array( array("name"=> "eenheidsprijs", "type"=>"decimal"), array("name"=> "eenheidsprijs", "type"=>"decimal") );
     protected $lang_fields = array('titel', 'teaser', 'inhoud');
-
-    public function getProducten($status=null, $data=null)
+    protected $status= 'Productstatus';
+    
+    public function getProducten($data=null, $status=null)
     {
             $locale= Zend_Registry::get('Zend_Locale');
            
@@ -19,28 +20,36 @@ class Application_Model_Product extends My_Model
             ->join(array('t' => 'taal'), ' t.id = v.taal_id  ', array('code', 'status as t.satus') );;
 
             $sql->where ('t.code = '."'".$taalcode."'");
-
-        If (!empty($status)) {
-            $sql->where ('p.status = '.$status);
-        }
-        
+            // Status= inactief
+            if (empty($status)) {
+                $sql->where ('p.status <>2 ');
+            }
+           
+        $selectie=null;
         if (!empty($data['Categorie'])){
             $sql->join(array('c' => 'product_categorie'), ' p.id = c.idproduct  ', array('c.idcategorie') );
             $sql->where ('c.idcategorie = '. (int)$data['Categorie'] );
+            $selectie=1;
         }
         if (!empty($data['label'])){
             $sql->where ('label like '."'%".trim($data['label'])."%'");
+            $selectie=1;
         }
         if (!empty($data['titel'])){
             $sql->where ('v.titel like '."'%".trim($data['titel'])."%'");
+            $selectie=1;
         }
+         // Status: In de kijker
+            if (empty($selectie)) {
+                $sql->where ('p.status = 3 ');
+            }
         $data = $this->db->fetchAll($sql);
 
         return $data;
     }
 
 
-    public function getProduct($status=null, $id=null)
+    public function getProduct($id=null)
     {
             $locale= Zend_Registry::get('Zend_Locale');
             $taalcode=(!empty($locale))?substr($locale,0,2):'nl';
@@ -69,6 +78,11 @@ class Application_Model_Product extends My_Model
     public function getModelFields()
     {
         return $this->model_fields;
+    }
+
+    public function getStatus()
+    {
+        return $this->status;
     }
 
     public function save($data,$id = NULL)

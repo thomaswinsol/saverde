@@ -1,17 +1,19 @@
 <h1><?php echo $this->translate("lblProduct"); ?>:</h1>
-<div id="productform">
+
+<div id="productform" style="float:left; width:70%;">
 <?php echo $this->form; ?>
 </div>
-<div id="categorieform" style="margin-top:60px;">
+
+<div id="categorieform" >
 <?php
     if (!empty($this->id)) {
          echo "<br/>";
          echo $this->categorieform;
          ?>
          <!--- Productcategorieën ------------------------------------------------------------------->
-         <div style="margin-left:20px; width:76%;float:left;">
-         <form name="frm_productcategorie" action="/Admin/product/deleteproductdetail/" method="post" >
-            <table class="frm_01 frm_02"style="width:40%;margin-left:5px;" border="1" cellpadding="2" cellspacing="0">
+         <div style="">
+         <form name="frm_productcategorie" action="/admin/product/deleteproductdetail/" method="post" >
+            <table class="frm_01 frm_02"style="width:32%;margin-left:5px;" border="1" cellpadding="2" cellspacing="0">
             <thead>
                 <tr style="background-color:lightgray;">
                     <th style="text-align:center;"></th>
@@ -27,7 +29,7 @@
 		?>
 		<tr>
                     <td style="width:1%; text-align:center;" nowrap="nowrap">
-                        <input type="checkbox" name="cat[]" value="<?php echo (int)$p['b.id']; ?>" />
+                        <input type="checkbox" name="cat[]" value="<?php echo (int)$p['c.id']; ?>" />
                     </td>
                     <td>
                         <?php echo $p['label'];?>
@@ -50,15 +52,15 @@
         </div>
 </div>
 <br/><br/><br/>
-<div id="fotoform" style="margin-top:20px;">
+<div id="fotoform" >
          <?php
          echo "<br/><br/>";
          echo $this->fotoform;
          ?>
          <!--- Productfoto's ----------------------------------------------------------------------->
-         <div style="margin-left:20px; width:76%;float:left;">
-         <form name="frm_productfotos" action="/Admin/product/deleteproductdetail" method="post" >
-            <table class="frm_01 frm_02"style="width:40%;margin-left:5px;" border="1" cellpadding="2" cellspacing="0">
+         <div style="">
+         <form name="frm_productfotos" action="/admin/product/deleteproductdetail" method="post" >
+            <table class="frm_01 frm_02"style="width:30%;margin-left:5px;" border="1" cellpadding="2" cellspacing="0">
             <thead>
                 <tr style="background-color:lightgray;">
                     <th style="text-align:center;"></th>
